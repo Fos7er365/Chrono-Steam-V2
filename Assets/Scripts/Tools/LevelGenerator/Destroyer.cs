@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Destroyer : MonoBehaviour
 {
@@ -8,7 +6,7 @@ public class Destroyer : MonoBehaviour
     private bool destroyParent;
     private void OnTriggerEnter(Collider other)
     {
-        if (other!= null)
+        if (other != null)
         {
             if (other.gameObject.CompareTag("SpawnPoint") || other.gameObject.CompareTag("CloseDoors"))
             {

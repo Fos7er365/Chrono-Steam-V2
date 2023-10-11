@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Animations;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class Elevator_controler : MonoBehaviour
@@ -27,7 +24,7 @@ public class Elevator_controler : MonoBehaviour
     //se llama desde el animator
     void stopElevator()
     {
-        Animator.SetBool("GoUp",false);
+        Animator.SetBool("GoUp", false);
     }
     //se llama desde el animator
     void loadWinLevelEvent()
@@ -38,12 +35,12 @@ public class Elevator_controler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other!= null)
+        if (other != null)
         {
             if (other.CompareTag("Player"))
             {
                 MainCamera.GetComponent<CameraFollow>().enabled = false;
-                other.gameObject.GetComponent<Player_Controller>().Rb.velocity =Vector3.zero ;
+                other.gameObject.GetComponent<Player_Controller>().Rb.velocity = Vector3.zero;
                 goUp = true;
                 Animator.SetBool("GoUp", true);
             }

@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EntityTags
+﻿public class EntityTags
 {
 
     public const string PLAYER_TAG = "Player";

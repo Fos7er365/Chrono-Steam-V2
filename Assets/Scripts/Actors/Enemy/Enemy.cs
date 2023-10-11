@@ -1,8 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+After:
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+*/
+
 
 [RequireComponent(typeof(EnemyAnimations))]
 public class Enemy : Actor
@@ -25,7 +31,7 @@ public class Enemy : Actor
     public bool Dead { get => dead; set => dead = value; }
     public bool Hurt { get => hurt; set => hurt = value; }
     public Player_Controller Player { get => _player; set => _player = value; }
-    public Life_Controller Life_Controller  => _life_Controller;
+    public Life_Controller Life_Controller => _life_Controller;
     public EnemyAnimations Animations => animations;
     protected virtual void Awake()
     {
@@ -129,7 +135,7 @@ public class Enemy : Actor
             //busco el evento de BossDying
             var Event = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossDying;
             //encolo el evento para su invoke
-            GameManager.Instance.EventQueue.Add(Event); 
+            GameManager.Instance.EventQueue.Add(Event);
         }
         else
         {
@@ -141,14 +147,14 @@ public class Enemy : Actor
                 //...Busco los materiales del skin mesh renderer
                 for (int i = 0; i < itemA.GetComponent<SkinnedMeshRenderer>().materials.Length; i++)
                 {
-                  //  Debug.Log("recorriendo materiales");
+                    //  Debug.Log("recorriendo materiales");
                     var itemB = itemA.GetComponent<SkinnedMeshRenderer>().materials[i];
                     // si el material es un enemy fresnel...
                     if (itemB.name != "SkeletonOutlaw00")
                     {
                         //Debug.Log("material correcto");
                         //...seteo fesnel scale para q ya no brile
-                       itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale",0) ;
+                        itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
                     }
                 }
             }
@@ -168,7 +174,7 @@ public class Enemy : Actor
     {
         Debug.Log("CurrentDrops.count  " + GameManager.Instance.LootManager.CurrentDrops.Count);
         GameObject item = roulette.Run(GameManager.Instance.LootManager.CurrentDrops);
-        if (item!=null)
+        if (item != null)
         {
             Instantiate(item, new Vector3(transform.position.x, 1, transform.position.z), Quaternion.identity);
         }
@@ -176,7 +182,7 @@ public class Enemy : Actor
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("Weapon"))
+        if (other.gameObject.CompareTag("Weapon"))
         {
             // Debug.Log("ouch"+ Life_Controller.CurrentLife);
             if (gameObject.TryGetComponent<BossAI>(out var bossAI))

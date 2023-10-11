@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Loot_Manager : MonoBehaviour
@@ -14,11 +13,11 @@ public class Loot_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < drops.Count-1; i++)
+        for (int i = 0; i < drops.Count - 1; i++)
         {
             _weaponDrops.Add(drops[i], rates[i]);
         }
-        for (int i = 0; i < drops.Count-1; i++)
+        for (int i = 0; i < drops.Count - 1; i++)
         {
             _currentDrops.Add(drops[i], rates[i]);
         }
@@ -27,7 +26,7 @@ public class Loot_Manager : MonoBehaviour
 
     public void AddWeaponToLoot()
     {
-        if (_currentDrops.Count<_weaponDrops.Count)
+        if (_currentDrops.Count < _weaponDrops.Count)
         {
             _currentDrops.Add(drops[_currentDrops.Count + 1], rates[_currentDrops.Count + 1]);
         }

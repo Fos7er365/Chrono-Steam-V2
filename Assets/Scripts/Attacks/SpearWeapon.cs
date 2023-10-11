@@ -1,12 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpearWeapon : BladeWeapon
 {
     public override void EspecialExecute()
+
+    /* Unmerged change from project 'Assembly-CSharp.Player'
+    Before:
+        {
+
+            if (currentDurability > 0)
+    After:
+        {
+
+            if (currentDurability > 0)
+    */
     {
-        
+
         if (currentDurability > 0)
         {
             currentDurability -= WeaponStats.DurabilityDecrease;
@@ -41,6 +50,6 @@ public class SpearWeapon : BladeWeapon
             }
             _currentEspExeCd = 0;
         }
-        
+
     }
 }

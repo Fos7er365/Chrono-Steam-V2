@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour, IEntityAnimations
 {
@@ -52,7 +50,7 @@ public class PlayerAnimations : MonoBehaviour, IEntityAnimations
     {
         playerAnimator.SetTrigger(EntityAnimationTags.ATTACK3_ANIMATION_TAG);
     }
-    
+
     public void SpecialAttackAnimation()
     {
         playerAnimator.SetTrigger(EntityAnimationTags.SPECIALATTACK_ANIMATION_TAG);
@@ -70,7 +68,7 @@ public class PlayerAnimations : MonoBehaviour, IEntityAnimations
     public void ClaymoreAttackAnimation3()
     {
         playerAnimator.SetTrigger(EntityAnimationTags.ATTACK3_CLAYMOREANIMATION_TAG);
-    }    
+    }
     public void SpecialClaymoreAttackAnimation()
     {
         playerAnimator.SetTrigger(EntityAnimationTags.SPECIALCLAYMOREATTACK_ANIMATION_TAG);
@@ -88,7 +86,7 @@ public class PlayerAnimations : MonoBehaviour, IEntityAnimations
     public void GunAttackAnimation3()
     {
         playerAnimator.SetTrigger(EntityAnimationTags.ATTACK3_GUNANIMATION_TAG);
-    }    
+    }
     public void GunSpecialAttackAnimation()
     {
         playerAnimator.SetTrigger(EntityAnimationTags.SPECIALGUNATTACK_ANIMATION_TAG);

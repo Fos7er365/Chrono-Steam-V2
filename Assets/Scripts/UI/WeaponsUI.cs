@@ -21,7 +21,7 @@ public class WeaponsUI : MonoBehaviour
 
     private void Update()
     {
-        if(GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.Weapon != null)
+        if (GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.Weapon != null)
         {
             Debug.Log("Weapon aaa", GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.Weapon);
             weaponMaxDurability = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.Weapon.GetComponent<Weapon>().WeaponStats.Durability;

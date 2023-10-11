@@ -1,17 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine;
 using TMPro;
+After:
+using TMPro;
+using UnityEngine;
+*/
+UnityEngine;
 using UnityEngine.UI;
 
 public class HitCounter : MonoBehaviour
 {
-   // private TextMeshPro textMeshPro;
+    // private TextMeshPro textMeshPro;
     //private CanvasRenderer canvasRenderer;
     [SerializeField] private Text hitScoreText;
     [SerializeField] private Text hitText;
     [SerializeField] private GameObject player;
-    
+
     private int hitCount;
     bool hit = false;
     float timer = 0f;
@@ -21,7 +27,7 @@ public class HitCounter : MonoBehaviour
 
     private void Start()
     {
-       // textMeshPro = GetComponent<TextMeshPro>();
+        // textMeshPro = GetComponent<TextMeshPro>();
         //meshRenderer = GetComponent<MeshRenderer>();
         hitScoreText = GetComponent<Text>();
         HideHitCounter();
@@ -41,7 +47,7 @@ public class HitCounter : MonoBehaviour
         {
             timer += 1 * Time.deltaTime;
 
-            if(timer >= 8f)
+            if (timer >= 8f)
             {
                 HideHitCounter();
                 hit = false;
@@ -87,7 +93,7 @@ public class HitCounter : MonoBehaviour
             //textMeshPro.fontSize = fontSize + perHitFontSize * HitCount;
             hitScoreText.fontSize = ((int)fontSize) + ((int)perHitFontSize) * HitCount;
         }
-        
+
     }
 
     public void AddHitCounter()

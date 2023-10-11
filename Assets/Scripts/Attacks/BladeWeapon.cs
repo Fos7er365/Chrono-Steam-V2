@@ -1,9 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine;
 using TMPro;
+After:
+using TMPro;
+using UnityEngine;
+*/
+UnityEngine;
 
-public class BladeWeapon : Weapon , IAreaAttack
+public class BladeWeapon : Weapon, IAreaAttack
 {
     [SerializeField] protected AreaStats _areaStats;
     [SerializeField] protected AreaStats _espAreaStats;
@@ -62,10 +68,17 @@ public class BladeWeapon : Weapon , IAreaAttack
 
     public virtual void AreaAtack()
     {
-        Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position,_player.transform.forward*_areaStats.MaxDistance,_areaStats.MaxAmplitude);
-        for (int i = Enemys.Length-1; i >=0 ; i--)
+        Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);
+
+        /* Unmerged change from project 'Assembly-CSharp.Player'
+        Before:
+                for (int i = Enemys.Length-1; i >=0 ; i--)
+        After:
+                for (int i = Enemys.Length-1; i >= 0; i--)
+        */
+        for (int i = Enemys.Length - 1; i >= 0; i--)
         {
-            if(Enemys[i].gameObject != null)
+            if (Enemys[i].gameObject != null)
             {
                 if (Enemys[i].gameObject.CompareTag("Enemy"))
                 {
@@ -73,7 +86,8 @@ public class BladeWeapon : Weapon , IAreaAttack
                     {
                         hitCounter.AddHitCounter();
                         FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
-                    }else
+                    }
+                    else
                         return;
 
                     Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.AttDamage);
@@ -86,7 +100,7 @@ public class BladeWeapon : Weapon , IAreaAttack
     {
         if (drawGizmos)
         {
-            if (_player!=null)
+            if (_player != null)
             {
                 Gizmos.color = Color.magenta;
                 Gizmos.DrawLine(_player.transform.position, _player.transform.position + _player.transform.forward * _areaStats.MaxDistance);
@@ -96,6 +110,6 @@ public class BladeWeapon : Weapon , IAreaAttack
                 Gizmos.DrawWireSphere(_player.transform.position + _player.transform.forward * _espAreaStats.MaxDistance, _espAreaStats.MaxAmplitude);
             }
         }
-        
+
     }
 }

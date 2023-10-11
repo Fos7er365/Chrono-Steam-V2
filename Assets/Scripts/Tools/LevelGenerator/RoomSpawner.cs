@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class RoomSpawner : MonoBehaviour
     void Start()
     {
         templates = GameObject.FindWithTag("RoomTamplates").GetComponent<RoomTemplate>();
-        Invoke("SpawnRoom",0.1f);
+        Invoke("SpawnRoom", 0.1f);
     }
 
     void SpawnRoom()
@@ -53,12 +51,12 @@ public class RoomSpawner : MonoBehaviour
         }
         else
             Destroy(this.gameObject);
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other!=null)
+        if (other != null)
         {
             if (other.CompareTag("SpawnPoint"))
             {

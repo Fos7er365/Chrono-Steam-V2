@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerFaderChecker : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class PlayerFaderChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerReference != null)
+        if (playerReference != null)
         {
             var playerRef = playerReference.transform.position;
             //RaycastHit[] hits = Physics.RaycastAll(playerReference.transform.position, dir, maxFadingDstance, availableToFadeLayermask);
@@ -30,9 +28,9 @@ public class PlayerFaderChecker : MonoBehaviour
             if (coll.Length > 0)
             {
                 Debug.Log("Hay objetos para transparentar");
-                foreach(var h in coll)
+                foreach (var h in coll)
                 {
-                    if(h.gameObject.tag == "Fadeable_Wall")
+                    if (h.gameObject.tag == "Fadeable_Wall")
                     {
                         h.gameObject.GetComponent<ObjectFader>().IsFading = true;
                         CheckFadingReset(h.gameObject);
@@ -49,7 +47,7 @@ public class PlayerFaderChecker : MonoBehaviour
             Vector3 playerRef = playerReference.transform.position;
             Gizmos.color = Color.magenta;
             //Gizmos.DrawWireSphere(playerRef, fadingDistance.z);
-            Gizmos.DrawWireCube(new Vector3(playerRef.x, playerRef.y, playerRef.z-(fadingDistance.z/2)),
+            Gizmos.DrawWireCube(new Vector3(playerRef.x, playerRef.y, playerRef.z - (fadingDistance.z / 2)),
                 new Vector3(fadingDistance.x, playerRef.y + fadingDistance.y, fadingDistance.z));
         }
     }

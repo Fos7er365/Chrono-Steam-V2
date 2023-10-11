@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
@@ -13,7 +12,7 @@ public class ObstacleAvoidance : MonoBehaviour
     private int currentIndexNode;
     private const float threshold = 1f;
     private Enemy enemy;
-  
+
 
     private Transform closerObstacle;
     private Vector3 direction;
@@ -33,7 +32,7 @@ public class ObstacleAvoidance : MonoBehaviour
 
     private void Update()
     {
-        if(waypointsContainer != null)
+        if (waypointsContainer != null)
         {
             CheckWaypoint();
             Avoidance();
@@ -62,7 +61,7 @@ public class ObstacleAvoidance : MonoBehaviour
         transform.forward = Vector3.Lerp(transform.forward, //Vector dirección inicial - Punto A
                                           direction,         //Vector direcciín destino - Punto B
                                           Time.deltaTime * enemy.Stats.RotationSpeed); //Valor entre 0 y 1 que representa el porcentaje  entre el punto A y el B
-                                                                           //Siendo 0 el punto A, 1 el punto B y los valores en el medio un porcentaje del recorrido. 0,5 sería el punto medio entre A y B
+                                                                                       //Siendo 0 el punto A, 1 el punto B y los valores en el medio un porcentaje del recorrido. 0,5 sería el punto medio entre A y B
 
         //transform.forward = Vector3.Slerp(transform.forward, direction, Time.deltaTime * rotationSpeed); //Lo mismo que el Lerp pero en vez de linear es esferico
 

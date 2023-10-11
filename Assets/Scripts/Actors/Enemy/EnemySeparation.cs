@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemySeparation : MonoBehaviour
 {
@@ -14,7 +12,7 @@ public class EnemySeparation : MonoBehaviour
 
     private void Update()
     {
-        foreach(GameObject go in enemies)
+        foreach (GameObject go in enemies)
         {
             if (go != null)
             {

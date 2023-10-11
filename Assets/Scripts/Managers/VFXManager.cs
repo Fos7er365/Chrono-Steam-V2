@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VFXManager : MonoBehaviour
@@ -71,7 +69,7 @@ public class VFXManager : MonoBehaviour
         //    Debug.Log("Particle System Anim Event null");
 
         //}
-        
+
     }
 
     //public List<ParticleSystem> GetParticleSystems(Transform prefab, List<ParticleSystem> particles = null)
@@ -91,12 +89,12 @@ public class VFXManager : MonoBehaviour
 
     //public void Play(string name, ParticleSystem[] particleSystems)
     //{
-        //ParticleSystem s = particleSystems.Find(particleSystems, s => s.name == name);
-        //if (s == null)
-        //{
-        //    return;
-        //}
-        //s.Source.Play();
+    //ParticleSystem s = particleSystems.Find(particleSystems, s => s.name == name);
+    //if (s == null)
+    //{
+    //    return;
+    //}
+    //s.Source.Play();
     //}
 
 }

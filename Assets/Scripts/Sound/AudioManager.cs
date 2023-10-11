@@ -1,8 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
+using System.Collections;
+After:
+using System;
+using System.Collections;
+*/
+using System;
 using UnityEngine;
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine.Audio;
 using System;
+After:
+using UnityEngine.Audio;
+*/
+
 
 public class AudioManager : MonoBehaviour
 {

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -63,7 +61,7 @@ public class LevelManager : MonoBehaviour
         //    }
 
         //}
-         if (ElevatorDoor==null)
+        if (ElevatorDoor == null)
         {
             var elevator = GameObject.FindGameObjectsWithTag("ElevatorDoor");
             foreach (var item in elevator)

@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
     public float bulletDamage = 20;
     private void Start()
     {
-        Physics.IgnoreLayerCollision(10,12);
+        Physics.IgnoreLayerCollision(10, 12);
     }
     void Update()
     {

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance => instance;
     public List<UnityEvent> EventQueue => eventQueue;
-    public bool GameOver1  => _gameOver;
+    public bool GameOver1 => _gameOver;
 
     public GameObject LvlManager { get => lvlManager; set => lvlManager = value; }
     public GameObject PlayerInstance { get => _playerInstance; set => _playerInstance = value; }
@@ -45,7 +44,7 @@ public class GameManager : MonoBehaviour
         eventQueue = new List<UnityEvent>();
     }
     // Start is called before the first frame update
-    void Start() 
+    void Start()
     {
     }
 
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
         if (eventQueue.Count > 0)
         {
             //Debug.Log("evenQueue.Count mayor a 0");
-            for (int i = EventQueue.Count-1; i >= 0; i--)
+            for (int i = EventQueue.Count - 1; i >= 0; i--)
             {
                 //Debug.Log("evenQueue ejecutando for");
                 if (EventQueue[i] != null)
@@ -64,7 +63,7 @@ public class GameManager : MonoBehaviour
                     EventQueue.Remove(EventQueue[i]);
                 }
 
-            }   
+            }
         }
         else
         { return; }
@@ -77,7 +76,7 @@ public class GameManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
-        if (playerSpawner==null)
+        if (playerSpawner == null)
         {
             playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
         }
@@ -88,7 +87,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(_lvlToCharge);
     }
-    public void GameOver() 
+    public void GameOver()
     {
         Debug.Log("YOU DIE...");
         _gameOver = true;
@@ -115,7 +114,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerInstance.GetComponent<Player_Controller>().Animations.Revive();
         PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = false;
-        if(SceneManager.GetActiveScene().name == "Tutorial LvL 1")
-        PlayerInstance.GetComponent<Player_Controller>().Life_Controller.GetHeal(float.MaxValue);
+        if (SceneManager.GetActiveScene().name == "Tutorial LvL 1")
+            PlayerInstance.GetComponent<Player_Controller>().Life_Controller.GetHeal(float.MaxValue);
     }
 }

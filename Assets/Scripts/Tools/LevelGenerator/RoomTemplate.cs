@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomTemplate : MonoBehaviour
@@ -23,13 +22,13 @@ public class RoomTemplate : MonoBehaviour
             if (waitTime <= 0)
             {
                 // limpio la lista de rooms para no spawnear el bossen una missreference o close doors
-                for (int i = spawnedRooms.Count-1; i >=0; i--)
+                for (int i = spawnedRooms.Count - 1; i >= 0; i--)
                 {
-                    if (spawnedRooms[i]==null || spawnedRooms[i].CompareTag("CloseDoors") || spawnedRooms[i].CompareTag("Parkour_Room"))
+                    if (spawnedRooms[i] == null || spawnedRooms[i].CompareTag("CloseDoors") || spawnedRooms[i].CompareTag("Parkour_Room"))
                     {
                         spawnedRooms.Remove(spawnedRooms[i]);
                     }
-                    if (i==0)
+                    if (i == 0)
                     {
                         GameObject bossGO = Instantiate(boss, spawnedRooms[spawnedRooms.Count - 1].transform.position, Quaternion.identity);
                         if (bossGO.TryGetComponent<ObstacleAvoidance>(out ObstacleAvoidance obstacle))
@@ -37,7 +36,7 @@ public class RoomTemplate : MonoBehaviour
                         else
                             Debug.Log("missing boss obstacleAvoidence component");
                         GameObject lastRoomElevator = spawnedRooms[spawnedRooms.Count - 1].GetComponent<RoomAdder>().RoomElevator;
-                        if(lastRoomElevator!=null)
+                        if (lastRoomElevator != null)
                             lastRoomElevator.SetActive(true);
                         spawnedBoss = true;
                     }

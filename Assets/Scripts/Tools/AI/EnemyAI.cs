@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(ELineOfSight), typeof(Seek))]
 [RequireComponent(typeof(ObstacleAvoidance), typeof(Enemy), typeof(EnemyCombat))]
@@ -45,7 +42,7 @@ public class EnemyAI : MonoBehaviour
 
         QuestionNode playerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), doIHaveTarget, Patrol);
 
-        QuestionNode doIHaveHealth = new QuestionNode(() => !(enemy.Life_Controller.isDead) , playerAlive, dead);
+        QuestionNode doIHaveHealth = new QuestionNode(() => !(enemy.Life_Controller.isDead), playerAlive, dead);
 
         initialNode = doIHaveHealth;
     }

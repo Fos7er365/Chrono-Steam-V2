@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         var realSpeed = speed * Time.deltaTime;
-        transform.Translate(0,0, realSpeed);
+        transform.Translate(0, 0, realSpeed);
         Destroy(gameObject, LifeTime);
     }
     public void Create(int damage, float distance)
@@ -20,7 +18,7 @@ public class Bullet : MonoBehaviour
         Damage = damage;
         Distance = distance;
         var _player = GameManager.Instance.PlayerInstance;
-        Instantiate(gameObject, _player.transform.position , _player.transform.rotation);
+        Instantiate(gameObject, _player.transform.position, _player.transform.rotation);
     }
     private void OnTriggerEnter(Collider other)
     {

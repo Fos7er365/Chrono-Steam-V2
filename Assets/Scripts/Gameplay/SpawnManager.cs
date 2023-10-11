@@ -2,8 +2,6 @@
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -32,7 +30,7 @@ public class SpawnManager : MonoBehaviour
     {
         enemySpawner = new EnemySpawner();
 
-        spawnPoints= GameObject.FindGameObjectsWithTag("SpawnPoint");
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
 
     }
@@ -53,14 +51,14 @@ public class SpawnManager : MonoBehaviour
             prefab = p;
             foreach (var sp in spawnPoints)
             {
-                if(maxEnemyQuantity>=0)
+                if (maxEnemyQuantity >= 0)
                 {
                     prefab = prefabs[Random.Range(0, prefabs.Length - 1)];
                     enemySpawner.CreateEnemy(prefab);
                     prefab.transform.position = sp.transform.position;
                 }
 
-                    maxEnemyQuantity--;
+                maxEnemyQuantity--;
             }
 
             //Debug.Log("Enemy clones" + maxEnemyQuantity);

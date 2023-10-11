@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
+﻿
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,7 +26,7 @@ public class Damage_Frame_UI : MonoBehaviour
         playerMaxHealth = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.MaxLife;
 
         var tempColor = playerDamageFrameImage.color;
-        tempColor.a = -(playerHealth/playerMaxHealth)+1;
+        tempColor.a = -(playerHealth / playerMaxHealth) + 1;
         playerDamageFrameImage.color = tempColor;
 
         //Debug.Log("Fill Amount is: " + tempColor.a);

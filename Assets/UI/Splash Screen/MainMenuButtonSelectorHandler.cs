@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -27,7 +26,7 @@ public class MainMenuButtonSelectorHandler : MonoBehaviour, IPointerEnterHandler
         {
             elapsedTime += Time.deltaTime;
 
-            if(startingAnim)
+            if (startingAnim)
             {
                 endPosition = startPosition + new Vector3(0f, verticalMovingAmount, 0f);
                 endScale = startScale * scaleAmount;
@@ -38,7 +37,7 @@ public class MainMenuButtonSelectorHandler : MonoBehaviour, IPointerEnterHandler
                 endScale = startScale;
             }
 
-            Vector3 lerpedPos = Vector3.Lerp(transform.position, endPosition, (elapsedTime / movingTime)); 
+            Vector3 lerpedPos = Vector3.Lerp(transform.position, endPosition, (elapsedTime / movingTime));
             Vector3 lerpedScale = Vector3.Lerp(transform.localScale, endScale, (elapsedTime / movingTime));
 
             transform.position = lerpedPos;

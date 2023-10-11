@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Weapon/WeaponStats", order = 1)]
@@ -17,11 +14,11 @@ public class WeaponStats : ScriptableObject
     [SerializeField] Image weaponIconImage;
 
     //[SerializeField] private IAttack attStrategy;
-    public int AttDamage { get => attDamage;}
-    public int Durability { get => durability;}
-    public float CoolDown { get => coolDown;}
-    public int DurabilityDecrease { get => durabilityDecrease;}
-    public float EspExeCd { get => _EspExeCd;}
-    public int EspDamage { get => _espDamage;}
+    public int AttDamage { get => attDamage; }
+    public int Durability { get => durability; }
+    public float CoolDown { get => coolDown; }
+    public int DurabilityDecrease { get => durabilityDecrease; }
+    public float EspExeCd { get => _EspExeCd; }
+    public int EspDamage { get => _espDamage; }
     public string WeaponName { get => weaponName; set => weaponName = value; }
 }

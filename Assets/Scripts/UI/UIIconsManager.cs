@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 public class UIIconsManager : MonoBehaviour
 {
     [SerializeField] WeaponIconUI[] weaponsIcons;
@@ -24,7 +20,7 @@ public class UIIconsManager : MonoBehaviour
     {
         foreach (var wp in weaponsIcons)
         {
-            if(wp.IconName == name)
+            if (wp.IconName == name)
             {
                 wp.gameObject.SetActive(isIconEnabled);
                 Debug.Log("Weapon icon enabled: " + wp.IconName + wp.enabled);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MinimapUIHandler : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class MinimapUIHandler : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         if (GameObject.FindWithTag("Player") != null) playerGO = GameObject.FindWithTag("Player");
-       
+
     }
 
     private void Update()

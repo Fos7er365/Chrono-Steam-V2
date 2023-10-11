@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BossATCKControler : MonoBehaviour
 {
@@ -27,12 +25,12 @@ public class BossATCKControler : MonoBehaviour
     public void SmashAttack()
     {
         Debug.Log("Smash attack");
-        Instantiate(smashObject, transform.position, Quaternion.Euler(0,0,0));
+        Instantiate(smashObject, transform.position, Quaternion.Euler(0, 0, 0));
     }
     public void ClapAttack()
     {
         Debug.Log("Clap attack");
-        Instantiate(clapObject, new Vector3(transform.position.x,transform.position.y+1,transform.position.z), transform.rotation);
+        Instantiate(clapObject, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation);
     }
     public void TeslaAttack()
     {

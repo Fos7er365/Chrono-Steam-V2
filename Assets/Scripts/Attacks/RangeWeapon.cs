@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 public class RangeWeapon : Weapon
 {
@@ -16,7 +12,7 @@ public class RangeWeapon : Weapon
     public GameObject nRange;
     public rangeWeaponStats RangeStats { get => _rangeStats; }
     public GameObject BulletSpawner { get => _bulletSpawner; }
-    public AreaStats AreaStats { get => _areaStats;}
+    public AreaStats AreaStats { get => _areaStats; }
 
     //public Transform NapalmSpawn { get => _napalmSpawn;}
 
@@ -29,36 +25,36 @@ public class RangeWeapon : Weapon
     }
     public override void Execute()
     {
-       // Debug.Log("asdadasd");
-            if (currentDurability > 0)
+        // Debug.Log("asdadasd");
+        if (currentDurability > 0)
+        {
+            currentDurability -= _weaponStats.DurabilityDecrease;
+            foreach (var item in ParticleSystems)
             {
-                currentDurability -= _weaponStats.DurabilityDecrease;
-                foreach (var item in ParticleSystems)
+                item.Play();
+            }
+            //Instantiate(_rangeStats.bulletPrefab, BulletSpawner.transform.position, BulletSpawner.transform.rotation);
+            Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);
+            for (int i = Enemys.Length - 1; i >= 0; i--)
+            {
+                if (Enemys[i].gameObject != null)
                 {
-                    item.Play();
-                }
-                //Instantiate(_rangeStats.bulletPrefab, BulletSpawner.transform.position, BulletSpawner.transform.rotation);
-                Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward*_areaStats.MaxDistance,_areaStats.MaxAmplitude);
-                for (int i = Enemys.Length - 1; i >= 0; i--)
-                {
-                    if (Enemys[i].gameObject != null)
+                    if (Enemys[i].gameObject.CompareTag("Enemy"))
                     {
-                        if (Enemys[i].gameObject.CompareTag("Enemy"))
+                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
                         {
-                            if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
-                            {
-                                hitCounter.AddHitCounter();
-                                FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
-                            }
-
-                            Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.EspDamage);
-
+                            hitCounter.AddHitCounter();
+                            FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
                         }
+
+                        Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.EspDamage);
+
                     }
                 }
-                // Debug.Log($"Quedan {bullets} en el cargador");
-                //Debug.Log($"Hice {_weaponStats.AttDamage} de daño con {name}");
             }
+            // Debug.Log($"Quedan {bullets} en el cargador");
+            //Debug.Log($"Hice {_weaponStats.AttDamage} de daño con {name}");
+        }
         _currentCD = _weaponStats.CoolDown;
     }
 
@@ -80,7 +76,7 @@ public class RangeWeapon : Weapon
         if (currentDurability > 0)
         {
             currentDurability -= WeaponStats.DurabilityDecrease;
-            
+
             for (int i = 0; i < espParticleSystems.Count; i++)
             {
                 espParticleSystems[i].Play();
@@ -90,14 +86,14 @@ public class RangeWeapon : Weapon
             _player.GetComponent<Player_Controller>().IsSpecial = false;
             _player.GetComponent<LookAtMouse>().enabled = true;
             _currentEspExeCd = 0;
-            
+
         }
     }
 
     public override void Update()
     {
         base.Update();
-        if(bullets <= 0 || _currentReloadTime>0)
+        if (bullets <= 0 || _currentReloadTime > 0)
         {
             // Debug.Log("Recargando");
             _currentReloadTime -= Time.deltaTime;

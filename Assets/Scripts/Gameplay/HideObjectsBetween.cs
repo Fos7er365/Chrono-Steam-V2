@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HideObjectsBetween : MonoBehaviour
 {
@@ -19,21 +17,21 @@ public class HideObjectsBetween : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LowerObjectMaterialAlpha();   
+        LowerObjectMaterialAlpha();
     }
 
     void LowerObjectMaterialAlpha()
     {
 
         float dist = Vector3.Distance(transform.position, target.position);
-        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(2,2,2), Quaternion.identity, wallLayerMask);
+        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(2, 2, 2), Quaternion.identity, wallLayerMask);
         //if (Physics.Raycast(transform.position, transform.forward, dist, 1 >> LayerMask.NameToLayer("wall")))
         //if(colliders.Length > 0)
         //{
 
-            Debug.Log("Collision with wall");
-            foreach(var w in colliders)
-            {
+        Debug.Log("Collision with wall");
+        foreach (var w in colliders)
+        {
             MeshRenderer r = w.GetComponent<MeshRenderer>();
             Color newColor = r.material.color;
             newColor.a = 0;
@@ -44,16 +42,16 @@ public class HideObjectsBetween : MonoBehaviour
                     color = newColor;
             }
 
-                //Debug.Log("Wall Alpha" + w.GetComponent<MeshRenderer>().material.color.a);
-            }
-            //if (wallLayerMask.layer.ToString() == LayerMask.LayerToName(9))
-            //{
+            //Debug.Log("Wall Alpha" + w.GetComponent<MeshRenderer>().material.color.a);
+        }
+        //if (wallLayerMask.layer.ToString() == LayerMask.LayerToName(9))
+        //{
 
-            //    float a = wallLayerMask.GetComponent<Color>().a;
-            //    float alphaColorPropierty = a;
-            //    alphaColorPropierty = 0;
+        //    float a = wallLayerMask.GetComponent<Color>().a;
+        //    float alphaColorPropierty = a;
+        //    alphaColorPropierty = 0;
 
-            //}
+        //}
 
         //}
 

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RangeEnemyCombat : EnemyCombat
 {
@@ -8,12 +6,12 @@ public class RangeEnemyCombat : EnemyCombat
     [SerializeField] private float attPerSec = 3;
     private float coolDown = 0;
 
-    public GameObject EnemyBulletPrefab { get => _enemyBulletPrefab;}
-    public override void OnAttack()    
+    public GameObject EnemyBulletPrefab { get => _enemyBulletPrefab; }
+    public override void OnAttack()
     {
         if (attack && coolDown <= 0)
         {
-           // Debug.Log("enemigo atacando");
+            // Debug.Log("enemigo atacando");
             Instantiate(EnemyBulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             coolDown = attPerSec;
         }

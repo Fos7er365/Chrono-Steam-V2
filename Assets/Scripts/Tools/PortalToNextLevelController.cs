@@ -1,9 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine.SceneManagement;
 using UnityEngine.Animations;
+After:
+using UnityEngine.Animations;
 using UnityEngine.Events;
+*/
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PortalToNextLevelController : MonoBehaviour
 {

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 //[RequireComponent(typeof(Rigidbody))]
@@ -32,9 +31,9 @@ public class Weapon : MonoBehaviour, IComand
     public WeaponStats WeaponStats => _weaponStats;
     public float CurrentCD { get => _currentCD; }
 
-    public List<ParticleSystem> ParticleSystems { get => particleSystems;}
-    public Animator WpAnimator { get => _wpAnimator;}
-    public float CurrentEspExeCd { get => _currentEspExeCd;}
+    public List<ParticleSystem> ParticleSystems { get => particleSystems; }
+    public Animator WpAnimator { get => _wpAnimator; }
+    public float CurrentEspExeCd { get => _currentEspExeCd; }
     public string WeaponTag { get => weaponTag; }
     public bool IsDrop { get => isDrop; set => isDrop = true; }
     public Rigidbody Rb { get => _rb; set => _rb = value; }
@@ -47,7 +46,7 @@ public class Weapon : MonoBehaviour, IComand
     public virtual void EspecialExecute()
     {
         // TODO Provisorio: Moví bloque de código de SpecialExecute aca
-        
+
     }
     public virtual void CoolDown()
     {
@@ -63,10 +62,10 @@ public class Weapon : MonoBehaviour, IComand
         _currentCD = 0;
         _currentEspExeCd = WeaponStats.EspExeCd;
         currentDurability = _weaponStats.Durability;
-       /* _rb = this.gameObject.GetComponent<Rigidbody>();
-        if (_rb = null)
-             gameObject.AddComponent<Rigidbody>();*/
-        Physics.IgnoreLayerCollision(11,10);
+        /* _rb = this.gameObject.GetComponent<Rigidbody>();
+         if (_rb = null)
+              gameObject.AddComponent<Rigidbody>();*/
+        Physics.IgnoreLayerCollision(11, 10);
     }
 
     public void PlayParticleSystems()
@@ -80,7 +79,7 @@ public class Weapon : MonoBehaviour, IComand
     // Update is called once per frame
     public virtual void Update()
     {
-        if (currentDurability <= 0 )
+        if (currentDurability <= 0)
         {
             if (this.gameObject != null && !isDrop)
             {
@@ -102,7 +101,7 @@ public class Weapon : MonoBehaviour, IComand
                 Destroy(this.gameObject, 2f);
             }
         }
-        else 
+        else
             isDrop = false;
         if (_currentEspExeCd < WeaponStats.EspExeCd)
         {
@@ -135,7 +134,7 @@ public class Weapon : MonoBehaviour, IComand
             {
                 var b = GetComponent<MeshRenderer>().materials[i];
                 //if (b.name == _weaponTag)
-                if(b.shader.name == "Fresnel")
+                if (b.shader.name == "Fresnel")
                     b.SetFloat("_FresnelScale", 0);
                 else
                 {
@@ -147,6 +146,6 @@ public class Weapon : MonoBehaviour, IComand
     }
     private void OnCollisionEnter(Collision collision)
     {
-       // Debug.Log(collision.gameObject.name);
+        // Debug.Log(collision.gameObject.name);
     }
 }

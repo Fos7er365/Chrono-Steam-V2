@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class TreasureChestsSpawnHandler : MonoBehaviour
 {
@@ -30,7 +27,7 @@ public class TreasureChestsSpawnHandler : MonoBehaviour
 
     void SpawnChests()
     {
-        if(maxChestPerLevel > 0)
+        if (maxChestPerLevel > 0)
         {
             for (int j = 0; j < chestContainers.Length - 1; j++)
             {

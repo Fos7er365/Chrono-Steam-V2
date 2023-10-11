@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Clap_controler : MonoBehaviour
 {
@@ -20,14 +18,14 @@ public class Clap_controler : MonoBehaviour
     }
     private void Update()
     {
-        rb.velocity = dir.normalized*speed * Time.deltaTime; 
-       /* if (lifeTime <= 0)
-        {
-            Destroy();
-        }
-        else
-            lifeTime -= Time.deltaTime;*/
-        
+        rb.velocity = dir.normalized * speed * Time.deltaTime;
+        /* if (lifeTime <= 0)
+         {
+             Destroy();
+         }
+         else
+             lifeTime -= Time.deltaTime;*/
+
     }
     private void OnTriggerEnter(Collider other)
     {

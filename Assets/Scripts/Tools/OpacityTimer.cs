@@ -1,14 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
+using
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+After:
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+*/
+UnityEngine;
 
 public class OpacityTimer : MonoBehaviour
 {
     [SerializeField] private float _time;
-    [SerializeField] private SpriteRenderer [] _images;
-    [SerializeField] private TextMeshProUGUI [] _texts;
+    [SerializeField] private SpriteRenderer[] _images;
+    [SerializeField] private TextMeshProUGUI[] _texts;
     private float _currentTime;
     private void Awake()
     {
@@ -25,7 +33,7 @@ public class OpacityTimer : MonoBehaviour
     {
         if (_currentTime <= 0)
         {
-            if (_images.Length !=0)
+            if (_images.Length != 0)
             {
                 foreach (var item in _images)
                 {
@@ -38,40 +46,40 @@ public class OpacityTimer : MonoBehaviour
                 }
 
             }
-            if(_texts.Length !=0)
-            foreach (var item in _texts)
-            {
-                if (item.color.a < 255)
+            if (_texts.Length != 0)
+                foreach (var item in _texts)
                 {
-                    item.color += new Color(0, 0, 0, 0.1f);
+                    if (item.color.a < 255)
+                    {
+                        item.color += new Color(0, 0, 0, 0.1f);
+                    }
+                    else
+                        return;
                 }
-                else
-                    return;
-            }
         }
         else
         {
             if (_images.Length != 0)
-            foreach (var item in _images)
-            {
-                if (item.color.a > 0)
+                foreach (var item in _images)
                 {
-                    item.color -= new Color(0, 0, 0, 0.1f);
+                    if (item.color.a > 0)
+                    {
+                        item.color -= new Color(0, 0, 0, 0.1f);
+                    }
+                    else
+                        return;
                 }
-                else
-                    return;
-            }
 
             if (_texts.Length != 0)
-            foreach (var item in _texts)
-            {
-                if (item.color.a > 0)
+                foreach (var item in _texts)
                 {
-                    item.color -= new Color(0, 0, 0, 0.1f);
+                    if (item.color.a > 0)
+                    {
+                        item.color -= new Color(0, 0, 0, 0.1f);
+                    }
+                    else
+                        return;
                 }
-                else
-                    return;
-            }
         }
     }
     private void OnTriggerStay(Collider other)

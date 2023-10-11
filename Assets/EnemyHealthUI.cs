@@ -1,10 +1,17 @@
-﻿using System.Collections;
+﻿
+
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.UI;
-
+After:
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+*/
+using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealthUI : MonoBehaviour
 {
@@ -27,7 +34,7 @@ public class EnemyHealthUI : MonoBehaviour
 
     void UpdateHealth()
     {
-        enemyHealth.fillAmount = enemyCurrentHealth/enemyMaxHealth;
+        enemyHealth.fillAmount = enemyCurrentHealth / enemyMaxHealth;
     }
 
 }

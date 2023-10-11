@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
@@ -27,9 +25,9 @@ public class HealthUI : MonoBehaviour
     private void Start()
     {
         //bossEnemy = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossInstance;
-       // bossHealthUI = GameObject.FindWithTag(UtilitiesTags.BOSS_HEALTH_UI_TAG).GetComponent<Image>();
+        // bossHealthUI = GameObject.FindWithTag(UtilitiesTags.BOSS_HEALTH_UI_TAG).GetComponent<Image>();
     }
-   
+
     private void Update()
     {
         //Player Health
@@ -46,12 +44,23 @@ public class HealthUI : MonoBehaviour
     }
 
     public void DisplayHealth(Image healthUI, float value, float maxValue)
-    {
-        
-        if(value<0f)
-            value=0f;
 
-        healthUI.fillAmount = value/ maxValue;
+    /* Unmerged change from project 'Assembly-CSharp.Player'
+    Before:
+        {
+
+            if(value<0f)
+    After:
+        {
+
+            if(value<0f)
+    */
+    {
+
+        if (value < 0f)
+            value = 0f;
+
+        healthUI.fillAmount = value / maxValue;
     }
 
     //public void DisplayBossHealth(float value)
@@ -60,6 +69,6 @@ public class HealthUI : MonoBehaviour
     //    if (value < 0f)
     //        value = 0f;
     //    if (bossHealthUI.isActiveAndEnabled) { bossHealthUI.fillAmount = value; }
-        
+
     //}
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyCombat : Combat
 {
@@ -30,7 +28,7 @@ public class EnemyCombat : Combat
 
     public virtual void Attack()
     {
-        if(gameObject.TryGetComponent<BossAI>(out var bossAI))
+        if (gameObject.TryGetComponent<BossAI>(out var bossAI))
         {
             bossAI.Animations.AttackAnimation();
         }

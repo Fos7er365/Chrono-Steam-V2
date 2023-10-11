@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        Invoke("setTarget",0.1f);
+        Invoke("setTarget", 0.1f);
         DontDestroyOnLoad(this.gameObject);
     }
     private void FixedUpdate()
@@ -19,10 +19,10 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothPosition = Vector3.Lerp(transform.position, disairedPosition, smoothSpeed * Time.deltaTime);
         transform.position = smoothPosition;
 
-       // transform.LookAt(target);
+        // transform.LookAt(target);
     }
     void setTarget()
-    { 
+    {
         target = GameManager.Instance.PlayerInstance.transform;
         GameManager.Instance.Camera = this.gameObject;
     }

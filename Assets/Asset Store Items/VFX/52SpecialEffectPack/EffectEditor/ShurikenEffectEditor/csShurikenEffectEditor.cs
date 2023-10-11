@@ -1,6 +1,20 @@
-﻿using UnityEngine;
+﻿
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
+using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+After:
+using System.Collections;
+*/
+using UnityEngine;
+
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
+#if UNITY_EDITOR
+After:
+using UnityEngine;
+#if UNITY_EDITOR
+*/
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -14,13 +28,13 @@ public class csShurikenEffectEditor : EditorWindow
     public Color ShurikenSystemColor = Color.white;
     static csShurikenEffectEditor myWindow;
 
-	[MenuItem("Window/Shuriken System Effect Editor")]
+    [MenuItem("Window/Shuriken System Effect Editor")]
 
-	public static void Init()
-	{
+    public static void Init()
+    {
         myWindow = EditorWindow.GetWindowWithRect<csShurikenEffectEditor>(new Rect(100, 100, 300, 220)); //set Editor Position and Size
-		myWindow.title = "Scale Editor";
-	}
+        myWindow.title = "Scale Editor";
+    }
 
     void OnGUI()
     {

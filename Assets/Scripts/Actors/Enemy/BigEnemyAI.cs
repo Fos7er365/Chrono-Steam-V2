@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BigEnemyAI : EnemyAI
 {
@@ -28,7 +26,7 @@ public class BigEnemyAI : EnemyAI
     // Start is called before the first frame update
     public void Start()
     {
-        _currentChargeCD = chargeCooldown*0.25f;
+        _currentChargeCD = chargeCooldown * 0.25f;
     }
     // Update is called once per frame
     public override void Update()
@@ -59,8 +57,8 @@ public class BigEnemyAI : EnemyAI
         {
             enemy.Player.Stunned = false;
         }
-        
-        
+
+
     }
     protected override void CreateDecisionTree()
     {
@@ -110,7 +108,7 @@ public class BigEnemyAI : EnemyAI
             _currentChargeCD = chargeCooldown;
         }
     }
-    protected virtual void SeekingyChargeCD()    
+    protected virtual void SeekingyChargeCD()
     {
         if (!combat.attack && !doingCharge)
         {
@@ -153,7 +151,7 @@ public class BigEnemyAI : EnemyAI
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Player" && doingCharge)
+        if (collision.gameObject.tag == "Player" && doingCharge)
         {
             collisionWithPlayer = true;
             _currentStunDuration = stunDuration;

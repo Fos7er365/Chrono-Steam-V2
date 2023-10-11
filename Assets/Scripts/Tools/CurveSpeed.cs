@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CurveSpeed : StateMachineBehaviour
 {
@@ -10,21 +8,21 @@ public class CurveSpeed : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // save the initial speed for reset later
-       _initialSpeed = stateInfo.speedMultiplier;
+        _initialSpeed = stateInfo.speedMultiplier;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // set de speed by parameter multiplaier baced on animation time 
-        animator.SetFloat("SpeedMultiplaier",  _speedCurve.Evaluate(stateInfo.normalizedTime));
+        animator.SetFloat("SpeedMultiplaier", _speedCurve.Evaluate(stateInfo.normalizedTime));
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //reset speed multiplayer
-        animator.SetFloat("SpeedMultiplaier",_initialSpeed);
+        animator.SetFloat("SpeedMultiplaier", _initialSpeed);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

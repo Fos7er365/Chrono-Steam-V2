@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ELineOfSight), typeof(Seek), typeof(Flee))]
@@ -18,8 +17,8 @@ public class BossAI : MonoBehaviour
     private EnemyAnimations animations;
     [SerializeField] float attackRange;
     Roulette _roulette;
-    ActionNode tBall ;
-    ActionNode clap ;
+    ActionNode tBall;
+    ActionNode clap;
     ActionNode sGround;
     ActionNode charge;
     ActionNode rouletteAction;
@@ -64,7 +63,7 @@ public class BossAI : MonoBehaviour
 
         QuestionNode doIHaveAbility = new QuestionNode(() => currentAttackTime >= defaultAttackTime, Ability, Hit);
 
-        QuestionNode doIHaveTarget = new QuestionNode(() => sight.targetInSight && !enemy.Player.Life_Controller.isDead 
+        QuestionNode doIHaveTarget = new QuestionNode(() => sight.targetInSight && !enemy.Player.Life_Controller.isDead
         || enemy.Hurt && !enemy.Player.Life_Controller.isDead, doIHaveAbility, Patrol);
 
         QuestionNode doIHaveHealth = new QuestionNode(() => (enemy.Life_Controller.CurrentLife) <= 0f, Flee, doIHaveTarget);
@@ -92,7 +91,7 @@ public class BossAI : MonoBehaviour
         flee.move = false;
         currentAttackTime += 1 * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, sight.Target.position) > attackRange )
+        if (Vector3.Distance(transform.position, sight.Target.position) > attackRange)
         {
             if (gameObject.TryGetComponent<BigEnemyAI>(out var bullCharge))
             {
@@ -104,8 +103,9 @@ public class BossAI : MonoBehaviour
                 {
                     seek.move = true;
                 }*/
-                 animations.RunAnimation();
-            }else
+                animations.RunAnimation();
+            }
+            else
             {
                 seek.move = true;
                 //animations.MovingAnimation(true);
@@ -199,14 +199,15 @@ public class BossAI : MonoBehaviour
                 {
                     _rouletteNodes.Add(clap, 75);
                     _rouletteNodes.Add(sGround, 25);
-                }else
+                }
+                else
                 {
                     _rouletteNodes.Add(clap, 25);
                     _rouletteNodes.Add(sGround, 75);
                 }
             }
         }
-        else if (enemy.Life_Controller.CurrentLife> enemy.Stats.MaxHealth * 0.33)
+        else if (enemy.Life_Controller.CurrentLife > enemy.Stats.MaxHealth * 0.33)
         {
             if (!_rouletteNodes.ContainsKey(charge))
             {
@@ -224,9 +225,9 @@ public class BossAI : MonoBehaviour
                 }
             }
         }
-        else 
+        else
         {
-            if(!_rouletteNodes.ContainsKey(tBall))
+            if (!_rouletteNodes.ContainsKey(tBall))
             {
                 if (Vector3.Distance(transform.position, sight.Target.position) > attackRange)
                 {

@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine.UI;
 using UnityEngine.Events;
+After:
+using UnityEngine.Events;
+using UnityEngine.UI;
+*/
+
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Player_Input))]
 [RequireComponent(typeof(PlayerAnimations))]
-public class Player_Controller : MonoBehaviour,ILive
+public class Player_Controller : MonoBehaviour, ILive
 {
     private Rigidbody _rb;
     private Player_Input _inputs;
@@ -38,14 +43,25 @@ public class Player_Controller : MonoBehaviour,ILive
     private Transform weaponSlot;
 
     [SerializeField]
+
+    /* Unmerged change from project 'Assembly-CSharp.Player'
+    Before:
+        GameObject stunParticles;
+
+        UIIconsManager weaponsUIICons;
+    After:
+        GameObject stunParticles;
+
+        UIIconsManager weaponsUIICons;
+    */
     GameObject stunParticles;
-    
+
     UIIconsManager weaponsUIICons;
 
     public Rigidbody Rb => _rb;
     public float MaxLife => _playerStats.MaxLife;
     public Life_Controller Life_Controller => _life_Controller;
-    public PlayerStats PlayerStats  => _playerStats;
+    public PlayerStats PlayerStats => _playerStats;
     public Player_Input Inputs => _inputs;
     public PlayerAnimations Animations => _animations;
     public bool IsDashing => _isDashing;
@@ -77,7 +93,8 @@ public class Player_Controller : MonoBehaviour,ILive
         //weaponsUIICons = GetComponentInChildren<UIIconsManager>();
     }
     // Start is called before the first frame update
-    void Start() {
+    void Start()
+    {
         weaponsUIICons = GameObject.Find("Weapons_UI").gameObject.GetComponent<UIIconsManager>();
         // _playerStats.SpawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawnpoint").transform;
         hitCounter = GameObject.FindGameObjectWithTag("hitCounter").GetComponent<HitCounter>();
@@ -91,18 +108,18 @@ public class Player_Controller : MonoBehaviour,ILive
         Debug.Log("Is leaving? adasdas: " + _isleaving + Isleaving);
         Debug.Log("Player Health: " + _life_Controller.CurrentLife);
         _animations.MovingAnimation(_isMoving);
-        _animations.Moving_X_YAnimation(_rb.velocity.x,_rb.velocity.z);
+        _animations.Moving_X_YAnimation(_rb.velocity.x, _rb.velocity.z);
         if (!Life_Controller.isDead)
         {
             Regenerate();
         }
 
-        if (_currentDashCoolDown>0)
+        if (_currentDashCoolDown > 0)
         {
             _currentDashCoolDown -= Time.deltaTime;
             _isDashing = false;
         }
-        if (_currentPunchCD>0)
+        if (_currentPunchCD > 0)
         {
             _currentPunchCD -= Time.deltaTime;
             _isPunching = false;
@@ -212,7 +229,8 @@ public class Player_Controller : MonoBehaviour,ILive
     }
     void Movement()
     {
-        if ((_inputs.xMovement() != 0) && (!Stunned) || (_inputs.yMovement() != 0) && (!Stunned)) {
+        if ((_inputs.xMovement() != 0) && (!Stunned) || (_inputs.yMovement() != 0) && (!Stunned))
+        {
             float prevVelocityY = _rb.velocity.y;
             Debug.Log("X movement: " + _inputs.xMovement() + "Y movement: " + _inputs.yMovement());
             _rb.velocity = new Vector3(_inputs.xMovement() * _playerStats.Speed * Time.deltaTime, prevVelocityY,
@@ -228,8 +246,8 @@ public class Player_Controller : MonoBehaviour,ILive
     }
     void Actions()
     {
-        if(!stunned && !_life_Controller.isDead)
-        _actions.Execute();
+        if (!stunned && !_life_Controller.isDead)
+            _actions.Execute();
     }
     public void Dash()
     {
@@ -244,11 +262,11 @@ public class Player_Controller : MonoBehaviour,ILive
     }
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.CompareTag("FloorWeapon"))
+        if (other.gameObject.CompareTag("FloorWeapon"))
         {
             isWeaponSlotNull = false;
             //Debug.Log("hit Weapon");
-            if(_playerStats.Weapon == null)
+            if (_playerStats.Weapon == null)
             {
                 SetWeapon(other.gameObject.transform.GetChild(0).gameObject);
                 //EnableWeaponIcon(_playerStats.Weapon.tag); //TODO Setear weapon icon UI
@@ -274,13 +292,13 @@ public class Player_Controller : MonoBehaviour,ILive
         @object.transform.rotation = weaponSlot.rotation;
         @object.transform.parent = weaponSlot;
         _playerStats.Weapon = @object;
-        EnableWeaponIcon(@object.GetComponent<Weapon>().WeaponStats.WeaponName, true) ;
+        EnableWeaponIcon(@object.GetComponent<Weapon>().WeaponStats.WeaponName, true);
         //@object.GetComponent<Collider>().enabled = false;
     }
 
     public void WeaponExecute()
     {
-        if(_playerStats.Weapon!=null)
+        if (_playerStats.Weapon != null)
             _playerStats.Weapon.GetComponent<Weapon>().Execute();
     }
 
@@ -304,7 +322,7 @@ public class Player_Controller : MonoBehaviour,ILive
     }
     public void PlaySound(string sound)
     {
-        if(sound!=null)
+        if (sound != null)
         {
             FindObjectOfType<AudioManager>().Play(sound);
         }
@@ -333,7 +351,8 @@ public class Player_Controller : MonoBehaviour,ILive
         _isSpecial = false;
         GetComponent<LookAtMouse>().enabled = true;
     }
-    private void OnDead() {
+    private void OnDead()
+    {
 
         _animations.DamagedAnimation();
         _animations.DeathAnimation();

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Player_Controller))]
-public class PlayerActions : MonoBehaviour,IComand
+public class PlayerActions : MonoBehaviour, IComand
 {
     private Player_Controller _playerController;
     private int _comboCounter;
@@ -15,7 +13,7 @@ public class PlayerActions : MonoBehaviour,IComand
     [SerializeField] private Image _gunUIdistance;// la imagen q marca la distancia
     [SerializeField] private Transform _canvasCenter;
 
-    public Image GunUIarea { get => _gunUIarea;}
+    public Image GunUIarea { get => _gunUIarea; }
 
     // Start is called before the first frame update
     void Start()
@@ -38,11 +36,11 @@ public class PlayerActions : MonoBehaviour,IComand
                 Debug.Log(_comboCounter);
                 if (_playerController.PlayerStats.Weapon.GetComponent<Weapon>().CurrentCD <= 0)
                 {
-                    if (_comboCounter!=0)
+                    if (_comboCounter != 0)
                     {
                         if (_comboCounter == 1)
                         {
-                            if(_playerController.PlayerStats.Weapon.CompareTag("Blade"))
+                            if (_playerController.PlayerStats.Weapon.CompareTag("Blade"))
                             {
 
                                 _playerController.Animations.AttackAnimation();
@@ -80,7 +78,7 @@ public class PlayerActions : MonoBehaviour,IComand
                             if (_playerController.PlayerStats.Weapon.CompareTag("Claimore"))
                             {
                                 //_player.Animations.AttackAnimation2();
-                                 _playerController.Animations.ClaymoreAttackAnimation2();
+                                _playerController.Animations.ClaymoreAttackAnimation2();
                                 _playerController.PlayerStats.Weapon.GetComponent<Weapon>().ParticleSystems[2].Play();
 
                             }
@@ -132,7 +130,8 @@ public class PlayerActions : MonoBehaviour,IComand
                         {
                             _comboCounter = 0;
                         }
-                    }else
+                    }
+                    else
                         _playerController.PlayerStats.Weapon.GetComponent<Weapon>().ParticleSystems[0].Stop();
                     // Debug.Log("_playerStats.Weapon.Atack()");
                 }
@@ -214,8 +213,19 @@ public class PlayerActions : MonoBehaviour,IComand
                     {
                         _playerController.Animations.SpecialSpearAttackAnimation();
                     }
+
+                    /* Unmerged change from project 'Assembly-CSharp.Player'
+                    Before:
+                                    }
+
+                                    // _player.WeaponSpecialExecute();
+                    After:
+                                    }
+
+                                    // _player.WeaponSpecialExecute();
+                    */
                 }
-                
+
                 // _player.WeaponSpecialExecute();
             }
         }
@@ -223,7 +233,7 @@ public class PlayerActions : MonoBehaviour,IComand
         #region "E" button
         if (_playerController.Inputs.Action3())
         {
-            if (_currentReleaseTime <=0)
+            if (_currentReleaseTime <= 0)
             {
                 if (_playerController.PlayerStats.Weapon != null)
                 {
@@ -260,7 +270,7 @@ public class PlayerActions : MonoBehaviour,IComand
         {
             _playerController.Dash();
         }
-        if (_playerController.Inputs.Action5() && _playerController.CurrentPunchCD<=0)
+        if (_playerController.Inputs.Action5() && _playerController.CurrentPunchCD <= 0)
         {
             _playerController.ThrustingPunch();
         }
@@ -272,7 +282,7 @@ public class PlayerActions : MonoBehaviour,IComand
     //se llama desde el animator punch animation event
     public void PunchDetection()
     {
-        Collider[] enemies = Physics.OverlapSphere(_playerController.transform.position,_playerController.PlayerStats.AbilitiStats.PunchArea);
+        Collider[] enemies = Physics.OverlapSphere(_playerController.transform.position, _playerController.PlayerStats.AbilitiStats.PunchArea);
         foreach (var enemy in enemies)
         {
             if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
@@ -289,13 +299,13 @@ public class PlayerActions : MonoBehaviour,IComand
         //if (t >= spearThrowMaxTimer)
         //{
 
-            _playerController.PlayerStats.Weapon.GetComponent<Transform>().position = _playerController.PlayerStats.Weapon.GetComponent<Transform>().position
-                                                                            + new Vector3(_playerController.PlayerStats.Weapon.GetComponent<SpearWeapon>().AreaStats.MaxDistance,
-                                                                            0, _playerController.PlayerStats.Weapon.GetComponent<SpearWeapon>().AreaStats.MaxDistance);
+        _playerController.PlayerStats.Weapon.GetComponent<Transform>().position = _playerController.PlayerStats.Weapon.GetComponent<Transform>().position
+                                                                        + new Vector3(_playerController.PlayerStats.Weapon.GetComponent<SpearWeapon>().AreaStats.MaxDistance,
+                                                                        0, _playerController.PlayerStats.Weapon.GetComponent<SpearWeapon>().AreaStats.MaxDistance);
 
-            Debug.Log($"Spear new pos at {_playerController.PlayerStats.Weapon.GetComponent<Transform>().position}");
+        Debug.Log($"Spear new pos at {_playerController.PlayerStats.Weapon.GetComponent<Transform>().position}");
 
-            //t = 0;
+        //t = 0;
 
         //}
     }
@@ -315,6 +325,6 @@ public class PlayerActions : MonoBehaviour,IComand
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-       // Gizmos.DrawWireSphere(transform.position,_player.PlayerStats.AbilitiStats.PunchArea);
+        // Gizmos.DrawWireSphere(transform.position,_player.PlayerStats.AbilitiStats.PunchArea);
     }
 }

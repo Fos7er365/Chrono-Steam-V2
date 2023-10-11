@@ -1,10 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HeavyWeapon : BladeWeapon
+
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 {
     
+    public override void Execute()
+After:
+{
+
+    public override void Execute()
+*/
+{
+
     public override void Execute()
     {
         base.Execute();
@@ -63,9 +72,9 @@ public class HeavyWeapon : BladeWeapon
     }
     public override void Update()
     {
-        for (int i = 0; i < ParticleSystems.Count-1; i++)
+        for (int i = 0; i < ParticleSystems.Count - 1; i++)
         {
-            if (i<=1)
+            if (i <= 1)
             {
                 ParticleSystems[i].Play();
             }

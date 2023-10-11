@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RoomAdder : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class RoomAdder : MonoBehaviour
     void Start()
     {
         templates = GameObject.FindWithTag("RoomTamplates").GetComponent<RoomTemplate>();
-        
+
         templates.spawnedRooms.Add(this.gameObject);
     }
 }
