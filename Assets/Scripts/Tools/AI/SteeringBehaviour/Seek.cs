@@ -18,16 +18,17 @@ public class Seek : SteeringBehaviour
         //Debug.Log("enemy seek move" + move);
         if (move && Target != null)
         {
+
             //Consigo el vector entre el objetivo y mi posición
             Vector3 deltaVector = (target.transform.position - transform.position).normalized;
             deltaVector.y = 0;
             //Me guardo la dirección unicamente.
             direction = deltaVector;
 
+            //Muevo mi objeto
+            transform.position += Time.deltaTime * direction * speed;//transform.forward * speed * Time.deltaTime;
             //Roto mi objeto hacia la dirección obtenida
             transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotSpeed);
-            //Muevo mi objeto
-            transform.position += transform.forward * speed * Time.deltaTime;
         }
     }
 }

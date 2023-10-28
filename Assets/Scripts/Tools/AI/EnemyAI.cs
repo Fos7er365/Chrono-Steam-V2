@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(ELineOfSight), typeof(Seek))]
 [RequireComponent(typeof(ObstacleAvoidance), typeof(Enemy), typeof(EnemyCombat))]
@@ -11,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     protected Enemy enemy;
     protected EnemyCombat combat;
     protected bool attackTarget;
+    [SerializeField] float maxAttackCooldown = 1.25f;
+    float attackCDTimer = 0f;
 
     public virtual void Awake()
     {
@@ -31,42 +34,72 @@ public class EnemyAI : MonoBehaviour
     }
     protected virtual void CreateDecisionTree()
     {
-        ActionNode Hit = new ActionNode(Attack);
-        ActionNode Patrol = new ActionNode(Patroling);
-        ActionNode seek = new ActionNode(Seeking);
-        ActionNode dead = new ActionNode(die);
+        ActionNode AttackPlayer = new ActionNode(Attack);
+        ActionNode Patrol = new ActionNode(Patrolling);
+        ActionNode SeekPlayer = new ActionNode(Seeking);
+        ActionNode Dead = new ActionNode(Die);
 
-        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) < combat.AttackRange, Hit, seek);
+        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) <= combat.AttackRange, AttackPlayer, SeekPlayer);
 
         QuestionNode doIHaveTarget = new QuestionNode(() => (sight.targetInSight) || (enemy.Hurt), inAttackRange, Patrol);
 
         QuestionNode playerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), doIHaveTarget, Patrol);
 
-        QuestionNode doIHaveHealth = new QuestionNode(() => !(enemy.Life_Controller.isDead), playerAlive, dead);
+        QuestionNode doIHaveHealth = new QuestionNode(() => !(enemy.Life_Controller.isDead), playerAlive, Dead);
 
         initialNode = doIHaveHealth;
     }
 
-    protected virtual void Attack()
+    protected void AttackV2()
     {
-        obstacleavoidance.move = false;
+        Debug.Log("BT Attack method");
         _seek.move = false;
-
+        obstacleavoidance.move = false;
+        enemy.Animations.MovingAnimation(false);
         if (enemy.Life_Controller.CurrentLife > 0)
         {
+            obstacleavoidance.move = false;
+            _seek.move = false;
+            Debug.Log("BTree Hitting player timer: " + attackCDTimer);
             if (sight.Target != null)
             {
-                //animations.MovingAnimation();
-                combat.attack = true;
+                attackCDTimer += Time.deltaTime;
+                if(attackCDTimer >= maxAttackCooldown)
+                {
+                    //enemy.Animations.AttackAnimation();
+                    combat.RegularAttacksRouletteAction();
+                    attackCDTimer = 0;
+                }
             }
         }
-        else
-        {
-            combat.attack = false;
-        }
+        else combat.attack = false;
     }
 
-    protected virtual void Patroling()
+    protected virtual void Attack()
+    {
+        Debug.Log("BT Attack method");
+        _seek.move = false;
+        obstacleavoidance.move = false;
+        enemy.Animations.MovingAnimation(false);
+        if (enemy.Life_Controller.CurrentLife > 0)
+        {
+            obstacleavoidance.move = false;
+            _seek.move = false;
+            Debug.Log("BTree Hitting player");
+            if (sight.Target != null)
+            {
+                combat.attack = true;
+                //StartCoroutine(HandleAttackCooldown());
+            }
+        }
+        else AttackOver();
+    }
+
+    IEnumerator HandleAttackCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+    }
+    protected virtual void Patrolling()
     {
         _seek.move = false;
         combat.attack = false;
@@ -83,7 +116,7 @@ public class EnemyAI : MonoBehaviour
             enemy.Animations.MovingAnimation(true);
         }
     }
-    protected virtual void die()
+    protected virtual void Die()
     {
         _seek.move = false;
         combat.attack = false;

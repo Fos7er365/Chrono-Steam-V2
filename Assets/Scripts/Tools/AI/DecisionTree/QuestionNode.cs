@@ -1,4 +1,5 @@
-﻿public class QuestionNode : Node
+﻿using UnityEngine;
+public class QuestionNode : Node
 {
     //Un delegate permite agregarle funciones que cumplan con la firma del delegate (el valor de retorno y los parametros del metodo)
     public delegate bool QuestionDelegate();
@@ -18,10 +19,12 @@
         if (question())
         {
             trueNode.Execute();
+            Debug.Log("Current true node: " + trueNode);
         }
         else
         {
             falseNode.Execute();
+            Debug.Log("Current false node: " + falseNode);
         }
     }
 }

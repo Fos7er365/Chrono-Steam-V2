@@ -20,11 +20,6 @@ public class TreasureChestsSpawnHandler : MonoBehaviour
     {
         isSpawned = false;
     }
-
-    private void Update()
-    {
-    }
-
     void SpawnChests()
     {
         if (maxChestPerLevel > 0)
@@ -33,7 +28,8 @@ public class TreasureChestsSpawnHandler : MonoBehaviour
             {
                 if (!chestContainers[j].GetComponent<ChestContainer>().HasChestSpawned)
                 {
-                    Instantiate(chestPrefab, chestContainers[j].transform);
+                    var chest = chestContainers[j].gameObject.GetComponent<ChestContainer>();
+                    Instantiate(chestPrefab, chest.ChestSpawnPivot.transform.position, chest.ChestSpawnPivot.transform.rotation);
                     chestContainers[j].GetComponent<ChestContainer>().HasChestSpawned = true;
                 }
                 maxChestPerLevel--;

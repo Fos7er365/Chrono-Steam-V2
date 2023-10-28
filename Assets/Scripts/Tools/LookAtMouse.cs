@@ -4,20 +4,27 @@ public class LookAtMouse : MonoBehaviour
 {
     public GameObject target;
     private Camera cam;
+    Player_Controller player;
+
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
+        //player = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>();
     }
 
     // Update is called once per frame
-    public void Update()
+    void FixedUpdate()
     {
-        LookMouse();
-        Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 destination = new Vector3(mousePos.x, mousePos.y, 0);
-        //target.transform.position = destination;
+        //if (!player.Life_Controller.isDead)
+        //{  
+            LookMouse();
+            Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 destination = new Vector3(mousePos.x, mousePos.y, 0);
+            //target.transform.position = destination;
+        //}
     }
+
     void LookMouse()
     {
         var dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);

@@ -27,6 +27,7 @@ public class ELineOfSight : MonoBehaviour
     }
 
     public Transform Target { get => target; set => target = value; }
+    public Transform VisionPoint { get => visionPoint; set => visionPoint = value; }
 
     public void Update()
     {

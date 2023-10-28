@@ -53,18 +53,18 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         if (BossDead && _elevatorDoor != null) _elevatorDoor.SetActive(false);
-        // if (GameObject.FindWithTag("RoomTamplates"))
-        //{
-        //    if (!chestsSpawner.IsSpawned)
-        //    {
-        //        chestsSpawner.HandleChestSpawning();
-        //    }
+        if (GameObject.FindWithTag("RoomTamplates"))
+        {
+            if (!chestsSpawner.IsSpawned)
+            {
+                chestsSpawner.HandleChestSpawning();
+            }
 
-        //}
+        }
         if (ElevatorDoor == null)
         {
-            var elevator = GameObject.FindGameObjectsWithTag("ElevatorDoor");
-            foreach (var item in elevator)
+            var elevators = GameObject.FindGameObjectsWithTag("ElevatorDoor");
+            foreach (var item in elevators)
             {
                 if (item.activeSelf)
                 {

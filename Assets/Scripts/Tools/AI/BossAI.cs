@@ -37,10 +37,10 @@ public class BossAI : MonoBehaviour
         animations = GetComponent<EnemyAnimations>();
         enemy = gameObject.GetComponent<Enemy>();
         combat = gameObject.GetComponent<EnemyCombat>();
-        GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossInstance = enemy;
     }
     private void Start()
     {
+        GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossInstance = enemy;
         RouletteWheel();
         CreateDecisionTree();
     }

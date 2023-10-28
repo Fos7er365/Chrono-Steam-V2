@@ -1458,7 +1458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56867ebaf579a4144ab54c3eeea60665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 0.78
+  attackRange: 0.5
+  seekRange: 5
   attackPoint: {fileID: 3595266858454531386}
   enemyLayers:
     serializedVersion: 2
@@ -1476,6 +1477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fe03735441e3c4aa172b2fe9fb05cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAttackCooldown: 0.75
 --- !u!114 &910989726326354899
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -39,14 +39,17 @@ public class EnemyAnimations : MonoBehaviour, IEntityAnimations
 
     public void AttackAnimation()
     {
+        Debug.Log("Enemy attack 1 animation");
         enemyAnimator.SetTrigger(EntityAnimationTags.ATTACK_ANIMATION_TAG);
     }
     public void Attack2Animation()
     {
+        Debug.Log("Enemy attack 2 animation");
         enemyAnimator.SetTrigger(EntityAnimationTags.ATTACK2_ANIMATION_TAG);
     }
     public void Attack3Animation()
     {
+        Debug.Log("Enemy attack 3 animation");
         enemyAnimator.SetTrigger(EntityAnimationTags.ATTACK3_ANIMATION_TAG);
     }
 

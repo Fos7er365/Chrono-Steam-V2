@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class BigEnemyAI : EnemyAI
 {
@@ -35,6 +36,9 @@ public class BigEnemyAI : EnemyAI
         {
             initialNode.Execute();
             playerDistance = Vector3.Distance(transform.position, enemy.Player.transform.position);
+
+            ResetCollissionWithPlayer();
+            HandleEnemyStun();
         }
         else
         {
@@ -43,52 +47,60 @@ public class BigEnemyAI : EnemyAI
             obstacleavoidance.move = false;
         }
 
-        if (collisionWithPlayer)
-        {
-            collisionWithPlayer = false;
-        }
+    }
+
+    void ResetCollissionWithPlayer()
+    {
+
+        if (collisionWithPlayer) collisionWithPlayer = false;
+    }
+    void HandleEnemyStun()
+    {
 
         if (_currentStunDuration > 0)
         {
             _currentStunDuration -= Time.deltaTime;
             enemy.Player.Stunned = true;
         }
-        else
-        {
-            enemy.Player.Stunned = false;
-        }
-
+        else enemy.Player.Stunned = false;
 
     }
+
     protected override void CreateDecisionTree()
     {
-        ActionNode Hit = new ActionNode(base.Attack);
-        ActionNode Patrol = new ActionNode(Patroling);
-        ActionNode seek = new ActionNode(Seeking);
-        ActionNode seekChargeCD = new ActionNode(SeekingyChargeCD);
+        ActionNode AttackPlayer = new ActionNode(AttackV2);
+        ActionNode Patrol = new ActionNode(Patrolling); 
+        ActionNode SeekPlayer = new ActionNode(Seeking);
+        ActionNode SeekChargeCD = new ActionNode(SeekingyChargeCD);
         ActionNode Charge = new ActionNode(Charging);
-        ActionNode dead = new ActionNode(base.die);
+        ActionNode Die = new ActionNode(base.Die);
 
-        QuestionNode inAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange) && !doingCharge, Hit, seek);
+        QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange), AttackPlayer, SeekPlayer);
+        //QuestionNode isInSeekRange = new QuestionNode(() => (playerDistance < combat.SeekRange), isInAttackRange, SeekPlayer);
+        QuestionNode isChargeInCooldown = new QuestionNode(() => (_currentChargeCD > 0) && !doingCharge, /*SeekPlayer*/SeekChargeCD, Charge);
+        QuestionNode isTooCloseToCharge = new QuestionNode(() => (playerDistance > chargeRange) || (doingCharge), isChargeInCooldown, isInAttackRange);
+        QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge/*isInSeekRange*/, Patrol);
+        QuestionNode isPlayerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
+        QuestionNode isAlive = new QuestionNode(() => !(enemy.Life_Controller.isDead), isPlayerAlive, Die);
 
-        QuestionNode isChargeInCD = new QuestionNode(() => (_currentChargeCD > 0), seekChargeCD, Charge);
+        //QuestionNode inAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange) && !doingCharge, AttackPlayer, SeekPlayer);
 
-        QuestionNode toClouseToCharge = new QuestionNode(() => (playerDistance > chargeRange) || (doingCharge), isChargeInCD, inAttackRange);
 
-        QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), toClouseToCharge, Patrol);
+        //QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge, Patrol);
 
-        QuestionNode playerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
+        //QuestionNode isPlayerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
 
-        QuestionNode AmIAlive = new QuestionNode(() => !(enemy.Life_Controller.isDead), playerAlive, dead);
+        //QuestionNode isAlive = new QuestionNode(() => !(enemy.Life_Controller.isDead), isPlayerAlive, Die);
 
-        initialNode = AmIAlive;
+        initialNode = isAlive;
     }
     protected override void Attack()
     {
         doingCharge = false;
         base.Attack();
     }
-    protected override void Patroling()
+
+    protected override void Patrolling()
     {
         doingCharge = false;
         _seek.move = false;
@@ -100,6 +112,7 @@ public class BigEnemyAI : EnemyAI
     {
         if (!combat.attack && !doingCharge)
         {
+            Debug.Log("BTree Seeking Player");
             doingCharge = false;
             _seek.move = true;
             combat.attack = false;

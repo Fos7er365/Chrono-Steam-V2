@@ -635,8 +635,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99098686c9af5d1428a485219ca0f9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roomElevator: {fileID: 9137795432569836666}
-  _roomWaypoints: {fileID: 6914528725087136322}
+  _roomElevator: {fileID: 0}
+  _roomWaypoints: {fileID: 0}
 --- !u!1001 &44462416503120559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11206,12 +11206,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db381ccbcee43cc47b5d6319e4794331, type: 3}
---- !u!1 &9137795432569836666 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 995327873206646521, guid: db381ccbcee43cc47b5d6319e4794331,
-    type: 3}
-  m_PrefabInstance: {fileID: 8295601812380443267}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8467937337638342336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 476200417772350531, guid: db381ccbcee43cc47b5d6319e4794331,

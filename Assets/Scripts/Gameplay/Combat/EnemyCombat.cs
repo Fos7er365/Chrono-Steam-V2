@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class EnemyCombat : Combat
 {
     private Enemy _enemy;
     public bool attack = false;
+
     //private Animator animator;
     private void Start()
     {
@@ -15,27 +17,29 @@ public class EnemyCombat : Combat
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    attack = true;
-        //}
-        //else attack = false;
-        if (attack)
-        {
-            Attack();
-        }
+        if (attack) Attack();
     }
 
     public virtual void Attack()
     {
-        if (gameObject.TryGetComponent<BossAI>(out var bossAI))
-        {
-            bossAI.Animations.AttackAnimation();
-        }
+        if (gameObject.TryGetComponent<BossAI>(out var bossAI)) bossAI.Animations.AttackAnimation();
         else
         {
+            Vector3.RotateTowards(transform.position, GameManager.Instance.PlayerInstance.transform.position, 2f, 1f);
             _enemy.Animations.AttackAnimation();
         }
+    }
+
+    public void SequencedAttack()
+    {
+        _enemy.Animations.AttackAnimation();
+        _enemy.Animations.Attack2Animation();
+        _enemy.Animations.Attack3Animation();
+    }
+
+    IEnumerator WaitToPlayNextAnim()
+    {
+        yield return new WaitForSeconds(.5f);
     }
 
     public virtual void OnAttack()
