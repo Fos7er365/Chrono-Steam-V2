@@ -20,7 +20,7 @@ public class PlayerStats : ScriptableObject
     [SerializeField]
     private GameObject _weapon;
 
-    public float Speed => _speed;
+    public float Speed { get => _speed; set => _speed = value; }
 
     public float DashDistance => _dashDistance;
     public float DashDuration => _dashDuration;

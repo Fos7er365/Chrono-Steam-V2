@@ -60,7 +60,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FresnelRimPower: 7.73
+    - _FresnelRimPower: 4.13
     - _FresnelSize: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -78,4 +78,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 1.9571829, g: 14.259475, b: 0, a: 0}
+    - _FresnelColor: {r: 1.957183, g: 14.25947, b: 0, a: 0}

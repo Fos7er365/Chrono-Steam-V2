@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 /* Unmerged change from project 'Assembly-CSharp.Player'
 Before:
 using UnityEngine.UI;
@@ -380,4 +381,19 @@ public class Player_Controller : MonoBehaviour, ILive
                 break;
         }
     }
+    #region Property Increase Power Up
+    public void TemporalPropertyIncrease(float amount, float increaseDuration, float propertyToModify, bool powerUpEnabler)
+    {
+        var originalValue = propertyToModify;
+        propertyToModify = propertyToModify + amount;
+        StartCoroutine(PropertyIncreaseCoroutine(increaseDuration, originalValue, propertyToModify, powerUpEnabler));
+    }
+
+    IEnumerator PropertyIncreaseCoroutine(float secondsToLast, float playerOriginalValue, float propertyToModify, bool powerUpEnabler)
+    {
+        yield return new WaitForSeconds(secondsToLast);
+        propertyToModify = playerOriginalValue;
+        powerUpEnabler = false;
+    }
+    #endregion
 }

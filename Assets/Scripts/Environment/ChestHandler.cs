@@ -4,52 +4,30 @@ using UnityEngine;
 
 public class ChestHandler : MonoBehaviour
 {
-    [SerializeField] GameObject regularBlessing;
-    [SerializeField] GameObject goodBlessing;
-    [SerializeField] GameObject ultraBlessing;
-    Roulette _regularAttacksRouletteWheel;
+    [SerializeField] Transform spawnPosition;
+    [SerializeField] GameObject[] powerUps;
     Dictionary<ActionNode, int> _regularAttacksRouletteWheelNodes = new Dictionary<ActionNode, int>();
+    bool isPowerUpSpawn;
 
-    private void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        RegularAttacksRouletteWheelHandler();
+        if(!isPowerUpSpawn && collision.gameObject.tag == "Player")
+        {
+            HandlePowerUpSpawn();
+            //go.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
-
-    void RegularAttacksRouletteWheelHandler()
+    void HandlePowerUpSpawn()
     {
-        _regularAttacksRouletteWheel = new Roulette();
-
-        ActionNode attack1 = new ActionNode(SpawnRegularBlessing);
-        ActionNode attack2 = new ActionNode(SpawnGoodBlessing);
-        ActionNode attack3 = new ActionNode(SpawnUltraBlessing);
-
-        _regularAttacksRouletteWheelNodes.Add(attack1, 20);
-        _regularAttacksRouletteWheelNodes.Add(attack2, 40);
-        _regularAttacksRouletteWheelNodes.Add(attack3, 15);
-
-        ActionNode rouletteAction = new ActionNode(RegularAttacksRouletteAction);
+        isPowerUpSpawn = true;
+        var randomIndex = Random.Range(0, powerUps.Length);
+        var go = Instantiate(powerUps[randomIndex], spawnPosition.position, Quaternion.identity);
 
     }
 
-    void SpawnRegularBlessing()
+    private void OnDrawGizmos()
     {
-
-    }
-
-    void SpawnGoodBlessing()
-    {
-
-    }
-
-    void SpawnUltraBlessing()
-    {
-
-    }
-
-    public void RegularAttacksRouletteAction()
-    {
-        ActionNode node = _regularAttacksRouletteWheel.Run(_regularAttacksRouletteWheelNodes);
-        node.Execute();
+        Gizmos.DrawWireSphere(spawnPosition.position, 1f);
     }
 
 }
