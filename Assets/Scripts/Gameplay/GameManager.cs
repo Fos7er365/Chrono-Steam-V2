@@ -1,23 +1,25 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
-    private List<UnityEvent> eventQueue;
-    private GameObject _playerInstance;
-    private GameObject _camera;
-    private GameObject lvlManager;
-    private Loot_Manager _lootManager;
-    private int _lvlToCharge;
-    private int _clearRooms;
-    [SerializeField]
-    private float respawnCD;
-    private Transform playerSpawner;
-    private bool _gameOver;
-    private bool _win;
+    static GameManager instance;
+    List<UnityEvent> eventQueue;
+    GameObject _playerInstance;
+    GameObject _camera;
+    GameObject lvlManager;
+    Loot_Manager _lootManager;
+    int _lvlToCharge;
+    int _clearRooms;
+    [SerializeField] float respawnCD;
+    [SerializeField] TextMeshProUGUI powerUpText;
+    Transform playerSpawner;
+    bool _gameOver;
+    bool _win;
 
     public static GameManager Instance => instance;
     public List<UnityEvent> EventQueue => eventQueue;
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     public int LvlToCharge { get => _lvlToCharge; set => _lvlToCharge = value; }
     public int ClearRooms { get => _clearRooms; set => _clearRooms = value; }
     public Loot_Manager LootManager { get => _lootManager; set => _lootManager = value; }
+    public TextMeshProUGUI PowerUpText { get => powerUpText; set => powerUpText = value; }
 
     private void Awake()
     {
@@ -51,6 +54,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (powerUpText.text != "")
+        {
+            StartCoroutine(WaitToDisableUI(2));
+        }
+        EventQueueHandler();
+        //if (_gameOver)
+        //{
+
+        //}
+    }
+    void EventQueueHandler()
+    {
         if (eventQueue.Count > 0)
         {
             //Debug.Log("evenQueue.Count mayor a 0");
@@ -65,13 +80,14 @@ public class GameManager : MonoBehaviour
 
             }
         }
-        else
-        { return; }
+        else return;
 
-        if (_gameOver)
-        {
-
-        }
+    }
+    IEnumerator WaitToDisableUI(float secondsToWait)
+    {
+        yield return new WaitForSeconds(secondsToWait);
+        Debug.Log("Disable UI");
+        GameManager.Instance.PowerUpText.text = "";
     }
     void OnLevelWasLoaded(int level)
     {

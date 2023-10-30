@@ -15,7 +15,7 @@ public class BladeWeapon : Weapon, IAreaAttack
     [SerializeField] protected AreaStats _espAreaStats;
 
     [SerializeField] protected GameObject _player;
-    [SerializeField] protected GameObject specialOjcVfx;
+    [SerializeField] protected GameObject specialAttackVFXGO;
     public AreaStats AreaStats { get => _areaStats; set => _areaStats = value; }
 
     public override void Start()
@@ -50,11 +50,11 @@ public class BladeWeapon : Weapon, IAreaAttack
                 espParticleSystems[i].Play();
             }
 
-            if (specialOjcVfx != null)
+            if (specialAttackVFXGO != null)
             {
-                if (specialOjcVfx.CompareTag("Bullet"))
+                if (specialAttackVFXGO.CompareTag("Bullet"))
                 {
-                    specialOjcVfx.GetComponent<Bullet>().Create(_weaponStats.EspDamage, _espAreaStats.MaxDistance);
+                    specialAttackVFXGO.GetComponent<Bullet>().Create(_weaponStats.EspDamage, _espAreaStats.MaxDistance);
                 }
                 else
                     Debug.Log("objVFX tag error");
@@ -68,7 +68,7 @@ public class BladeWeapon : Weapon, IAreaAttack
 
     public virtual void AreaAtack()
     {
-        Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);
+        Collider[] enemies = Physics.OverlapCapsule(_player.transform.position, _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);
 
         /* Unmerged change from project 'Assembly-CSharp.Player'
         Before:
@@ -76,13 +76,13 @@ public class BladeWeapon : Weapon, IAreaAttack
         After:
                 for (int i = Enemys.Length-1; i >= 0; i--)
         */
-        for (int i = Enemys.Length - 1; i >= 0; i--)
+        for (int i = enemies.Length - 1; i >= 0; i--)
         {
-            if (Enemys[i].gameObject != null)
+            if (enemies[i].gameObject != null)
             {
-                if (Enemys[i].gameObject.CompareTag("Enemy"))
+                if (enemies[i].gameObject.CompareTag("Enemy"))
                 {
-                    if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
+                    if (hitCounter != null && !enemies[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
                     {
                         hitCounter.AddHitCounter();
                         FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
@@ -90,7 +90,7 @@ public class BladeWeapon : Weapon, IAreaAttack
                     else
                         return;
 
-                    Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.AttDamage);
+                    enemies[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.AttDamage);
 
                 }
             }

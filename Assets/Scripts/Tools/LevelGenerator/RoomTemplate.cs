@@ -14,14 +14,15 @@ public class RoomTemplate : MonoBehaviour
     public float waitTime;
     private bool spawnedBoss;
     public GameObject boss;
+    public bool IsDungeonSet { get; set; }
 
     private void Update()
     {
-        if (spawnedBoss == false)
+        if (spawnedBoss == false && !IsDungeonSet)
         {
             if (waitTime <= 0)
             {
-                // limpio la lista de rooms para no spawnear el bossen una missreference o close doors
+                // limpio la lista de rooms para no spawnear el boss en una missreference o close door room
                 for (int i = spawnedRooms.Count - 1; i >= 0; i--)
                 {
                     if (spawnedRooms[i] == null || spawnedRooms[i].CompareTag("CloseDoors") || spawnedRooms[i].CompareTag("Parkour_Room"))
@@ -39,12 +40,14 @@ public class RoomTemplate : MonoBehaviour
                         if (lastRoomElevator != null)
                             lastRoomElevator.SetActive(true);
                         spawnedBoss = true;
+                        IsDungeonSet = true;
                     }
                 }
             }
             else
             {
                 waitTime -= Time.deltaTime;
+                IsDungeonSet = false;
             }
         }
     }

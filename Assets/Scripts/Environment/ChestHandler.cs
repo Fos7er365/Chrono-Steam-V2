@@ -9,6 +9,8 @@ public class ChestHandler : MonoBehaviour
     Dictionary<ActionNode, int> _regularAttacksRouletteWheelNodes = new Dictionary<ActionNode, int>();
     bool isPowerUpSpawn;
 
+    public bool IsPowerUpSpawn { get => isPowerUpSpawn; }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(!isPowerUpSpawn && collision.gameObject.tag == "Player")

@@ -31,6 +31,7 @@ TagManager:
   - Minimap_Camera
   - Fadeable_Wall
   - Parkour_Room
+  - Power_Up_UI
   layers:
   - Default
   - TransparentFX

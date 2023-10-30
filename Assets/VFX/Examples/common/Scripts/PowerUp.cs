@@ -12,19 +12,9 @@ public class PowerUp : MonoBehaviour
     Player_Controller playerController;
     [SerializeField] Rigidbody rb;
 
-    private void Awake()
-    {
-        //GetComponent<Rigidbody>().useGravity = false;
-        //GetComponent<Rigidbody>().isKinematic = false;
-        //GetComponent<Collider>().isTrigger = true;
-    }
     private void Start()
     {
-        //rb.useGravity = false;
-        //rb.useGravity = false;
-        //rb.isKinematic = true;
         playerController = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>();
-        //GetComponent<Collider>().isTrigger = true;
     }
     void OnTriggerEnter(Collider other)
     {
@@ -67,6 +57,9 @@ public class PowerUp : MonoBehaviour
     {
         var playerHealth = playerController.Life_Controller.CurrentLife;
         playerHealth += propertyIncreaser;
+        GameManager.Instance.PowerUpText.text = $"Health +{propertyIncreaser}";
+        //StartCoroutine(WaitToDisableUI(1f));
+
     }
     void IncreasePlayerWeaponDamage()
     {
@@ -74,7 +67,9 @@ public class PowerUp : MonoBehaviour
         {
             isDamagePowerUpActivated = true;
             playerController.TemporalPropertyIncrease(propertyIncreaser, powerUpDuration,
-                playerController.PlayerStats.Weapon.GetComponent<WeaponStats>().AttDamage, isDamagePowerUpActivated);
+                playerController.PlayerStats.Weapon.GetComponent<Weapon>().WeaponStats.AttDamage, isDamagePowerUpActivated);
+            GameManager.Instance.PowerUpText.text= $"Weapon damage +{propertyIncreaser} for {powerUpDuration} seconds";
+            //StartCoroutine(WaitToDisableUI(1f));
         }
     }
     void IncreasePlayerSpeed()
@@ -84,6 +79,8 @@ public class PowerUp : MonoBehaviour
             isSpeedPowerUpActivated = true;
             playerController.TemporalPropertyIncrease(propertyIncreaser, powerUpDuration,
                 playerController.PlayerStats.Speed, isSpeedPowerUpActivated);
+            GameManager.Instance.PowerUpText.text= $"Speed +{propertyIncreaser} for {powerUpDuration} seconds";
+            //StartCoroutine(WaitToDisableUI(1f));
         }
     }
     void IncreasePlayerWeaponDurability()
@@ -92,12 +89,12 @@ public class PowerUp : MonoBehaviour
         {
             var weaponDurability = playerController.PlayerStats.Weapon.GetComponent<Weapon>().WeaponStats.Durability;
             weaponDurability += propertyIncreaser;
+            GameManager.Instance.PowerUpText.text= $"Weapon damage +{propertyIncreaser}";
+            //StartCoroutine(WaitToDisableUI(1f));
         }
 
     }
 
     #endregion
-
-
 
 }

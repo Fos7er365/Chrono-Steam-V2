@@ -7,11 +7,11 @@ public class FistWeapon : BladeWeapon
         if (currentDurability > 0)
         {
             currentDurability -= WeaponStats.DurabilityDecrease;
-            if (specialOjcVfx != null)
+            if (specialAttackVFXGO != null)
             {
-                if (specialOjcVfx.CompareTag("FloorCrack"))
+                if (specialAttackVFXGO.CompareTag("FloorCrack"))
                 {
-                    specialOjcVfx.GetComponent<BoxDamageArea>().Create(_weaponStats.EspDamage, Vector3.zero);
+                    specialAttackVFXGO.GetComponent<BoxDamageArea>().Create(_weaponStats.EspDamage, Vector3.zero);
                 }
                 else
                     Debug.Log("objVFX tag error");

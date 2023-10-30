@@ -22,10 +22,11 @@ public class TreasureChestsSpawnHandler : MonoBehaviour
     }
     void SpawnChests()
     {
-        if (maxChestPerLevel > 0)
+        if (maxChestPerLevel >=1)
         {
-            for (int j = 0; j < chestContainers.Length - 1; j++)
+            for (int j = 0; j < chestContainers.Length; j++)
             {
+                Debug.Log("Puedo spawnear cofres"); 
                 if (!chestContainers[j].GetComponent<ChestContainer>().HasChestSpawned)
                 {
                     var chest = chestContainers[j].gameObject.GetComponent<ChestContainer>();

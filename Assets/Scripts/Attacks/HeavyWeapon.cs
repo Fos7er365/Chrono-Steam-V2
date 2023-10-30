@@ -49,8 +49,8 @@ After:
                     #endregion
                     espParticleSystems[i].Play();
                 }
-                if (specialOjcVfx != null)
-                    Instantiate(specialOjcVfx, _player.transform.position + _player.transform.forward * _espAreaStats.MaxDistance, Quaternion.identity);
+                if (specialAttackVFXGO != null)
+                    Instantiate(specialAttackVFXGO, _player.transform.position + _player.transform.forward * _espAreaStats.MaxDistance, Quaternion.identity);
                 else
                     Debug.Log("objVFX = NULL");
 

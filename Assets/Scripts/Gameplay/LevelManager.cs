@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -48,19 +49,34 @@ public class LevelManager : MonoBehaviour
         _winRoom.AddListener(allRoomsClear);
         GameManager.Instance.LvlManager = this.gameObject;
         GameManager.Instance.LvlToCharge = NextLVL;
+        
 
     }
     private void Update()
     {
-        if (BossDead && _elevatorDoor != null) _elevatorDoor.SetActive(false);
-        if (GameObject.FindWithTag("RoomTamplates"))
+        HandleChestsSpawn();
+        HandleElevatorSpawn();
+        
+       
+    }
+    void HandleChestsSpawn()
+    {
+        var dungeonSp = GameObject.FindWithTag("RoomTamplates");
+        if (dungeonSp != null && !chestsSpawner.IsSpawned)
         {
-            if (!chestsSpawner.IsSpawned)
+            Debug.Log("Puedo spawnear cofres?");
+            if (dungeonSp.gameObject.GetComponent<RoomTemplate>().IsDungeonSet)
             {
+                Debug.Log("Puedo spawnear cofres en room template");
                 chestsSpawner.HandleChestSpawning();
             }
-
         }
+    }
+
+    void HandleElevatorSpawn()
+    {
+        if (BossDead && _elevatorDoor != null) _elevatorDoor.SetActive(false);
+        //if (SceneManager.GetActiveScene().buildIndex == NextLVL) OnLevelWasLoaded(3);
         if (ElevatorDoor == null)
         {
             var elevators = GameObject.FindGameObjectsWithTag("ElevatorDoor");
@@ -73,6 +89,7 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+
     private void allRoomsClear()
     {
         if (GameManager.Instance.ClearRooms >= RoomsToClear)
