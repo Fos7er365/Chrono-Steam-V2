@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using _Main.Scripts.FSM_SO_VERSION;
 
 [RequireComponent(typeof(ELineOfSight), typeof(Seek), typeof(Flee))]
 [RequireComponent(typeof(ObstacleAvoidance), typeof(Enemy), typeof(EnemyCombat))]
 [RequireComponent(typeof(EnemyAnimations))]
 public class BossAI : MonoBehaviour
 {
-    private Node initialNode;
     ELineOfSight sight;
     Seek seek;
     Flee flee;
@@ -25,6 +25,8 @@ public class BossAI : MonoBehaviour
     Dictionary<Node, int> _rouletteNodes = new Dictionary<Node, int>();
     public float defaultAttackTime = 10f;
     float currentAttackTime = 0;
+    [SerializeField] StateData fsmInitialState;
+    FsmScript bossFSM;
 
     public Enemy Enemy { get => enemy; set => enemy = value; }
     public EnemyAnimations Animations { get => animations; set => animations = value; }
@@ -42,14 +44,16 @@ public class BossAI : MonoBehaviour
     {
         GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossInstance = enemy;
         RouletteWheel();
-        CreateDecisionTree();
+        bossFSM = new FsmScript(enemy, fsmInitialState);
+        //CreateDecisionTree();
     }
 
     private void Update()
     {
         if (!enemy.Dead)
         {
-            initialNode.Execute();
+            //initialNode.Execute();
+            bossFSM.UpdateState();
             currentAttackTime += 1 * Time.deltaTime;
         }
     }
@@ -68,7 +72,7 @@ public class BossAI : MonoBehaviour
 
         QuestionNode doIHaveHealth = new QuestionNode(() => (enemy.Life_Controller.CurrentLife) <= 0f, Flee, doIHaveTarget);
 
-        initialNode = doIHaveHealth;
+        //initialNode = doIHaveHealth;
     }
 
     private void Abilities()

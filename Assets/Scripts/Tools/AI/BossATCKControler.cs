@@ -7,21 +7,7 @@ public class BossATCKControler : MonoBehaviour
     private GameObject smashObject;
     [SerializeField]
     private GameObject clapObject;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //prueba
-        /*if (Input.GetKey(KeyCode.T))
-        {
-            TeslaAttack();
-        }*/
-    }
     public void SmashAttack()
     {
         Debug.Log("Smash attack");

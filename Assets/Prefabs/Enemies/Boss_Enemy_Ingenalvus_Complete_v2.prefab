@@ -24320,6 +24320,7 @@ GameObject:
   - component: {fileID: 2931139516148298332}
   - component: {fileID: 3031648678145888659}
   - component: {fileID: 5823869786717319191}
+  - component: {fileID: 6257016202530003370}
   m_Layer: 10
   m_Name: Boss_Enemy_Ingenalvus_Complete_v2
   m_TagString: Enemy
@@ -24506,6 +24507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 4
+  seekRange: 5
   attackPoint: {fileID: 8140842140392383726}
   enemyLayers:
     serializedVersion: 2
@@ -24567,6 +24569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7248553a41edbe645bba30b689e4243f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxAttackCooldown: 0.75
   chargeSpeed: 10
   rotSpeed: 10
   chargeRange: 8
@@ -24601,6 +24604,18 @@ MonoBehaviour:
   playerReference:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &6257016202530003370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139785091680480700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8082466561f3a7947b1f61a85dc190e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4139785091680480702
 GameObject:
   m_ObjectHideFlags: 0

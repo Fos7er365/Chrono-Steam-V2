@@ -1,14 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-/* Unmerged change from project 'Assembly-CSharp.Player'
-Before:
-using UnityEngine.SceneManagement;
-using UnityEngine.Events;
-After:
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-*/
-
 
 [RequireComponent(typeof(EnemyAnimations))]
 public class Enemy : Actor
@@ -63,7 +54,6 @@ public class Enemy : Actor
                 timer = 0f;
             }
         }
-        //Debug.Log("enemy life" + Life_Controller.CurrentLife);
     }
 
     void OnDamaged()
@@ -153,7 +143,7 @@ public class Enemy : Actor
                     if (itemB.name != "SkeletonOutlaw00")
                     {
                         //Debug.Log("material correcto");
-                        //...seteo fesnel scale para q ya no brile
+                        //...seteo fesnel scale para q ya no brille
                         itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
                     }
                 }
@@ -184,7 +174,6 @@ public class Enemy : Actor
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            // Debug.Log("ouch"+ Life_Controller.CurrentLife);
             if (gameObject.TryGetComponent<BossAI>(out var bossAI))
             {
                 bossAI.Animations.DamagedAnimation();

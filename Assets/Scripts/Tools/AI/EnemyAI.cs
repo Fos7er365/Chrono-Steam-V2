@@ -66,8 +66,9 @@ public class EnemyAI : MonoBehaviour
                 attackCDTimer += Time.deltaTime;
                 if(attackCDTimer >= maxAttackCooldown)
                 {
+                    combat.attack = true;
                     //enemy.Animations.AttackAnimation();
-                    combat.RegularAttacksRouletteAction();
+                    //combat.RegularAttacksRouletteAction();
                     attackCDTimer = 0;
                 }
             }
