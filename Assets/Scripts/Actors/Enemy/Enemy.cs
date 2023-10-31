@@ -4,30 +4,29 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyAnimations))]
 public class Enemy : Actor
 {
-    private EnemyAI AI;
-    private Life_Controller _life_Controller;
-    private EnemyAnimations animations;
-    [SerializeField] bool dead;
+    HealthController enemyHealthController;
+    EnemyAnimations animations;
+    [SerializeField] bool isDead;
     Player_Controller _player;
-    private bool hurt;
+    bool isHurt;
     float timer;
-    private bool _itemDroped;
-    private Roulette roulette;
+    bool _itemDroped;
+    Roulette roulette;
     [SerializeField] GameObject particleTransform;
     [SerializeField]
     protected List<ParticleSystem> particleSystems = new List<ParticleSystem>();
     [SerializeField]
-    private List<GameObject> bodyParts = new List<GameObject>();
+    List<GameObject> bodyParts = new List<GameObject>();
 
-    public bool Dead { get => dead; set => dead = value; }
-    public bool Hurt { get => hurt; set => hurt = value; }
+    public bool IsDead { get => isDead; set => isDead = value; }
+    public bool IsHurt { get => isHurt; set => isHurt = value; }
     public Player_Controller Player { get => _player; set => _player = value; }
-    public Life_Controller Life_Controller => _life_Controller;
+    public HealthController EnemyHealthController => enemyHealthController;
     public EnemyAnimations Animations => animations;
     protected virtual void Awake()
     {
         //_life_Controller = new Life_Controller(Stats.MaxHealth);
-        _life_Controller = new Life_Controller(Stats.LifeRange[Random.Range(0, Stats.LifeRange.Count)]);
+        enemyHealthController = new HealthController(Stats.LifeRange[Random.Range(0, Stats.LifeRange.Count)]);
         animations = GetComponent<EnemyAnimations>();
 
         roulette = new Roulette();
@@ -36,21 +35,20 @@ public class Enemy : Actor
     protected virtual void Start()
     {
         //animator = GetComponent<Animator>();
-        _life_Controller.isDead = false;
+        enemyHealthController.isDead = false;
         _player = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>();
-        AI = GetComponent<EnemyAI>();
-        _life_Controller.Dead.AddListener(Die);
-        _life_Controller.Damaged.AddListener(OnDamaged);
+        enemyHealthController.Dead.AddListener(Die);
+        enemyHealthController.Damaged.AddListener(OnDamaged);
     }
 
     protected virtual void Update()
     {
-        if (Hurt)
+        if (IsHurt)
         {
             timer += Time.deltaTime;
             if (timer >= 2f)
             {
-                Hurt = false;
+                IsHurt = false;
                 timer = 0f;
             }
         }
@@ -58,12 +56,12 @@ public class Enemy : Actor
 
     void OnDamaged()
     {
-        if (!Life_Controller.isDead)
+        if (!EnemyHealthController.isDead)
         {
-            Hurt = true;
+            IsHurt = true;
             if (gameObject.TryGetComponent<BossAI>(out var bossAI))
             {
-                bossAI.Animations.DamagedAnimation();
+                animations.DamagedAnimation();
             }
             else
             {
@@ -120,7 +118,7 @@ public class Enemy : Actor
                     }
                 }
             }
-            bossAI.Animations.DeathAnimation();
+            animations.DeathAnimation();
 
             //busco el evento de BossDying
             var Event = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossDying;
@@ -155,7 +153,7 @@ public class Enemy : Actor
             }
         }
         //Debug.Log("Enemey died!");
-        Dead = true;
+        IsDead = true;
         GetComponent<CapsuleCollider>().enabled = false;
         Destroy(gameObject, 1.5f);
 
@@ -176,13 +174,13 @@ public class Enemy : Actor
         {
             if (gameObject.TryGetComponent<BossAI>(out var bossAI))
             {
-                bossAI.Animations.DamagedAnimation();
-                Life_Controller.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
+                animations.DamagedAnimation();
+                EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
             }
             else
             {
                 animations.DamagedAnimation();
-                Life_Controller.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
+                EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
             }
         }
     }

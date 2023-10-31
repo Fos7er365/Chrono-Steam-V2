@@ -32,7 +32,7 @@ public class BigEnemyAI : EnemyAI
     // Update is called once per frame
     public override void Update()
     {
-        if (!enemy.Dead)
+        if (!enemy.IsDead)
         {
             initialNode.Execute();
             playerDistance = Vector3.Distance(transform.position, enemy.Player.transform.position);
@@ -43,7 +43,7 @@ public class BigEnemyAI : EnemyAI
         else
         {
             _seek.move = false;
-            combat.attack = false;
+            combat.IsAttacking = false;
             obstacleavoidance.move = false;
         }
 
@@ -69,19 +69,19 @@ public class BigEnemyAI : EnemyAI
     protected override void CreateDecisionTree()
     {
         ActionNode AttackPlayer = new ActionNode(AttackV2);
-        ActionNode Patrol = new ActionNode(Patrolling); 
+        ActionNode Patrol = new ActionNode(Patrolling);
         ActionNode SeekPlayer = new ActionNode(Seeking);
         ActionNode SeekChargeCD = new ActionNode(SeekingyChargeCD);
         ActionNode Charge = new ActionNode(Charging);
         ActionNode Die = new ActionNode(base.Die);
 
-        QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange), AttackPlayer, SeekPlayer);
+        QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < enemy.Stats.AttackRange), AttackPlayer, SeekPlayer);
         //QuestionNode isInSeekRange = new QuestionNode(() => (playerDistance < combat.SeekRange), isInAttackRange, SeekPlayer);
         QuestionNode isChargeInCooldown = new QuestionNode(() => (_currentChargeCD > 0) && !doingCharge, /*SeekPlayer*/SeekChargeCD, Charge);
         QuestionNode isTooCloseToCharge = new QuestionNode(() => (playerDistance > chargeRange) || (doingCharge), isChargeInCooldown, isInAttackRange);
         QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge/*isInSeekRange*/, Patrol);
         QuestionNode isPlayerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
-        QuestionNode isAlive = new QuestionNode(() => !(enemy.Life_Controller.isDead), isPlayerAlive, Die);
+        QuestionNode isAlive = new QuestionNode(() => !(enemy.EnemyHealthController.isDead), isPlayerAlive, Die);
 
         //QuestionNode inAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange) && !doingCharge, AttackPlayer, SeekPlayer);
 
@@ -104,18 +104,18 @@ public class BigEnemyAI : EnemyAI
     {
         doingCharge = false;
         _seek.move = false;
-        combat.attack = false;
+        combat.IsAttacking = false;
         obstacleavoidance.move = true;
         enemy.Animations.MovingAnimation(true);
     }
     protected override void Seeking()
     {
-        if (!combat.attack && !doingCharge)
+        if (!combat.IsAttacking && !doingCharge)
         {
             Debug.Log("BTree Seeking Player");
             doingCharge = false;
             _seek.move = true;
-            combat.attack = false;
+            combat.IsAttacking = false;
             obstacleavoidance.move = false;
             enemy.Animations.MovingAnimation(true);
             _currentChargeCD = chargeCooldown;
@@ -123,11 +123,11 @@ public class BigEnemyAI : EnemyAI
     }
     protected virtual void SeekingyChargeCD()
     {
-        if (!combat.attack && !doingCharge)
+        if (!combat.IsAttacking && !doingCharge)
         {
             doingCharge = false;
             _seek.move = true;
-            combat.attack = false;
+            combat.IsAttacking = false;
             obstacleavoidance.move = false;
             enemy.Animations.MovingAnimation(true);
         }
@@ -142,7 +142,7 @@ public class BigEnemyAI : EnemyAI
     {
         doingCharge = true;
         _seek.move = false;
-        combat.attack = false;
+        combat.IsAttacking = false;
         obstacleavoidance.move = false;
 
         //Consigo el vector entre el objetivo y mi posición

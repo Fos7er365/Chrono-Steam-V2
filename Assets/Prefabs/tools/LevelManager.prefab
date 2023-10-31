@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512159528917932507}
   - component: {fileID: 1512159528917932506}
+  - component: {fileID: 9034498802964277923}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -45,3 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _elevatorDoor: {fileID: 0}
   BossDead: 0
+  RoomsToClear: 0
+  NextLVL: 0
+--- !u!114 &9034498802964277923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512159528917932485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c127ef9ba138a74c8d847ce099e7b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - {fileID: 6733235909414770241, guid: 7c64477b334b8d846aa736c6c9a2ea47, type: 3}
+  rates: 01000000

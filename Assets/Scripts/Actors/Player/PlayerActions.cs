@@ -286,7 +286,7 @@ public class PlayerActions : MonoBehaviour, IComand
         foreach (var enemy in enemies)
         {
             if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
-                enemy.gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_playerController.PlayerStats.AbilitiStats.PunchDamage);
+                enemy.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_playerController.PlayerStats.AbilitiStats.PunchDamage);
         }
     }
 

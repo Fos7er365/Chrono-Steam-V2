@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         {
             float weapondamage = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>()
                                     .PlayerStats.Weapon.GetComponent<Weapon>().WeaponStats.EspDamage;
-            other.gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(weapondamage);
+            other.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(weapondamage);
         }
         Destroy(this.gameObject);
     }

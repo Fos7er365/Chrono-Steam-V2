@@ -1582,17 +1582,17 @@ GameObject:
   - component: {fileID: 8396047466204007283}
   - component: {fileID: 8538946266971386897}
   - component: {fileID: 2657392002196713542}
-  - component: {fileID: 1385126135858336772}
-  - component: {fileID: 1780632052516739114}
-  - component: {fileID: 2840725371423832238}
   - component: {fileID: 3003264591792520297}
-  - component: {fileID: 4206569514413677902}
+  - component: {fileID: 1385126135858336772}
+  - component: {fileID: 2840725371423832238}
   - component: {fileID: 5375629405646978987}
-  - component: {fileID: 6542595562675224873}
   - component: {fileID: 9052455052186794644}
+  - component: {fileID: 4206569514413677902}
+  - component: {fileID: 1780632052516739114}
+  - component: {fileID: 6542595562675224873}
   - component: {fileID: 9139693096768520482}
   m_Layer: 10
-  m_Name: AdvancedCombatDroid_Commando
+  m_Name: Enemy_Advanced_Combat_Droid
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1672,56 +1672,6 @@ CapsuleCollider:
   m_Height: 2.853459
   m_Direction: 1
   m_Center: {x: -0.021331787, y: 1.389663, z: 0.15}
---- !u!114 &1385126135858336772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8396047466213538043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56867ebaf579a4144ab54c3eeea60665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 1.37
-  attackPoint: {fileID: 5044781751515925508}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  attack: 0
---- !u!114 &1780632052516739114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8396047466213538043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e54dc5caea7497c48b145fd782140a30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  rotSpeed: 5
-  move: 0
---- !u!114 &2840725371423832238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8396047466213538043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7248553a41edbe645bba30b689e4243f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chargeSpeed: 10
-  rotSpeed: 10
-  chargeRange: 4
-  chargeCooldown: 10
-  stunDuration: 1.25
 --- !u!114 &3003264591792520297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1735,12 +1685,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 18b413832b4e079429fbfec9ec07c9e0, type: 2}
-  dead: 0
+  isDead: 0
   particleTransform: {fileID: 0}
   particleSystems:
   - {fileID: 0}
   bodyParts:
   - {fileID: 0}
+--- !u!114 &1385126135858336772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396047466213538043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56867ebaf579a4144ab54c3eeea60665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 1.37
+  seekRange: 5
+  attackPoint: {fileID: 5044781751515925508}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &2840725371423832238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396047466213538043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7248553a41edbe645bba30b689e4243f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAttackCooldown: 1.25
+  chargeSpeed: 10
+  rotSpeed: 10
+  chargeRange: 4
+  chargeCooldown: 10
+  stunDuration: 1.25
+--- !u!114 &5375629405646978987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396047466213538043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1185841c2a72e4bb1d7bc07bab3566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceBetween: 1
+--- !u!114 &9052455052186794644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8396047466213538043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c187cbc3c491a740bd8be1ed00f0c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAnimator: {fileID: 8396047466204007283}
 --- !u!114 &4206569514413677902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1763,7 +1775,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   targetInSight: 0
---- !u!114 &5375629405646978987
+--- !u!114 &1780632052516739114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1772,10 +1784,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8396047466213538043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe1185841c2a72e4bb1d7bc07bab3566, type: 3}
+  m_Script: {fileID: 11500000, guid: e54dc5caea7497c48b145fd782140a30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceBetween: 1
+  speed: 1
+  rotSpeed: 5
+  move: 0
 --- !u!114 &6542595562675224873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1795,19 +1809,6 @@ MonoBehaviour:
     m_Bits: 512
   radius: 1
   move: 0
---- !u!114 &9052455052186794644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8396047466213538043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c187cbc3c491a740bd8be1ed00f0c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAnimator: {fileID: 8396047466204007283}
 --- !u!114 &9139693096768520482
 MonoBehaviour:
   m_ObjectHideFlags: 0

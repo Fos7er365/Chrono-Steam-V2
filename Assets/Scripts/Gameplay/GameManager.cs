@@ -46,12 +46,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         eventQueue = new List<UnityEvent>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (powerUpText.text != "")
@@ -68,10 +63,8 @@ public class GameManager : MonoBehaviour
     {
         if (eventQueue.Count > 0)
         {
-            //Debug.Log("evenQueue.Count mayor a 0");
             for (int i = EventQueue.Count - 1; i >= 0; i--)
             {
-                //Debug.Log("evenQueue ejecutando for");
                 if (EventQueue[i] != null)
                 {
                     EventQueue[i]?.Invoke();
@@ -83,12 +76,14 @@ public class GameManager : MonoBehaviour
         else return;
 
     }
+
     IEnumerator WaitToDisableUI(float secondsToWait)
     {
         yield return new WaitForSeconds(secondsToWait);
         Debug.Log("Disable UI");
         GameManager.Instance.PowerUpText.text = "";
     }
+
     void OnLevelWasLoaded(int level)
     {
         _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
@@ -125,7 +120,7 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    public void reloadScene()
+    public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerInstance.GetComponent<Player_Controller>().Animations.Revive();

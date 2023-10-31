@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour, IEnemyAtack
 {
-    [SerializeField] private float attackRange = 3f;
-    [SerializeField] float seekRange = 5f;
+    //[SerializeField] private float attackRange = 3f;
+    //[SerializeField] float seekRange = 5f;
     [SerializeField] protected Transform attackPoint;
     [SerializeField] protected LayerMask enemyLayers;
     protected Collider[] hitEnemies;
     Enemy enemyModel;
 
-    public float AttackRange { get => attackRange; set => attackRange = value; }
-    public float SeekRange { get => seekRange; set => seekRange = value; }
+    //public float AttackRange { get => attackRange; set => attackRange = value; }
+    //public float SeekRange { get => seekRange; set => seekRange = value; }
 
     Roulette _regularAttacksRouletteWheel;
     Dictionary<ActionNode, int> _regularAttacksRouletteWheelNodes = new Dictionary<ActionNode, int>();
@@ -51,11 +51,11 @@ public class Combat : MonoBehaviour, IEnemyAtack
     public virtual void DoDamage()
     {
         // Detect enemies in range of attack
-        hitEnemies = Physics.OverlapSphere(attackPoint.position, AttackRange, enemyLayers);
+        hitEnemies = Physics.OverlapSphere(attackPoint.position, enemyModel.Stats.AttackRange, enemyLayers);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(attackPoint.position, AttackRange);
+        //Gizmos.DrawWireSphere(attackPoint.position, enemyModel.Stats.AttackRange);
     }
 }

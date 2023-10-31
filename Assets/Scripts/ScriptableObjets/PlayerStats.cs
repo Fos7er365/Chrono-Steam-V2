@@ -14,7 +14,7 @@ public class PlayerStats : ScriptableObject
     [SerializeField]
     private float _maxLife;
     [SerializeField]
-    private PlayerAbilitiStats _abilitiStats;
+    private PlayerAbilitiesStats _abilitiStats;
     [SerializeField]
     private Transform _spawnPoint;
     [SerializeField]
@@ -28,5 +28,5 @@ public class PlayerStats : ScriptableObject
     public float MaxLife => _maxLife;
     public Transform SpawnPoint1 => _spawnPoint;
     public GameObject Weapon { get => _weapon; set => _weapon = value; }
-    public PlayerAbilitiStats AbilitiStats => _abilitiStats;
+    public PlayerAbilitiesStats AbilitiStats => _abilitiStats;
 }

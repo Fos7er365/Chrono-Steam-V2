@@ -24308,19 +24308,17 @@ GameObject:
   - component: {fileID: 4139785091680645212}
   - component: {fileID: 4139785091687899078}
   - component: {fileID: 7375657813160560949}
+  - component: {fileID: 3031648678145888659}
   - component: {fileID: 2053251406893865730}
   - component: {fileID: 920533798445620191}
   - component: {fileID: 7714158843509169276}
-  - component: {fileID: 7066184615286517793}
   - component: {fileID: 1583110098204688357}
+  - component: {fileID: 7066184615286517793}
   - component: {fileID: 4354592363455865945}
   - component: {fileID: 8235152575691028622}
   - component: {fileID: 6040688253847602460}
   - component: {fileID: 102624933862099429}
-  - component: {fileID: 2931139516148298332}
-  - component: {fileID: 3031648678145888659}
   - component: {fileID: 5823869786717319191}
-  - component: {fileID: 6257016202530003370}
   m_Layer: 10
   m_Name: Boss_Enemy_Ingenalvus_Complete_v2
   m_TagString: Enemy
@@ -24397,6 +24395,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &3031648678145888659
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139785091680480700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38, y: 25, z: 50}
+  m_Center: {x: 0, y: 12, z: 0}
 --- !u!114 &2053251406893865730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24449,32 +24460,6 @@ MonoBehaviour:
   speed: 1
   rotSpeed: 5
   move: 0
---- !u!114 &7066184615286517793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139785091680480700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae532fc28b49bc4fb4780f57ce5660a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 773851ab2dc7d3747887f2d6a5094b35, type: 2}
-  dead: 0
-  particleTransform: {fileID: 4484540842133637721}
-  particleSystems: []
-  bodyParts:
-  - {fileID: 4139785091680480698}
-  - {fileID: 4139785091680480696}
-  - {fileID: 4139785091680480646}
-  - {fileID: 4139785091680480644}
-  - {fileID: 4139785091680480642}
-  - {fileID: 4139785091680480640}
-  - {fileID: 4139785091680480654}
-  - {fileID: 4139785091680480652}
-  - {fileID: 4139785091680480650}
 --- !u!114 &1583110098204688357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24494,6 +24479,32 @@ MonoBehaviour:
     m_Bits: 512
   radius: 2
   move: 0
+--- !u!114 &7066184615286517793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139785091680480700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae532fc28b49bc4fb4780f57ce5660a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 773851ab2dc7d3747887f2d6a5094b35, type: 2}
+  isDead: 0
+  particleTransform: {fileID: 4484540842133637721}
+  particleSystems: []
+  bodyParts:
+  - {fileID: 4139785091680480698}
+  - {fileID: 4139785091680480696}
+  - {fileID: 4139785091680480646}
+  - {fileID: 4139785091680480644}
+  - {fileID: 4139785091680480642}
+  - {fileID: 4139785091680480640}
+  - {fileID: 4139785091680480654}
+  - {fileID: 4139785091680480652}
+  - {fileID: 4139785091680480650}
 --- !u!114 &4354592363455865945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24506,13 +24517,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56867ebaf579a4144ab54c3eeea60665, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 4
-  seekRange: 5
   attackPoint: {fileID: 8140842140392383726}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
-  attack: 0
 --- !u!114 &8235152575691028622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24555,39 +24563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45168c65115a204a876e03bef7103d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 4
   defaultAttackTime: 12
---- !u!114 &2931139516148298332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139785091680480700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7248553a41edbe645bba30b689e4243f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxAttackCooldown: 0.75
-  chargeSpeed: 10
-  rotSpeed: 10
-  chargeRange: 8
-  chargeCooldown: 5
-  stunDuration: 0
---- !u!65 &3031648678145888659
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139785091680480700}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 38, y: 25, z: 50}
-  m_Center: {x: 0, y: 12, z: 0}
+  fsmInitialState: {fileID: 11400000, guid: 6011f74ea5bb05645826312a24703662, type: 2}
+  fsmConditionsStats: {fileID: 11400000, guid: 7d1d17dd26f6a2f4d9d54fca8057b9a6, type: 2}
 --- !u!114 &5823869786717319191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24604,18 +24582,6 @@ MonoBehaviour:
   playerReference:
     serializedVersion: 2
     m_Bits: 256
---- !u!114 &6257016202530003370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139785091680480700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8082466561f3a7947b1f61a85dc190e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4139785091680480702
 GameObject:
   m_ObjectHideFlags: 0

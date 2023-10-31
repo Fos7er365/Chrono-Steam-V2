@@ -61,7 +61,7 @@ After:
                     {
                         if (Enemys[i].gameObject.CompareTag("Enemy"))
                         {
-                            Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(WeaponStats.EspDamage);
+                            Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(WeaponStats.EspDamage);
                         }
                     }
                 }

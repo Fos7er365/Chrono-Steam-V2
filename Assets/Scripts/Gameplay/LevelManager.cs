@@ -102,7 +102,7 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.Instance.ClearRooms++;
             GameManager.Instance.LootManager.AddWeaponToLoot();
-            GameManager.Instance.reloadScene();
+            GameManager.Instance.ReloadScene();
         }
     }
     private void BossDie()

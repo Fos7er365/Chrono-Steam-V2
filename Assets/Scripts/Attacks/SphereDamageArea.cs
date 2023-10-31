@@ -34,7 +34,7 @@ public class SphereDamageArea : MonoBehaviour
             foreach (var enemy in enemis)
             {
                 if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
-                    enemy.gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(damage);
+                    enemy.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(damage);
                 damageActualCd = 0;
             }
         }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c1870fa906f094587845f9605ea44e, type: 3}
+  m_Name: Boss Attack State Data
+  m_EditorClassIdentifier: 
+  state: {fileID: 11400000, guid: 370372aeab7dfbc46933e72d7d4eec1c, type: 2}
+  stateConditions:
+  - {fileID: 11400000, guid: db5dd42f1009cca47ae9c2912b0bff5a, type: 2}
+  - {fileID: 11400000, guid: e200930085876cd4ea82b60eb3c17e55, type: 2}
+  exitStates:
+  - {fileID: 11400000, guid: a3b12221425579248ab86e98192cb3a4, type: 2}
+  - {fileID: 11400000, guid: 6c487c78e0e50bb48b5c16fe0a0d86b9, type: 2}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090619578}
   m_Layer: 10
-  m_Name: atackPoint
+  m_Name: Attack Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -489,8 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae532fc28b49bc4fb4780f57ce5660a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 85390b61ae1c4a544a0672802836f38e, type: 2}
-  dead: 0
+  stats: {fileID: 11400000, guid: c041ab5e4fdb5c54d90d904edd89a979, type: 2}
+  isDead: 0
   particleTransform: {fileID: 0}
   particleSystems:
   - {fileID: 1286682417706875041}
@@ -574,7 +574,6 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
-  attack: 0
   _enemyBulletPrefab: {fileID: 4273990954494135219, guid: 6a1897cdc64610146b7d409d9d2b372f,
     type: 3}
   attPerSec: 0.00002

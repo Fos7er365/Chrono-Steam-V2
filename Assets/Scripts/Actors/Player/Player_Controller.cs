@@ -17,7 +17,7 @@ public class Player_Controller : MonoBehaviour, ILive
 {
     Rigidbody _rb;
     Player_Input _inputs;
-    Life_Controller _life_Controller;
+    HealthController _life_Controller;
     PlayerAnimations _animations;
     Quaternion _prevRotation;
     PlayerActions _actions;
@@ -61,7 +61,7 @@ public class Player_Controller : MonoBehaviour, ILive
 
     public Rigidbody Rb => _rb;
     public float MaxLife => _playerStats.MaxLife;
-    public Life_Controller Life_Controller => _life_Controller;
+    public HealthController Life_Controller => _life_Controller;
     public PlayerStats PlayerStats => _playerStats;
     public Player_Input Inputs => _inputs;
     public PlayerAnimations Animations => _animations;
@@ -84,7 +84,7 @@ public class Player_Controller : MonoBehaviour, ILive
         _inputs = GetComponent<Player_Input>();
         _animations = GetComponent<PlayerAnimations>();
         _actions = GetComponent<PlayerActions>();
-        _life_Controller = new Life_Controller(_playerStats.MaxLife);
+        _life_Controller = new HealthController(_playerStats.MaxLife);
         _life_Controller.Dead.AddListener(OnDead);
         _life_Controller.Damaged.AddListener(Damaged);
         _playerStats.Weapon = null; _currentPunchCD = 0;

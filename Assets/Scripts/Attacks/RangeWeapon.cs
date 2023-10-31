@@ -2,7 +2,7 @@
 
 public class RangeWeapon : Weapon
 {
-    [SerializeField] private rangeWeaponStats _rangeStats;
+    [SerializeField] private RangeWeaponStats _rangeStats;
     [SerializeField] private AreaStats _areaStats;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _bulletSpawner;
@@ -10,7 +10,7 @@ public class RangeWeapon : Weapon
     private float _currentReloadTime;
     private int bullets;
     public GameObject nRange;
-    public rangeWeaponStats RangeStats { get => _rangeStats; }
+    public RangeWeaponStats RangeStats { get => _rangeStats; }
     public GameObject BulletSpawner { get => _bulletSpawner; }
     public AreaStats AreaStats { get => _areaStats; }
 
@@ -41,13 +41,13 @@ public class RangeWeapon : Weapon
                 {
                     if (Enemys[i].gameObject.CompareTag("Enemy"))
                     {
-                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
+                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                         {
                             hitCounter.AddHitCounter();
                             FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
                         }
 
-                        Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.EspDamage);
+                        Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
 
                     }
                 }

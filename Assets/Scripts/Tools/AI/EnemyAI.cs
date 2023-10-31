@@ -15,19 +15,24 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float maxAttackCooldown = 1.25f;
     float attackCDTimer = 0f;
 
+
+
+    //
+
     public virtual void Awake()
     {
         enemy = gameObject.GetComponent<Enemy>();
         sight = gameObject.GetComponent<ELineOfSight>();
         _seek = gameObject.GetComponent<Seek>();
         obstacleavoidance = gameObject.GetComponent<ObstacleAvoidance>();
+
         combat = gameObject.GetComponent<EnemyCombat>();
-        CreateDecisionTree();
+        if(enemy.Stats.EnemyType != "Boss") CreateDecisionTree();
     }
 
     public virtual void Update()
     {
-        if (!enemy.Dead)
+        if (!enemy.IsDead)
         {
             initialNode.Execute();
         }
@@ -39,13 +44,13 @@ public class EnemyAI : MonoBehaviour
         ActionNode SeekPlayer = new ActionNode(Seeking);
         ActionNode Dead = new ActionNode(Die);
 
-        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) <= combat.AttackRange, AttackPlayer, SeekPlayer);
+        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) <= enemy.Stats.AttackRange, AttackPlayer, SeekPlayer);
 
-        QuestionNode doIHaveTarget = new QuestionNode(() => (sight.targetInSight) || (enemy.Hurt), inAttackRange, Patrol);
+        QuestionNode doIHaveTarget = new QuestionNode(() => (sight.targetInSight) || (enemy.IsHurt), inAttackRange, Patrol);
 
         QuestionNode playerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), doIHaveTarget, Patrol);
 
-        QuestionNode doIHaveHealth = new QuestionNode(() => !(enemy.Life_Controller.isDead), playerAlive, Dead);
+        QuestionNode doIHaveHealth = new QuestionNode(() => !(enemy.EnemyHealthController.isDead), playerAlive, Dead);
 
         initialNode = doIHaveHealth;
     }
@@ -56,7 +61,7 @@ public class EnemyAI : MonoBehaviour
         _seek.move = false;
         obstacleavoidance.move = false;
         enemy.Animations.MovingAnimation(false);
-        if (enemy.Life_Controller.CurrentLife > 0)
+        if (enemy.EnemyHealthController.CurrentLife > 0)
         {
             obstacleavoidance.move = false;
             _seek.move = false;
@@ -66,14 +71,14 @@ public class EnemyAI : MonoBehaviour
                 attackCDTimer += Time.deltaTime;
                 if(attackCDTimer >= maxAttackCooldown)
                 {
-                    combat.attack = true;
+                    combat.IsAttacking = true;
                     //enemy.Animations.AttackAnimation();
                     //combat.RegularAttacksRouletteAction();
                     attackCDTimer = 0;
                 }
             }
         }
-        else combat.attack = false;
+        else combat.IsAttacking = false;
     }
 
     protected virtual void Attack()
@@ -82,14 +87,14 @@ public class EnemyAI : MonoBehaviour
         _seek.move = false;
         obstacleavoidance.move = false;
         enemy.Animations.MovingAnimation(false);
-        if (enemy.Life_Controller.CurrentLife > 0)
+        if (enemy.EnemyHealthController.CurrentLife > 0)
         {
             obstacleavoidance.move = false;
             _seek.move = false;
             Debug.Log("BTree Hitting player");
             if (sight.Target != null)
             {
-                combat.attack = true;
+                combat.IsAttacking = true;
                 //StartCoroutine(HandleAttackCooldown());
             }
         }
@@ -103,16 +108,16 @@ public class EnemyAI : MonoBehaviour
     protected virtual void Patrolling()
     {
         _seek.move = false;
-        combat.attack = false;
+        combat.IsAttacking = false;
         obstacleavoidance.move = true;
         enemy.Animations.MovingAnimation(true);
     }
     protected virtual void Seeking()
     {
-        if (!combat.attack)
+        if (!combat.IsAttacking)
         {
             _seek.move = true;
-            combat.attack = false;
+            combat.IsAttacking = false;
             obstacleavoidance.move = false;
             enemy.Animations.MovingAnimation(true);
         }
@@ -120,12 +125,12 @@ public class EnemyAI : MonoBehaviour
     protected virtual void Die()
     {
         _seek.move = false;
-        combat.attack = false;
+        combat.IsAttacking = false;
         obstacleavoidance.move = false;
     }
     //se llama desde el animator 
     public void AttackOver()
     {
-        combat.attack = false;
+        combat.IsAttacking = false;
     }
 }

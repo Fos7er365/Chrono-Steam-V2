@@ -29,7 +29,7 @@ public class FistWeapon : BladeWeapon
             {
                 if (Enemys[i].gameObject.CompareTag("Enemy"))
                 {
-                    if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
+                    if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                     {
                         hitCounter.AddHitCounter();
                         FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
@@ -38,7 +38,7 @@ public class FistWeapon : BladeWeapon
                     else
                         return;
 
-                    Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.AttDamage);
+                    Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.AttDamage);
 
                 }
             }

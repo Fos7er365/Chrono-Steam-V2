@@ -9,9 +9,8 @@ public class RangeEnemyCombat : EnemyCombat
     public GameObject EnemyBulletPrefab { get => _enemyBulletPrefab; }
     public override void OnAttack()
     {
-        if (attack && coolDown <= 0)
+        if (isAttacking && coolDown <= 0)
         {
-            // Debug.Log("enemigo atacando");
             Instantiate(EnemyBulletPrefab, attackPoint.transform.position, attackPoint.transform.rotation);
             coolDown = attPerSec;
         }

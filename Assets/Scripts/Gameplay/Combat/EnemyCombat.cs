@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class EnemyCombat : Combat
 {
-    private Enemy _enemy;
-    public bool attack = false;
+    Enemy _enemy;
+    EnemyAnimations enemyAnim;
+    protected bool isAttacking = false;
+
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
 
     //private Animator animator;
     private void Start()
     {
         _enemy = gameObject.GetComponent<Enemy>();
+        enemyAnim = GetComponent<EnemyAnimations>();
         //hitEnemies = new List<Collider>();
         //hitEnemies.Add( GameManager.Instance.PlayerInstance.GetComponent<Collider>() );
         //animator = GetComponent<Animator>();
@@ -17,12 +21,12 @@ public class EnemyCombat : Combat
 
     private void Update()
     {
-        if (attack) Attack();
+        if (isAttacking) Attack();
     }
 
     public virtual void Attack()
     {
-        if (gameObject.TryGetComponent<BossAI>(out var bossAI)) bossAI.Animations.AttackAnimation();
+        if (gameObject.TryGetComponent<BossAI>(out var bossAI)) enemyAnim.AttackAnimation();
         else
         {
             Vector3.RotateTowards(transform.position, GameManager.Instance.PlayerInstance.transform.position, 2f, 1f);
@@ -56,9 +60,9 @@ public class EnemyCombat : Combat
         {
             if (gameObject.TryGetComponent<BossAI>(out var bossAI))
             {
-                bossAI.Animations.AttackAnimation();
+                enemyAnim.AttackAnimation();
                 if (GameManager.Instance.PlayerInstance != null)
-                    Player.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(bossAI.Enemy.Stats.MeleeDamage);
+                    Player.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(bossAI.EnemyModel.Stats.MeleeDamage);
             }
             else
             {

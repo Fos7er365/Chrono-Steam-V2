@@ -27,7 +27,7 @@ public class EnemyHealthUI : MonoBehaviour
     void Update()
     {
         enemyMaxHealth = enemy.Stats.MaxHealth;
-        enemyCurrentHealth = enemy.Life_Controller.CurrentLife;
+        enemyCurrentHealth = enemy.EnemyHealthController.CurrentLife;
 
         UpdateHealth();
     }

@@ -82,7 +82,7 @@ public class BladeWeapon : Weapon, IAreaAttack
             {
                 if (enemies[i].gameObject.CompareTag("Enemy"))
                 {
-                    if (hitCounter != null && !enemies[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
+                    if (hitCounter != null && !enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                     {
                         hitCounter.AddHitCounter();
                         FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
@@ -90,7 +90,7 @@ public class BladeWeapon : Weapon, IAreaAttack
                     else
                         return;
 
-                    enemies[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.AttDamage);
+                    enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.AttDamage);
 
                 }
             }

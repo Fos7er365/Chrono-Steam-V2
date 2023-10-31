@@ -37,13 +37,13 @@ public class SpearWeapon : BladeWeapon
                 {
                     if (Enemys[i].gameObject.CompareTag("Enemy"))
                     {
-                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.isDead)
+                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                         {
                             hitCounter.AddHitCounter();
                             FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
                         }
 
-                        Enemys[i].gameObject.GetComponent<Enemy>().Life_Controller.GetDamage(_weaponStats.EspDamage);
+                        Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
 
                     }
                 }
