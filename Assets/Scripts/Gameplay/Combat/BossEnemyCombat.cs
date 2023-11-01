@@ -2,29 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossEnemyCombat : MonoBehaviour
+public class BossEnemyCombat : EnemyCombat
 {
-    EnemyAnimations enemyAnim;
-    BossAI bossEnemyAIHandler;
+    [SerializeField] BossAI bossEnemyAIHandler;
+
     //Roulette Wheel variables
-    ActionNode rouletteAction;
     Roulette _roulette;
     Dictionary<Node, int> _rouletteNodes = new Dictionary<Node, int>();
     //
 
-
-    private void Awake()
+    private void Start()
     {
-        enemyAnim = GetComponent<EnemyAnimations>();
-        bossEnemyAIHandler = GetComponent<BossAI>();
+        RouletteWheelSetUp();
     }
 
-    private void Abilities()
+    public void HandleAttacksRouletteWheel()
     {
         bossEnemyAIHandler.BossFleeSB.move = false;
         bossEnemyAIHandler.BossSeekSB.move = false;
         bossEnemyAIHandler.BossObstaclAavoidanceSB.move = false;
-        gameObject.GetComponent<BigEnemyAI>().BossCharge = false;
+        //gameObject.GetComponent<BossAI>().BossCharge = false;
 
         if (bossEnemyAIHandler.CurrentAttackTime >= bossEnemyAIHandler.DefaultAttackTime)
         {
@@ -33,7 +30,7 @@ public class BossEnemyCombat : MonoBehaviour
         }
     }
 
-    private void Attack()
+    public override void Attack()
     {
         bossEnemyAIHandler.BossObstaclAavoidanceSB.move = false;
         bossEnemyAIHandler.BossFleeSB.move = false;
@@ -124,7 +121,7 @@ public class BossEnemyCombat : MonoBehaviour
     {
         bossEnemyAIHandler.BossSeekSB.move = false;
     }
-    public void RouletteWheel()
+    public void RouletteWheelSetUp()
     {
         _roulette = new Roulette();
 
@@ -133,68 +130,72 @@ public class BossEnemyCombat : MonoBehaviour
         ActionNode smashGroundAttack = new ActionNode(SmashGround);
         ActionNode chargeAttack = new ActionNode(Charge);
 
-        rouletteAction = new ActionNode(RouletteAction);
+        HandleRouletteWheelNodes(clapAttack, smashGroundAttack, chargeAttack, teslaBallAttack);
+
+        ActionNode rouletteAction = new ActionNode(RouletteAction);
+    }
+
+    void HandleRouletteWheelNodes(ActionNode clap, ActionNode sGround, ActionNode charge, ActionNode tBall)
+    {
+
+        if (enemyModel.EnemyHealthController.CurrentLife > enemyModel.Stats.MaxHealth * 0.66)
+        {
+            if (!_rouletteNodes.ContainsKey(clap) && !_rouletteNodes.ContainsKey(sGround))
+            {
+                if (Vector3.Distance(transform.position, GameManager.Instance.PlayerInstance.transform.position) > enemyModel.Stats.AttackRange)
+                {
+                    _rouletteNodes.Add(clap, 75);
+                    _rouletteNodes.Add(sGround, 25);
+                }
+                else
+                {
+                    _rouletteNodes.Add(clap, 25);
+                    _rouletteNodes.Add(sGround, 75);
+                }
+            }
+        }
+        else if (enemyModel.EnemyHealthController.CurrentLife > enemyModel.Stats.MaxHealth * 0.33)
+        {
+            if (!_rouletteNodes.ContainsKey(charge))
+            {
+                if (Vector3.Distance(transform.position, bossEnemyAIHandler.BossLineOfSight.Target.position) > enemyModel.Stats.AttackRange)
+                {
+                    _rouletteNodes.Add(sGround, 27);
+                    _rouletteNodes.Add(clap, 33);
+                    _rouletteNodes.Add(charge, 40);
+                }
+                else
+                {
+                    _rouletteNodes.Add(clap, 27);
+                    _rouletteNodes.Add(charge, 33);
+                    _rouletteNodes.Add(sGround, 40);
+                }
+            }
+        }
+        else
+        {
+            if (!_rouletteNodes.ContainsKey(tBall))
+            {
+                if (Vector3.Distance(transform.position, bossEnemyAIHandler.BossLineOfSight.Target.position) > enemyModel.Stats.AttackRange)
+                {
+                    _rouletteNodes.Add(sGround, 10);
+                    _rouletteNodes.Add(clap, 30);
+                    _rouletteNodes.Add(charge, 15);
+                    _rouletteNodes.Add(tBall, 45);
+                }
+                else
+                {
+                    _rouletteNodes.Add(clap, 10);
+                    _rouletteNodes.Add(charge, 30);
+                    _rouletteNodes.Add(sGround, 45);
+                    _rouletteNodes.Add(tBall, 15);
+                }
+            }
+        }
     }
 
     public void RouletteAction()
     {
-        // Debug.Log("Entered in roulette");
-        _rouletteNodes.Clear();
-        //if (enemyModel.Life_Controller.CurrentLife > enemyModel.Stats.MaxHealth * 0.66)
-        //{
-        //    if (!_rouletteNodes.ContainsKey(clap) && !_rouletteNodes.ContainsKey(sGround))
-        //    {
-        //        if (Vector3.Distance(transform.position, bossEnemyAIHandler.BossLineOfSight.Target.position) > attackRange)
-        //        {
-        //            _rouletteNodes.Add(clap, 75);
-        //            _rouletteNodes.Add(sGround, 25);
-        //        }
-        //        else
-        //        {
-        //            _rouletteNodes.Add(clap, 25);
-        //            _rouletteNodes.Add(sGround, 75);
-        //        }
-        //    }
-        //}
-        //else if (enemyModel.Life_Controller.CurrentLife > enemyModel.Stats.MaxHealth * 0.33)
-        //{
-        //    if (!_rouletteNodes.ContainsKey(charge))
-        //    {
-        //        if (Vector3.Distance(transform.position, bossEnemyAIHandler.BossLineOfSight.Target.position) > attackRange)
-        //        {
-        //            _rouletteNodes.Add(sGround, 27);
-        //            _rouletteNodes.Add(clap, 33);
-        //            _rouletteNodes.Add(charge, 40);
-        //        }
-        //        else
-        //        {
-        //            _rouletteNodes.Add(clap, 27);
-        //            _rouletteNodes.Add(charge, 33);
-        //            _rouletteNodes.Add(sGround, 40);
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    if (!_rouletteNodes.ContainsKey(tBall))
-        //    {
-        //        if (Vector3.Distance(transform.position, bossEnemyAIHandler.BossLineOfSight.Target.position) > attackRange)
-        //        {
-        //            _rouletteNodes.Add(sGround, 10);
-        //            _rouletteNodes.Add(clap, 30);
-        //            _rouletteNodes.Add(charge, 15);
-        //            _rouletteNodes.Add(tBall, 45);
-        //        }
-        //        else
-        //        {
-        //            _rouletteNodes.Add(clap, 10);
-        //            _rouletteNodes.Add(charge, 30);
-        //            _rouletteNodes.Add(sGround, 45);
-        //            _rouletteNodes.Add(tBall, 15);
-        //        }
-        //    }
-        //}
-        Debug.Log(_rouletteNodes.Count);
         Node nodeRoulette = _roulette.Run(_rouletteNodes);
 
         nodeRoulette.Execute();

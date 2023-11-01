@@ -8,7 +8,7 @@ public class Combat : MonoBehaviour, IEnemyAtack
     [SerializeField] protected Transform attackPoint;
     [SerializeField] protected LayerMask enemyLayers;
     protected Collider[] hitEnemies;
-    Enemy enemyModel;
+    protected Enemy enemyModel;
 
     //public float AttackRange { get => attackRange; set => attackRange = value; }
     //public float SeekRange { get => seekRange; set => seekRange = value; }
@@ -23,7 +23,7 @@ public class Combat : MonoBehaviour, IEnemyAtack
 
     private void Start()
     {
-        RegularAttacksRouletteWheelHandler();
+        //RegularAttacksRouletteWheelHandler();
     }
 
     void RegularAttacksRouletteWheelHandler()

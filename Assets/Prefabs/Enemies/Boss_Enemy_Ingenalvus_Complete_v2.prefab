@@ -20669,7 +20669,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4139785091680645158}
   - component: {fileID: 4139785091680512857}
-  - component: {fileID: 4139785091680512856}
   m_Layer: 10
   m_Name: Ibgenalvus_Thorax
   m_TagString: Untagged
@@ -20734,20 +20733,6 @@ CapsuleCollider:
   m_Height: 19.41
   m_Direction: 1
   m_Center: {x: -5.73, y: 4.24, z: 0}
---- !u!136 &4139785091680512856
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139785091680480262}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 7.49
-  m_Height: 22.5
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.95, z: 0}
 --- !u!1 &4139785091680480264
 GameObject:
   m_ObjectHideFlags: 0
@@ -24314,11 +24299,11 @@ GameObject:
   - component: {fileID: 7714158843509169276}
   - component: {fileID: 1583110098204688357}
   - component: {fileID: 7066184615286517793}
-  - component: {fileID: 4354592363455865945}
   - component: {fileID: 8235152575691028622}
   - component: {fileID: 6040688253847602460}
   - component: {fileID: 102624933862099429}
   - component: {fileID: 5823869786717319191}
+  - component: {fileID: 5136872804836234627}
   m_Layer: 10
   m_Name: Boss_Enemy_Ingenalvus_Complete_v2
   m_TagString: Enemy
@@ -24505,22 +24490,6 @@ MonoBehaviour:
   - {fileID: 4139785091680480654}
   - {fileID: 4139785091680480652}
   - {fileID: 4139785091680480650}
---- !u!114 &4354592363455865945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4139785091680480700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56867ebaf579a4144ab54c3eeea60665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: {fileID: 8140842140392383726}
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &8235152575691028622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24563,7 +24532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45168c65115a204a876e03bef7103d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultAttackTime: 12
+  defaultAttackTime: 3
   fsmInitialState: {fileID: 11400000, guid: 6011f74ea5bb05645826312a24703662, type: 2}
   fsmConditionsStats: {fileID: 11400000, guid: 7d1d17dd26f6a2f4d9d54fca8057b9a6, type: 2}
 --- !u!114 &5823869786717319191
@@ -24582,6 +24551,23 @@ MonoBehaviour:
   playerReference:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &5136872804836234627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139785091680480700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa676e652ad171142a89af50c0b1f70b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 8140842140392383726}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  bossEnemyAIHandler: {fileID: 102624933862099429}
 --- !u!1 &4139785091680480702
 GameObject:
   m_ObjectHideFlags: 0

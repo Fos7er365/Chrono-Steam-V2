@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BladeStats
   m_EditorClassIdentifier: 
   weaponName: Blade
-  attDamage: 10
+  attDamage: 100
   durability: 100
   durabilityDecrease: 12
   coolDown: 0.2

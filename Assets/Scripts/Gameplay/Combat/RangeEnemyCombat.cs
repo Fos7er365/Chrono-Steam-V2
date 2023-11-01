@@ -2,9 +2,9 @@
 
 public class RangeEnemyCombat : EnemyCombat
 {
-    [SerializeField] private GameObject _enemyBulletPrefab;
-    [SerializeField] private float attPerSec = 3;
-    private float coolDown = 0;
+    [SerializeField] GameObject _enemyBulletPrefab;
+    [SerializeField] float attPerSec = 3;
+    float coolDown = 0;
 
     public GameObject EnemyBulletPrefab { get => _enemyBulletPrefab; }
     public override void OnAttack()

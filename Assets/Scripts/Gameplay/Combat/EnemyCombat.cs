@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class EnemyCombat : Combat
 {
-    Enemy _enemy;
-    EnemyAnimations enemyAnim;
+    protected EnemyAnimations enemyAnim;
     protected bool isAttacking = false;
 
     public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
 
     //private Animator animator;
-    private void Start()
+    public virtual void Awake()
     {
-        _enemy = gameObject.GetComponent<Enemy>();
+        enemyModel = GetComponent<Enemy>();
         enemyAnim = GetComponent<EnemyAnimations>();
         //hitEnemies = new List<Collider>();
         //hitEnemies.Add( GameManager.Instance.PlayerInstance.GetComponent<Collider>() );
@@ -30,15 +29,15 @@ public class EnemyCombat : Combat
         else
         {
             Vector3.RotateTowards(transform.position, GameManager.Instance.PlayerInstance.transform.position, 2f, 1f);
-            _enemy.Animations.AttackAnimation();
+            enemyModel.Animations.AttackAnimation();
         }
     }
 
     public void SequencedAttack()
     {
-        _enemy.Animations.AttackAnimation();
-        _enemy.Animations.Attack2Animation();
-        _enemy.Animations.Attack3Animation();
+        enemyModel.Animations.AttackAnimation();
+        enemyModel.Animations.Attack2Animation();
+        enemyModel.Animations.Attack3Animation();
     }
 
     IEnumerator WaitToPlayNextAnim()
@@ -67,7 +66,7 @@ public class EnemyCombat : Combat
             else
             {
                 if (GameManager.Instance.PlayerInstance != null)
-                    Player.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(_enemy.Stats.MeleeDamage);
+                    Player.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(enemyModel.Stats.MeleeDamage);
             }
         }
     }

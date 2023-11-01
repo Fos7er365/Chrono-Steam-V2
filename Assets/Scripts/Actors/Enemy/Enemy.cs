@@ -113,8 +113,9 @@ public class Enemy : Actor
                     if (itemB.name != "Monster")
                     {
                         //Debug.Log("material correcto");
-                        //...seteo fesnel scale para q ya no brile
+                        //...seteo fesnel scale para q ya no brille
                         itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
+                        itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelSize", 0); 
                     }
                 }
             }
