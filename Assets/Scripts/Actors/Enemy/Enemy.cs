@@ -155,8 +155,9 @@ public class Enemy : Actor
         }
         //Debug.Log("Enemey died!");
         IsDead = true;
-        GetComponent<CapsuleCollider>().enabled = false;
-        Destroy(gameObject, 1.5f);
+        if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
+        if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
+        Destroy(gameObject, 15f);
 
     }
     void ExecuteRoulette()
