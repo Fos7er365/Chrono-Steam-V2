@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAnimations))]
-public class Enemy : Actor
+public class Enemy : Actor, IEnemy
 {
     HealthController enemyHealthController;
     EnemyAnimations animations;
@@ -11,18 +11,22 @@ public class Enemy : Actor
     bool isHurt;
     float timer;
     bool _itemDroped;
+    bool isMachinePartSpawn;
     Roulette roulette;
     [SerializeField] GameObject particleTransform;
     [SerializeField]
     protected List<ParticleSystem> particleSystems = new List<ParticleSystem>();
     [SerializeField]
     List<GameObject> bodyParts = new List<GameObject>();
+    [SerializeField] GameObject timeMachineGO;
+    [SerializeField] GameObject machinePartSpawnPositionGO;
 
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsHurt { get => isHurt; set => isHurt = value; }
     public Player_Controller Player { get => _player; set => _player = value; }
     public HealthController EnemyHealthController => enemyHealthController;
     public EnemyAnimations Animations => animations;
+
     protected virtual void Awake()
     {
         //_life_Controller = new Life_Controller(Stats.MaxHealth);
@@ -32,6 +36,7 @@ public class Enemy : Actor
         roulette = new Roulette();
         _itemDroped = false;
     }
+
     protected virtual void Start()
     {
         //animator = GetComponent<Animator>();
@@ -43,13 +48,56 @@ public class Enemy : Actor
 
     protected virtual void Update()
     {
-        if (IsHurt)
+        CheckMachinePartDrop();
+        if (IsHurt) DisableHealthLoss();
+        else if(isDead) DisableGameObjectCollisionProperties();
+    }
+
+    void DisableHealthLoss()
+    {
+        timer += Time.deltaTime;
+        if (timer >= 2f)
         {
-            timer += Time.deltaTime;
-            if (timer >= 2f)
+            IsHurt = false;
+            timer = 0f;
+        }
+    }
+
+    void DisableGameObjectCollisionProperties()
+    {
+        gameObject.GetComponent<Rigidbody>().useGravity = false;
+        Debug.Log("Boss Collider Deactivated" + gameObject.GetComponent<Rigidbody>().useGravity);
+        if (gameObject.TryGetComponent<CapsuleCollider>(out var capsuleColl))
+        {
+            Debug.Log("Boss Collider Deactivated");
+            capsuleColl.isTrigger = true;
+        }
+        else if (gameObject.TryGetComponent<BoxCollider>(out var boxColl))
+        {
+            Debug.Log("Boss Collider Deactivated");
+            boxColl.isTrigger = true;
+        }
+    }
+
+    void CheckMachinePartDrop()
+    {
+        if(Stats.EnemyType == "Boss" && isDead)
+        {
+            DropMachinePart();
+        }
+    }
+
+    void DropMachinePart()
+    {
+        if(GameManager.Instance.MachinePartsPickedUp < 2)
+        {
+            if (isMachinePartSpawn) return;
+            else
             {
-                IsHurt = false;
-                timer = 0f;
+                Instantiate(timeMachineGO, machinePartSpawnPositionGO.transform.position, Quaternion.Euler(90, 0, 0));
+                timeMachineGO.GetComponent<Rigidbody>().AddForce(transform.up * 10f, ForceMode.Impulse);
+                isMachinePartSpawn = true;
+
             }
         }
     }
@@ -75,6 +123,7 @@ public class Enemy : Actor
         }
 
     }
+
     public void PlayParticle(GameObject particle)
     {
         if (particle != null)
@@ -84,6 +133,10 @@ public class Enemy : Actor
         }
         else
             Debug.Log("playParticles function particle not asigned");
+    }
+    public void DestroyParticle(GameObject particle)
+    {
+        if (particle != null) particle.GetComponent<ParticleSystem>().Stop();
     }
 
     public void PlayParticleInSpecificPosition(GameObject particle)
@@ -99,6 +152,8 @@ public class Enemy : Actor
 
     void Die()
     {
+
+        //CheckMachinePartDrop();
         if (gameObject.TryGetComponent<BossAI>(out var bossAI))
         {
             foreach (var itemA in bodyParts)
@@ -120,7 +175,6 @@ public class Enemy : Actor
                 }
             }
             animations.DeathAnimation();
-
             //busco el evento de BossDying
             var Event = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossDying;
             //encolo el evento para su invoke
@@ -186,4 +240,9 @@ public class Enemy : Actor
             }
         }
     }
+}
+
+public interface IEnemy
+{
+
 }

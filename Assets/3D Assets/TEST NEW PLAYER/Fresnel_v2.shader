@@ -119,7 +119,7 @@ Shader "Fresnel_v2"
 }
 /*ASEBEGIN
 Version=18900
-0;729;1349;270;1486.896;-133.8203;1;True;False
+0;743;1349;256;1486.896;-133.8203;1;True;False
 Node;AmplifyShaderEditor.RangedFloatNode;3;-1329.599,185.1468;Inherit;False;Property;_FresnelRimPower;Fresnel Rim Power;0;0;Create;True;0;0;0;False;0;False;0;1.5;0;10;0;1;FLOAT;0
 Node;AmplifyShaderEditor.TFHCRemapNode;2;-994.4151,168.4473;Inherit;False;5;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT;10;False;3;FLOAT;10;False;4;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;7;-765.3896,-169.1223;Inherit;False;Property;_FresnelColor;Fresnel Color;1;1;[HDR];Create;True;0;0;0;False;0;False;1,0.2206753,0,0;7.999999,0,7.623036,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -138,4 +138,4 @@ WireConnection;0;0;6;0
 WireConnection;0;2;6;0
 WireConnection;0;9;4;0
 ASEEND*/
-//CHKSM=90930C6399E29F88ABEBB87D7799AC5DD21DD8A2
+//CHKSM=0F08A22796AD79E1CDA47DF3B947588DE022A674

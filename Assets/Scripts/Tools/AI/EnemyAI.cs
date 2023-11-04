@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour
         ActionNode SeekPlayer = new ActionNode(Seeking);
         ActionNode Dead = new ActionNode(Die);
 
-        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) <= enemy.Stats.AttackRange, AttackPlayer, SeekPlayer);
+        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) < enemy.Stats.AttackRange, AttackPlayer, SeekPlayer);
 
         QuestionNode doIHaveTarget = new QuestionNode(() => (sight.targetInSight) || (enemy.IsHurt), inAttackRange, Patrol);
 

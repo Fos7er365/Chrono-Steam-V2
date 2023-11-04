@@ -865,6 +865,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sidewalk Tile
       objectReference: {fileID: 0}
+    - target: {fileID: 9126554712362317321, guid: dc481f30823e2184e935b43a66390cae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc481f30823e2184e935b43a66390cae, type: 3}
 --- !u!4 &5207543882103331 stripped

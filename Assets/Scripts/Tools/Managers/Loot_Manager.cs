@@ -13,14 +13,22 @@ public class Loot_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < drops.Count - 1; i++)
+        foreach (var d in drops)
         {
-            _weaponDrops.Add(drops[i], rates[i]);
+            foreach (var r in rates)
+            {
+                _weaponDrops.Add(d, r);
+                _currentDrops.Add(d, r);
+            }
         }
-        for (int i = 0; i < drops.Count - 1; i++)
-        {
-            _currentDrops.Add(drops[i], rates[i]);
-        }
+        //for (int i = 0; i < drops.Count - 1; i++)
+        //{
+        //    _weaponDrops.Add(drops[i], rates[i]);
+        //}
+        //for (int i = 0; i < drops.Count - 1; i++)
+        //{
+        //    _currentDrops.Add(drops[i], rates[i]);
+        //}
         GameManager.Instance.LootManager = this;
     }
 

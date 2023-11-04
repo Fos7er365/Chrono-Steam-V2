@@ -20,8 +20,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - _FresnelRimPower: 1.5
-    - _FresnelSize: 0.1
+    - _FresnelRimPower: 0.59
+    - _FresnelSize: 0.001
     - __dirty: 0
     m_Colors:
-    - _FresnelColor: {r: 8.031373, g: 1024, b: 446.2251, a: 0}
+    - _FresnelColor: {r: 0, g: 1186.5571, b: 214.45024, a: 0}

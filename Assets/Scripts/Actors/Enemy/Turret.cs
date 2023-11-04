@@ -5,6 +5,7 @@ public class Turret : MonoBehaviour
     private float rotTime;
     private float shootCd;
     ELineOfSight turretLineOfSight;
+    HealthController enemyHealthController;
     [SerializeField] GameObject cannon;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject muzzleFlash;
@@ -12,6 +13,13 @@ public class Turret : MonoBehaviour
     [SerializeField] float rotTimeMax;
     [SerializeField] float shootCdMax;
     [SerializeField] bool inSight;
+    [SerializeField] ActorStats turretStats;
+    [SerializeField] int damage;
+    [SerializeField] float distance;
+    Player_Controller _player;
+
+    public ActorStats TurretStats { get => turretStats; set => turretStats = value; }
+    public HealthController EnemyHealthController { get => enemyHealthController; set => enemyHealthController = value; }
 
     private void Awake()
     {
@@ -19,14 +27,25 @@ public class Turret : MonoBehaviour
     }
     private void Start()
     {
+        enemyHealthController = new HealthController(turretStats.MaxHealth);
+        //animator = GetComponent<Animator>();
+        enemyHealthController.isDead = false;
+        _player = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>();
+        enemyHealthController.Dead.AddListener(Die);
+        enemyHealthController.Damaged.AddListener(OnDamaged);
         //turretLineOfSight.VisionPoint.transform.position = cannon.transform.position;
         //turretLineOfSight.VisionPoint.transform.rotation = cannon.transform.rotation;
     }
 
+    void OnDamaged()
+    {
+
+    }
     void Update()
     {
         IdleMovement();
         CheckForPlayer();
+        Debug.Log("Turret curr health: " + enemyHealthController.CurrentLife);
         //Shoot();
     }
 
@@ -44,7 +63,7 @@ public class Turret : MonoBehaviour
 
     void CheckForPlayer()
     {
-        if (inSight) Shoot();
+        if (turretLineOfSight.targetInSight) Shoot();
     }
 
     private void Shoot()
@@ -57,10 +76,27 @@ public class Turret : MonoBehaviour
             //muzzleFlash.SetActive(true);
             var muzzleFlashInstance = Instantiate(muzzleFlash, cannon.transform.position, cannon.transform.rotation);
             muzzleFlashInstance.GetComponent<ParticleSystem>().Play();
-            Instantiate(bullet, cannon.transform.position, cannon.transform.rotation);
+            var go = Instantiate(bullet, cannon.transform.position, cannon.transform.rotation);
+            //bullet.GetComponent<Bullet>().Create(damage,distance);//Instantiate(bullet, cannon.transform.position, cannon.transform.rotation);
             shootCd = 0;
             Destroy(muzzleFlashInstance.gameObject, .5f);
         }
         //muzzleFlash.SetActive(false);
+    }
+    void Die()
+    {
+        //Debug.Log("Enemey died!");
+        enemyHealthController.isDead = true;
+        Destroy(gameObject, 1.5f);
+
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("turret coll w " + other.collider.name);
+        if (other.gameObject.CompareTag("FloorWeapon"))
+        {
+            enemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
+        }
     }
 }

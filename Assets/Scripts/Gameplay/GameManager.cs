@@ -16,10 +16,11 @@ public class GameManager : MonoBehaviour
     int _lvlToCharge;
     int _clearRooms;
     [SerializeField] float respawnCD;
-    [SerializeField] TextMeshProUGUI powerUpText;
+    [SerializeField] TextMeshProUGUI powerUpText, machinePartsText;
     Transform playerSpawner;
     bool _gameOver;
     bool _win;
+    int machinePartsPickedUp = 0;
 
     public static GameManager Instance => instance;
     public List<UnityEvent> EventQueue => eventQueue;
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
     public int ClearRooms { get => _clearRooms; set => _clearRooms = value; }
     public Loot_Manager LootManager { get => _lootManager; set => _lootManager = value; }
     public TextMeshProUGUI PowerUpText { get => powerUpText; set => powerUpText = value; }
+    public TextMeshProUGUI MachinePartsText { get => machinePartsText; set => machinePartsText = value; }
+    public int MachinePartsPickedUp { get => machinePartsPickedUp; set => machinePartsPickedUp = value; }
 
     private void Awake()
     {
@@ -49,10 +52,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (powerUpText.text != "")
-        {
-            StartCoroutine(WaitToDisableUI(2));
-        }
+        if (powerUpText.text != "") StartCoroutine(WaitToDisableUI(2));
+        machinePartsText.text = $"{machinePartsPickedUp}/2 machine parts collected";
         EventQueueHandler();
         //if (_gameOver)
         //{
@@ -86,13 +87,16 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
-        _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
         if (playerSpawner == null)
         {
             playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
         }
-        _camera.GetComponent<CameraFollow>().enabled = true;
-        _playerInstance.transform.position = playerSpawner.position;
+        if(_playerInstance != null)
+        {
+            _camera.GetComponent<CameraFollow>().enabled = true;
+            _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
+            _playerInstance.transform.position = playerSpawner.position;
+        }
     }
     public void GameWin()
     {
@@ -104,7 +108,7 @@ public class GameManager : MonoBehaviour
         _gameOver = true;
         if (SceneManager.GetActiveScene().name != "Tutorial LvL 1")
         {
-            Invoke("reloadScene", respawnCD);
+            Invoke("ReloadScene", respawnCD);
         }
         else
         {

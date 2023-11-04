@@ -22,6 +22,12 @@ public class PlayerActions : MonoBehaviour, IComand
         _comboCounter = 0;
         _currentReleaseTime = _releaseTime;
     }
+
+    public void WPSpecialAttackExecute()
+    {
+        _playerController.PlayerStats.Weapon.GetComponent<Weapon>().WeaponSpecialAttack();
+    }
+
     public void Execute()
     {
         //Debug.Log($"t = {t}");
@@ -187,6 +193,7 @@ public class PlayerActions : MonoBehaviour, IComand
                     _playerController.IsSpecial = true;
                     if (_playerController.PlayerStats.Weapon.CompareTag("Blade"))
                     {
+                        //_playerController.PlayerStats.Weapon.GetComponent<Weapon>().EspecialExecute();
                         _playerController.Animations.SpecialAttackAnimation();
                     }
                     if (_playerController.PlayerStats.Weapon.CompareTag("Claimore"))

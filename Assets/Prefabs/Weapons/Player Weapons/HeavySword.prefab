@@ -111,8 +111,7 @@ MonoBehaviour:
   _areaStats: {fileID: 11400000, guid: e820d32f221547149953958c9742cc17, type: 2}
   _espAreaStats: {fileID: 11400000, guid: bbfc985719a2be647b93ecec08d557d8, type: 2}
   _player: {fileID: 4774485287248600448, guid: c1e8be90a266ea64bb358954e84a7830, type: 3}
-  specialOjcVfx: {fileID: 7460175318255380556, guid: 10ef2ee1814c9c24d852d94835c505ea,
-    type: 3}
+  specialAttackVFXGO: {fileID: 0}
 --- !u!1001 &66268556780967985
 PrefabInstance:
   m_ObjectHideFlags: 0

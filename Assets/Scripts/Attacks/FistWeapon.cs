@@ -2,7 +2,7 @@
 
 public class FistWeapon : BladeWeapon
 {
-    public override void EspecialExecute()
+    public override void WeaponSpecialAttack()
     {
         if (currentDurability > 0)
         {

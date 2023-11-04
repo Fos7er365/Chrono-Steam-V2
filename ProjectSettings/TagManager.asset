@@ -32,6 +32,11 @@ TagManager:
   - Fadeable_Wall
   - Parkour_Room
   - Power_Up_UI
+  - Turret
+  - StaticEnemy
+  - Machine Part
+  - Machine_Parts_UI
+  - Ground
   layers:
   - Default
   - TransparentFX

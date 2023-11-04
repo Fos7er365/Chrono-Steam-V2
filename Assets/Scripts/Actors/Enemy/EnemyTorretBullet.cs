@@ -2,22 +2,21 @@
 
 public class EnemyTorretBullet : MonoBehaviour
 {
-    public float bulletDamage = 20;
-    private void Start()
-    {
-        Physics.IgnoreLayerCollision(10, 12);
-    }
+    [SerializeField] float speed;
+    [SerializeField] float LifeTime;
+    [SerializeField] float _damage;
+    float _distance;
     void Update()
     {
-        transform.Translate(0.02f, 0, 0);
-        Destroy(gameObject, 3f);
+        var realSpeed = speed * Time.deltaTime;
+        transform.Translate(0, 0, realSpeed);
+        Destroy(gameObject, LifeTime);
     }
-
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(bulletDamage);
+            other.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(_damage);
             Destroy(gameObject);
         }
     }

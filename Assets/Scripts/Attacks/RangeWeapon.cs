@@ -58,7 +58,7 @@ public class RangeWeapon : Weapon
         _currentCD = _weaponStats.CoolDown;
     }
 
-    public override void EspecialExecute()
+    public override void WeaponSpecialAttack()
     {
         #region debug comprobation
         //Debug.Log("Entered in Heavy Weapon SE");

@@ -96,18 +96,16 @@ public class Player_Controller : MonoBehaviour, ILive
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.PlayerInstance = this.gameObject;
         weaponsUIICons = GameObject.Find("Weapons_UI").gameObject.GetComponent<UIIconsManager>();
         // _playerStats.SpawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawnpoint").transform;
         hitCounter = GameObject.FindGameObjectWithTag("hitCounter").GetComponent<HitCounter>();
         _life_Controller.Dead.AddListener(GameManager.Instance.GameOver);
-        GameManager.Instance.PlayerInstance = this.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Is leaving? adasdas: " + _isleaving + Isleaving);
-        Debug.Log("Player Health: " + _life_Controller.CurrentLife);
         _animations.MovingAnimation(_isMoving);
         _animations.Moving_X_YAnimation(_rb.velocity.x, _rb.velocity.z);
         if (!Life_Controller.isDead)
@@ -307,7 +305,7 @@ public class Player_Controller : MonoBehaviour, ILive
     {
         //hacer que se aplique a todas las armas
         if (_playerStats.Weapon != null)
-            _playerStats.Weapon.GetComponent<Weapon>().EspecialExecute();
+            _playerStats.Weapon.GetComponent<Weapon>().WeaponSpecialAttack();
     }
     // funcion para actiar particulas desde una animacion
     public void playParticle(GameObject particle)

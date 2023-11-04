@@ -12,9 +12,9 @@ public class Weapon : MonoBehaviour, IComand
     protected float _currentCD;
     protected internal int currentDurability;
     public bool drawGizmos;
-    private bool isDrop;
-    private string weaponTag;
-    private Rigidbody _rb;
+    bool isDrop;
+    string weaponTag;
+    Rigidbody _rb;
     Animator _wpAnimator;
     protected HitCounter hitCounter;
 
@@ -43,10 +43,8 @@ public class Weapon : MonoBehaviour, IComand
         Debug.Log($"Hice {_weaponStats.AttDamage} de daño con {name} a rango melee de distancia");
     }
 
-    public virtual void EspecialExecute()
+    public virtual void WeaponSpecialAttack()
     {
-        // TODO Provisorio: Moví bloque de código de SpecialExecute aca
-
     }
     public virtual void CoolDown()
     {

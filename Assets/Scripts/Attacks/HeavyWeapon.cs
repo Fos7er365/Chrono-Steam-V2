@@ -29,7 +29,7 @@ After:
         //}
         #endregion
     }
-    public override void EspecialExecute()
+    public override void WeaponSpecialAttack()
     {
 
         //Debug.Log("Entered in Heavy Weapon SE");

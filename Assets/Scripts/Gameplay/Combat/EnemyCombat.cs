@@ -28,7 +28,9 @@ public class EnemyCombat : Combat
         if (gameObject.TryGetComponent<BossAI>(out var bossAI)) enemyAnim.AttackAnimation();
         else
         {
-            Vector3.RotateTowards(transform.position, GameManager.Instance.PlayerInstance.transform.position, 2f, 1f);
+            Debug.Log("Enemy attack player aaa");
+            transform.LookAt(GameManager.Instance.PlayerInstance.transform.position);
+            //Vector3.RotateTowards(transform.position, GameManager.Instance.PlayerInstance.transform.position, 2f, 1f);
             enemyModel.Animations.AttackAnimation();
         }
     }

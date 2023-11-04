@@ -2,7 +2,7 @@
 
 public class SpearWeapon : BladeWeapon
 {
-    public override void EspecialExecute()
+    public override void WeaponSpecialAttack()
 
     /* Unmerged change from project 'Assembly-CSharp.Player'
     Before:

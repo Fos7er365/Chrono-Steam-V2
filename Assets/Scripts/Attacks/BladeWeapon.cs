@@ -33,11 +33,47 @@ public class BladeWeapon : Weapon, IAreaAttack
         _currentCD = _weaponStats.CoolDown;
         //Debug.Log($"Hice {_weaponStats.AttDamage} de daño con {name} a rango melee de distancia");
     }
-    public override void EspecialExecute()
+    public override void WeaponSpecialAttack()
     {
-        //Debug.Log("Entered in Heavy Weapon SE");
+
+        //if (currentDurability > 0)
+        //{
+        //    currentDurability -= WeaponStats.DurabilityDecrease;
+        //    for (int i = 0; i < espParticleSystems.Count; i++)
+        //    {
+        //        #region debugcomprobation
+        //        // Debug.Log("Entered in SPS for");
+
+        //        /*if (EspParticleSystems == null) Debug.Log("Special Particle System is null!");
+        //        else Debug.Log("Special Particle System not null");*/
+        //        #endregion
+        //        espParticleSystems[i].Play();
+        //    }
+
+        //    Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward * _espAreaStats.MaxDistance, _espAreaStats.MaxAmplitude);
+        //    for (int i = Enemys.Length - 1; i >= 0; i--)
+        //    {
+        //        if (Enemys[i].gameObject != null)
+        //        {
+        //            if (Enemys[i].gameObject.CompareTag("Enemy"))
+        //            {
+        //                if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
+        //                {
+        //                    hitCounter.AddHitCounter();
+        //                    FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
+        //                }
+
+        //                Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
+
+        //            }
+        //        }
+        //    }
+        //    _currentEspExeCd = 0;
+        //}
+        Debug.Log("Entered in Heavy Weapon SE");
         if (currentDurability > 0)
         {
+            var spVFXGOChilds = GetComponentsInChildren<ParticleSystem>();
             currentDurability -= WeaponStats.DurabilityDecrease;
             for (int i = 0; i < espParticleSystems.Count; i++)
             {
@@ -80,22 +116,51 @@ public class BladeWeapon : Weapon, IAreaAttack
         {
             if (enemies[i].gameObject != null)
             {
-                if (enemies[i].gameObject.CompareTag("Enemy"))
+                if (enemies[i].gameObject.CompareTag("Enemy") || enemies[i].gameObject.CompareTag("Turret"))
                 {
-                    if (hitCounter != null && !enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
-                    {
-                        hitCounter.AddHitCounter();
-                        FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
-                    }
-                    else
-                        return;
+                    CheckHit("Enemy", enemies[i]);
+                    CheckHit("Turret", enemies[i]);
+                    //    if (hitCounter != null && !enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
+                    //    {
+                    //        hitCounter.AddHitCounter();
+                    //        FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
+                    //    }
+                    //    else
+                    //        return;
 
-                    enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.AttDamage);
+                    //    enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.AttDamage);
 
                 }
+            
+             
             }
         }
     }
+
+    void CheckHit(string enemyTypeTag, Collider enemyColl)
+    {
+        HealthController hpController = new HealthController(0);
+        if (enemyTypeTag == "Turret" && enemyColl.gameObject.TryGetComponent<Turret>(out Turret coll))
+        {
+            hpController = coll.EnemyHealthController;
+        }
+        else if (enemyTypeTag == "Enemy" && enemyColl.gameObject.TryGetComponent<Enemy>(out Enemy turretColl))
+        {
+            hpController = turretColl.EnemyHealthController;
+        }
+
+        if (hitCounter != null && !hpController.isDead)
+        {
+            hitCounter.AddHitCounter();
+            FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
+        }
+        else
+            return;
+
+        hpController.GetDamage(_weaponStats.AttDamage);
+
+    }
+
     private void OnDrawGizmos()
     {
         if (drawGizmos)

@@ -99967,6 +99967,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.33333334
+    functionName: DestroyParticle
+    data: 
+    objectReferenceParameter: {fileID: 8063850961999099038, guid: 54e8dfa215f25ca4c9ad926eef7e0c67,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.36666667
+    functionName: DestroyParticle
+    data: 
+    objectReferenceParameter: {fileID: 4492856552915622007, guid: fb763ab4bf98fe94889e6e00934c493f,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.1
     functionName: OnAttack
     data: 
