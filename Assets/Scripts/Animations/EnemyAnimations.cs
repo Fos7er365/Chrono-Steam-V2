@@ -2,13 +2,11 @@
 
 public class EnemyAnimations : MonoBehaviour, IEntityAnimations
 {
-    [SerializeField] Animator enemyAnimator;
+    [SerializeField] protected Animator enemyAnimator;
 
-    private void Start()
+    void Awake()
     {
-
         enemyAnimator = GetComponent<Animator>();
-
     }
 
     public void IdleAnimation()

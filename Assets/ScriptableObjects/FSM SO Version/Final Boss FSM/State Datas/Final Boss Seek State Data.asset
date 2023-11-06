@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c1870fa906f094587845f9605ea44e, type: 3}
+  m_Name: Final Boss Seek State Data
+  m_EditorClassIdentifier: 
+  state: {fileID: 11400000, guid: e9244c78c92580c4aa05792e57b81e68, type: 2}
+  stateConditions:
+  - {fileID: 11400000, guid: fb67914d591ab0349a0d8981d2361e37, type: 2}
+  - {fileID: 11400000, guid: 880ea440e026d594c90e2bf965d05af1, type: 2}
+  - {fileID: 11400000, guid: 4fe1430152d8163419056367681eaf7a, type: 2}
+  exitStates:
+  - {fileID: 11400000, guid: 42a25d9803fa8a6429b3761ee6d88336, type: 2}
+  - {fileID: 11400000, guid: fcafc013e92fdca47a1db9fbd98ff196, type: 2}
+  - {fileID: 11400000, guid: 9a5f0cd8f85478046bdbc0e961b579bf, type: 2}

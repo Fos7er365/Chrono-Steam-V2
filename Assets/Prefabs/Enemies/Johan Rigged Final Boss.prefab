@@ -1710,7 +1710,6 @@ GameObject:
   - component: {fileID: 191036486516740912}
   - component: {fileID: 1350850193248959367}
   - component: {fileID: 5735233844816866120}
-  - component: {fileID: 8285297109935645659}
   - component: {fileID: 848876838803840821}
   - component: {fileID: 7756476714267303487}
   - component: {fileID: 7657478524199421629}
@@ -1866,24 +1865,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 7290190333845701495}
---- !u!114 &8285297109935645659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4214023961630010119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae532fc28b49bc4fb4780f57ce5660a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  isDead: 0
-  particleTransform: {fileID: 0}
-  particleSystems: []
-  bodyParts: []
-  timeMachineGO: {fileID: 0}
 --- !u!114 &848876838803840821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,17 +1901,9 @@ MonoBehaviour:
   particleTransform: {fileID: 4484540842133637721, guid: 8ec8d44c9931c8242b531222eee11ba1,
     type: 3}
   particleSystems: []
-  bodyParts:
-  - {fileID: 4139785091680480698, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480696, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480646, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480644, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480642, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480640, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480654, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480652, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
-  - {fileID: 4139785091680480650, guid: 8ec8d44c9931c8242b531222eee11ba1, type: 3}
+  bodyParts: []
   timeMachineGO: {fileID: 0}
+  machinePartSpawnPositionGO: {fileID: 0}
 --- !u!114 &7657478524199421629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1992,7 +1965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultAttackTime: 3
   fsmInitialState: {fileID: 11400000, guid: 6011f74ea5bb05645826312a24703662, type: 2}
-  fsmConditionsStats: {fileID: 11400000, guid: 7d1d17dd26f6a2f4d9d54fca8057b9a6, type: 2}
+  fsmConditionsStats: {fileID: 11400000, guid: 176db1ed639ccae48b8d6b88aa38ed62, type: 2}
 --- !u!114 &4109460899028903770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2433,19 +2406,6 @@ Transform:
   m_Father: {fileID: 8121223514174839296}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1946520159322862797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6637319385456393601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 664b47266cecdc040a787bc81b2dbe75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossHeadGO: {fileID: 1946520160430744017}
 --- !u!1 &5907887333959701810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2686,6 +2646,19 @@ Transform:
   m_Father: {fileID: 2525905348085483621}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1946520159322862797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637319385456393601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664b47266cecdc040a787bc81b2dbe75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHeadGO: {fileID: 1946520160430744017}
 --- !u!1 &6724127246610797499
 GameObject:
   m_ObjectHideFlags: 0

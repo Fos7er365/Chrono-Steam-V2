@@ -15,8 +15,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float maxAttackCooldown = 1.25f;
     float attackCDTimer = 0f;
 
-
-
     //
 
     public virtual void Awake()
@@ -32,10 +30,7 @@ public class EnemyAI : MonoBehaviour
 
     public virtual void Update()
     {
-        if (!enemy.IsDead)
-        {
-            initialNode.Execute();
-        }
+        if (!enemy.IsDead) initialNode.Execute();
     }
     protected virtual void CreateDecisionTree()
     {

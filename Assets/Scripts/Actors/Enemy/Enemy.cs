@@ -10,7 +10,7 @@ public class Enemy : Actor, IEnemy
     Player_Controller _player;
     bool isHurt;
     float timer;
-    bool _itemDroped;
+    bool _itemDropped;
     bool isMachinePartSpawn;
     Roulette roulette;
     [SerializeField] GameObject particleTransform;
@@ -34,7 +34,7 @@ public class Enemy : Actor, IEnemy
         animations = GetComponent<EnemyAnimations>();
 
         roulette = new Roulette();
-        _itemDroped = false;
+        _itemDropped = false;
     }
 
     protected virtual void Start()
@@ -201,10 +201,10 @@ public class Enemy : Actor, IEnemy
                     }
                 }
             }
-            if (!_itemDroped)
+            if (!_itemDropped)
             {
                 ExecuteRoulette();
-                _itemDroped = true;
+                _itemDropped = true;
             }
         }
         //Debug.Log("Enemey died!");
