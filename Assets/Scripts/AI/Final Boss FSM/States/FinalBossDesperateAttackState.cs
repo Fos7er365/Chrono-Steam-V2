@@ -8,57 +8,56 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
     [CreateAssetMenu(fileName = "Desperate Attack State", menuName = "ScriptableObject/FSM States/Final Boss FSM States/Desperate Attack State", order = 0)]
     public class FinalBossDesperateAttackState : State
     {
-        Dictionary<Enemy, FinalBossDesperateAttackData> desperateAttackData = new Dictionary<Enemy, FinalBossDesperateAttackData>();
-
-        private class FinalBossDesperateAttackData
-        {
-            public Enemy bossModel;
-            public BossAI bossAI;
-            public FinalBossFSMStats fsmStats;
-            public FinalBossEnemyCombat bossCombatHandler;
-            public float attackTimer;
-            public FinalBossDesperateAttackData(Enemy model)
-            {
-                bossModel = model;
-                bossAI = model.gameObject.GetComponent<BossAI>();
-                fsmStats = bossAI.FsmConditionsStats as FinalBossFSMStats;
-                bossCombatHandler = bossModel.GetComponent<FinalBossEnemyCombat>();
-                attackTimer = 0;
-            }
-
-        }
-
+        FinalBossFSMStats stats;
+        FinalBossEnemyCombat combat;
+        BossAI ai;
+        FinalBossEnemyAnimations anim;
+        float timer = 0;
         public override void EnterState(Enemy model)
         {
-            if (!desperateAttackData.ContainsKey(model)) desperateAttackData.Add(model, new FinalBossDesperateAttackData(model));
+            Debug.Log("Final Boss FSM DESPERATE attack state ENTER");
+            ai = model.gameObject.GetComponent<BossAI>();
+            stats = ai.FsmConditionsStats as FinalBossFSMStats;
+            combat = model.gameObject.GetComponent<FinalBossEnemyCombat>();
+            anim = model.Animations as FinalBossEnemyAnimations;
         }
 
         public override void ExecuteState(Enemy model)
         {
-            var bossModel = desperateAttackData[model].bossModel;
-            var dist = Vector3.Distance(bossModel.transform.position, GameManager.Instance.PlayerInstance.transform.position);
-            desperateAttackData[model].attackTimer += Time.deltaTime;
 
-            if (desperateAttackData[model].attackTimer < desperateAttackData[model].bossCombatHandler.RegularAttackTimer)
-            {
-                desperateAttackData[model].bossCombatHandler.Attack();
-                CheckTransitionToSeekState(dist, bossModel.Stats.AttackRange,
-                    desperateAttackData[model].fsmStats.IsInAttackRange, false);
-            }
+            Debug.Log("Final Boss FSM DESPERATE attack state EXECUTE");
+            var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
+            timer += Time.deltaTime;
+            if (timer <= combat.BlockAttacksTimer)
+                combat.DesperateAttack();
             else
             {
-                desperateAttackData[model].attackTimer = 0;
+                CheckTransitionToSeek(dist, model);
+                CheckTransitionToSummonAttack(model);
             }
-
         }
 
         public override void ExitState(Enemy model)
         {
-            desperateAttackData.Remove(model);
+            Debug.Log("Final Boss FSM DESPERATE attack state EXIT");
         }
-        void CheckTransitionToSeekState(float distance, float attackRange, bool isTransition, bool transitionvalue)
+        void CheckTransitionToSeek(float dist, Enemy model)
         {
-            if (distance > attackRange) isTransition = transitionvalue;
+            if (dist > model.Stats.AttackRange)
+            {
+                stats.IsInAttackRange = false;
+                timer = 0;
+            }
         }
+        void CheckTransitionToSummonAttack(Enemy model)
+        {
+            if (model.EnemyHealthController.CurrentLife < combat.RegularAttackThreshold)
+            {
+                stats.IsBlocking = false;
+                stats.IsBelowAttackHealth = true;
+                timer = 0;
+            }
+        }
+
     }
 }

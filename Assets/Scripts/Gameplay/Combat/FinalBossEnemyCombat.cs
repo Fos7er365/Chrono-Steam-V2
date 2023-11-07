@@ -38,6 +38,7 @@ public class FinalBossEnemyCombat : EnemyCombat
     public override void Attack()
     {
         bossEnemyAIHandler.BossObstaclAavoidanceSB.move = false;
+        transform.LookAt(GameManager.Instance.PlayerInstance.transform.position);
         bossEnemyAIHandler.CurrentAttackTime += 1 * Time.deltaTime;
         if(bossEnemyAIHandler.CurrentAttackTime > regularAttackCooldown)
         {
@@ -48,16 +49,18 @@ public class FinalBossEnemyCombat : EnemyCombat
     }
     public void SummonAttack()
     {
+        enemyModel.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        finalBossEnemyAnim.SummonAttackAnimation();
         foreach (var boid in boidsSpawnPositions)
         {
-            if (boidsCount >= boidsSpawnPositions.Length)
+            if (boidsCount >= boidsSpawnPositions.Length - 1)
             {
                 Debug.Log("Enough boids spawned");
                 canSummon = false;
                 return;
             }
             Debug.Log("Boid instanced");
-            Instantiate(boidsPrefabs[Random.Range(0, boidsPrefabs.Length)], boid.position, Quaternion.identity);
+            Instantiate(boidsPrefabs[Random.Range(0, boidsPrefabs.Length - 1)], boid.position, Quaternion.identity);
             boidsCount++;
         }
     }
@@ -77,12 +80,10 @@ public class FinalBossEnemyCombat : EnemyCombat
     {
         currentBlockTime += Time.deltaTime;
         finalBossEnemyAnim.BlockAttacksAnimation(true);
-        enemyModel.EnemyHealthController.GetHeal(regenerationAmount);
-        if(currentBlockTime > blockAttacksCooldown)
-        {
-            finalBossEnemyAnim.BlockAttacksAnimation(false);
-            currentBlockTime = 0;
-        }
+        enemyModel.EnemyHealthController.CurrentLife += regenerationAmount;
+        if (enemyModel.EnemyHealthController.CurrentLife >= enemyModel.Stats.MaxHealth)
+            enemyModel.EnemyHealthController.CurrentLife = enemyModel.Stats.MaxHealth * .6f;
+        Debug.Log("curr health: " + enemyModel.EnemyHealthController.CurrentLife);
     }
 
     #region Regular Attack Roulette Wheel

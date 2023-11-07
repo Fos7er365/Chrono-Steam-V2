@@ -8,63 +8,74 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
     [CreateAssetMenu(fileName = "Block Attack State", menuName = "ScriptableObject/FSM States/Final Boss FSM States/Block Attack State", order = 0)]
     public class FinalBossBlockState : State
     {
-        Dictionary<Enemy, FinalBossBlockData> blockData = new Dictionary<Enemy, FinalBossBlockData>();
-
-        private class FinalBossBlockData
-        {
-            public Enemy bossModel;
-            public BossAI bossAI;
-            public FinalBossFSMStats fsmStats;
-            public FinalBossEnemyCombat combatHandler;
-            public float blockStateTimer;
-            public FinalBossBlockData(Enemy model)
-            {
-                bossModel = model;
-                bossAI = model.gameObject.GetComponent<BossAI>();
-                fsmStats = bossAI.FsmConditionsStats as FinalBossFSMStats;
-                combatHandler = bossModel.GetComponent<FinalBossEnemyCombat>();
-                blockStateTimer = 0;
-            }
-
-        }
+        FinalBossFSMStats stats;
+        FinalBossEnemyCombat combat;
+        BossAI ai;
+        FinalBossEnemyAnimations anim;
+        float timer = 0;
 
         public override void EnterState(Enemy model)
         {
-            if (!blockData.ContainsKey(model)) blockData.Add(model, new FinalBossBlockData(model));
+            Debug.Log("Final Boss FSM BLOCK state ENTER");
+            ai = model.gameObject.GetComponent<BossAI>();
+            stats = ai.FsmConditionsStats as FinalBossFSMStats;
+            combat = model.gameObject.GetComponent<FinalBossEnemyCombat>();
+            anim = model.Animations as FinalBossEnemyAnimations;
         }
 
         public override void ExecuteState(Enemy model)
         {
-            var bossModel = blockData[model].bossModel;
-            var dist = Vector3.Distance(bossModel.transform.position, GameManager.Instance.PlayerInstance.transform.position);
+            Debug.Log("Final Boss FSM BLOCK state EXECUTE");
+            var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
+            timer += Time.deltaTime;
+            if (timer <= combat.BlockAttacksTimer)
+            {
+                Debug.Log("Estoy bloqueando ataques");
+                combat.BlockAttacks();
+            }
+            else
+            {
+                Debug.Log("Puedo salir de block state");
+                anim.BlockAttacksAnimation(false);
+                stats.IsBlocking = false;
+                CheckTransitionToSeek(dist, model);
+                CheckTransitionToRegularAttack(model);
+                CheckTransitionToSummonAttack(model);
 
-            blockData[model].combatHandler.BlockAttacks();
-
-            CheckTransitionToSeekState(dist, bossModel.Stats.AttackRange,
-                blockData[model].fsmStats.IsInAttackRange, false);
-            CheckTransitionToAttackStateHandler(blockData[model].bossModel);
-            CheckTransitionToSummonAttackStateHandler(blockData[model].bossModel);
-            
+            }
         }
 
         public override void ExitState(Enemy model)
         {
-            blockData.Remove(model);
+            Debug.Log("Final Boss FSM BLOCK state EXIT");
         }
-        void CheckTransitionToSeekState(float distance, float attackRange, bool isTransition, bool transitionvalue)
+        void CheckTransitionToRegularAttack(Enemy model)
         {
-            if (distance > attackRange) isTransition = transitionvalue;
-        }
-        void CheckTransitionToAttackStateHandler(Enemy model)
-        {
-            if (model.EnemyHealthController.CurrentLife > blockData[model].combatHandler.RegularAttackThreshold)
-                blockData[model].fsmStats.IsBelowAttackHealth = false;
+            if (model.EnemyHealthController.CurrentLife > combat.RegularAttackThreshold)
+            {
+                stats.IsBlocking = false;
+                stats.IsBelowAttackHealth = false;
+                timer = 0;
+            }
         }
 
-        void CheckTransitionToSummonAttackStateHandler(Enemy model)
+        void CheckTransitionToSummonAttack(Enemy model)
         {
-            if (model.EnemyHealthController.CurrentLife > blockData[model].combatHandler.RegularAttackThreshold)
-                blockData[model].fsmStats.IsBelowAttackHealth = true;
+            if (model.EnemyHealthController.CurrentLife < combat.RegularAttackThreshold)
+            {
+                stats.IsBlocking = false;
+                stats.IsBelowAttackHealth = true;
+                timer = 0;
+            }
+        }
+
+        void CheckTransitionToSeek(float dist, Enemy model)
+        {
+            if (dist > model.Stats.AttackRange)
+            {
+                stats.IsInAttackRange = false;
+                timer = 0;
+            }
         }
 
     }

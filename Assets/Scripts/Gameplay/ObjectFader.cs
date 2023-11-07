@@ -19,7 +19,7 @@ public class ObjectFader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Fading? " + isFading);
+        //Debug.Log("Fading? " + isFading);
         if (isFading) FadeObject();
         else ResetObjectFading();
     }

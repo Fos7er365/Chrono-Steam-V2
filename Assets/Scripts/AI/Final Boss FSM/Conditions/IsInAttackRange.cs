@@ -10,7 +10,7 @@ namespace _Main.Scripts.FSM_SO_VERSION.Conditions.BossConditions
         public override bool CompleteCondition(Enemy model)
         {
             var conditions = model.gameObject.GetComponent<BossAI>().FsmConditionsStats as FinalBossFSMStats;
-            return conditions.CanRunFSM;
+            return conditions.IsInAttackRange;
 
         }
     }

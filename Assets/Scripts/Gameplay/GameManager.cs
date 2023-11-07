@@ -39,15 +39,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
         //singleton
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            eventQueue = new List<UnityEvent>();
         }
 
-        instance = this;
-        eventQueue = new List<UnityEvent>();
     }
 
     void Update()
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
         {
             playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
         }
-        if(_playerInstance != null)
+        if (_playerInstance != null)
         {
             _camera.GetComponent<CameraFollow>().enabled = true;
             _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
@@ -108,7 +111,7 @@ public class GameManager : MonoBehaviour
         _gameOver = true;
         if (SceneManager.GetActiveScene().name != "Tutorial LvL 1")
         {
-            Invoke("ReloadScene", respawnCD);
+            Invoke("reloadScene", respawnCD);
         }
         else
         {
@@ -124,7 +127,7 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    public void ReloadScene()
+    public void reloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerInstance.GetComponent<Player_Controller>().Animations.Revive();

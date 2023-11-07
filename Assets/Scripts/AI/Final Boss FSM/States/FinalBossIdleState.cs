@@ -8,35 +8,32 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
     [CreateAssetMenu(fileName = "Idle State", menuName = "ScriptableObject/FSM States/Final Boss FSM States/Idle State", order = 0)]
     public class FinalBossIdleState : State
     {
-        Dictionary<Enemy, FinalBossIdleData> idleData = new Dictionary<Enemy, FinalBossIdleData>();
 
-        private class FinalBossIdleData
-        {
-            public Enemy bossModel;
-            public BossAI bossAI;
-            public FinalBossFSMStats fsmStats;
-            public FinalBossIdleData(Enemy model)
-            {
-                bossModel = model;
-                bossAI = model.gameObject.GetComponent<BossAI>();
-                fsmStats = bossAI.FsmConditionsStats as FinalBossFSMStats;
-            }
-
-        }
+        FinalBossFSMStats stats;
+        FinalBossEnemyCombat combat;
+        BossAI ai;
 
         public override void EnterState(Enemy model)
         {
-            if (!idleData.ContainsKey(model)) idleData.Add(model, new FinalBossIdleData(model));
-            idleData[model].fsmStats.CanRunFSM = true;
+            Debug.Log("Final Boss FSM IDLE state ENTER");
+            ai = model.gameObject.GetComponent<BossAI>();
+            stats = ai.FsmConditionsStats as FinalBossFSMStats;
+            combat = model.gameObject.GetComponent<FinalBossEnemyCombat>();
         }
 
         public override void ExecuteState(Enemy model)
         {
+            Debug.Log("Final Boss FSM IDLE state EXECUTE");
+            var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
+            if(dist > model.Stats.AttackRange)
+            {
+                stats.IsInAttackRange = false;
+            }
         }
 
         public override void ExitState(Enemy model)
         {
-            idleData.Remove(model);
+            Debug.Log("Final Boss FSM IDLE state EXIT");
         }
     }
 }

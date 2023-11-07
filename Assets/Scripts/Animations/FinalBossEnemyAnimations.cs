@@ -8,6 +8,10 @@ public class FinalBossEnemyAnimations : EnemyAnimations
     {
             enemyAnimator.SetTrigger("onSummonAttack");
     }
+    public void DesperateAttackTrigger()
+    {
+        enemyAnimator.SetTrigger("onDesperateAttackTrigger");
+    }
     public void DesperateAttackAnimation1()
     {
         enemyAnimator.SetTrigger("onDesperateAttackAnimation1");

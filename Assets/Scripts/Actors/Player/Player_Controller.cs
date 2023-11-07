@@ -231,7 +231,7 @@ public class Player_Controller : MonoBehaviour, ILive
         if ((_inputs.xMovement() != 0) && (!Stunned) || (_inputs.yMovement() != 0) && (!Stunned))
         {
             float prevVelocityY = _rb.velocity.y;
-            Debug.Log("X movement: " + _inputs.xMovement() + "Y movement: " + _inputs.yMovement());
+            //Debug.Log("X movement: " + _inputs.xMovement() + "Y movement: " + _inputs.yMovement());
             _rb.velocity = new Vector3(_inputs.xMovement() * _playerStats.Speed * Time.deltaTime, prevVelocityY,
                                        _inputs.yMovement() * _playerStats.Speed * Time.deltaTime);
             //_animations.RunningAnim();

@@ -27,7 +27,7 @@ public class PlayerFaderChecker : MonoBehaviour
             //Collider[] coll = Physics.OverlapSphere(playerReference.transform.position, fadingDistance.z);
             if (coll.Length > 0)
             {
-                Debug.Log("Hay objetos para transparentar");
+                //Debug.Log("Hay objetos para transparentar");
                 foreach (var h in coll)
                 {
                     if (h.gameObject.tag == "Fadeable_Wall")

@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: {fileID: 11400000, guid: a5e5341e12aa5d241b1ae2ad2835d0d7, type: 2}
   stateConditions:
-  - {fileID: 11400000, guid: 31449f5899cfed24c915c7e5169f02bd, type: 2}
-  - {fileID: 11400000, guid: f7759daa1cce5f840a510eee691995d7, type: 2}
   - {fileID: 11400000, guid: 873cf948ebceaa741b62458d118243a2, type: 2}
+  - {fileID: 11400000, guid: f7759daa1cce5f840a510eee691995d7, type: 2}
   exitStates:
-  - {fileID: 11400000, guid: 8bcf60499a5ab6b42ad454314a613933, type: 2}
-  - {fileID: 11400000, guid: 56c748a6a2b3bea468fd15445bf21885, type: 2}
   - {fileID: 11400000, guid: fcafc013e92fdca47a1db9fbd98ff196, type: 2}
+  - {fileID: 11400000, guid: 56c748a6a2b3bea468fd15445bf21885, type: 2}

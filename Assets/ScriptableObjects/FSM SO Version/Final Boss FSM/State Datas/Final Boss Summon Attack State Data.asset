@@ -17,7 +17,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 31449f5899cfed24c915c7e5169f02bd, type: 2}
   - {fileID: 11400000, guid: f7759daa1cce5f840a510eee691995d7, type: 2}
   - {fileID: 11400000, guid: b53ada2c66b76184db4be0f601cfb0f1, type: 2}
+  - {fileID: 11400000, guid: 528fe131d747f014da2bf2acf0cfbe4c, type: 2}
   exitStates:
   - {fileID: 11400000, guid: 8bcf60499a5ab6b42ad454314a613933, type: 2}
   - {fileID: 11400000, guid: 56c748a6a2b3bea468fd15445bf21885, type: 2}
   - {fileID: 11400000, guid: 9a5f0cd8f85478046bdbc0e961b579bf, type: 2}
+  - {fileID: 11400000, guid: 42a25d9803fa8a6429b3761ee6d88336, type: 2}

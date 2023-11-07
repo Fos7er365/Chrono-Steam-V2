@@ -8,69 +8,65 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
     [CreateAssetMenu(fileName = "Seek State", menuName = "ScriptableObject/FSM States/Final Boss FSM States/Seek State", order = 0)]
     public class FinalBossSeekState : State
     {
-        Dictionary<Enemy, FinalBossSeekData> seekData = new Dictionary<Enemy, FinalBossSeekData>();
+        FinalBossFSMStats stats;
+        FinalBossEnemyCombat combat;
+        BossAI ai;
+        FinalBossEnemyAnimations anim;
 
-        private class FinalBossSeekData
-        {
-            public Enemy bossModel;
-            public BossAI bossAI;
-            public FinalBossFSMStats fsmStats;
-            public FinalBossEnemyCombat combatHandler;
-            public FinalBossSeekData(Enemy model)
-            {
-                bossModel = model;
-                bossAI = model.gameObject.GetComponent<BossAI>();
-                fsmStats = bossAI.FsmConditionsStats as FinalBossFSMStats;
-                combatHandler = bossModel.GetComponent<FinalBossEnemyCombat>();
-            }
-
-        }
 
         public override void EnterState(Enemy model)
         {
-            if (!seekData.ContainsKey(model)) seekData.Add(model, new FinalBossSeekData(model));
-
+            Debug.Log("Final Boss FSM SEEK state ENTER");
+            ai = model.gameObject.GetComponent<BossAI>();
+            stats = ai.FsmConditionsStats as FinalBossFSMStats;
+            combat = model.gameObject.GetComponent<FinalBossEnemyCombat>();
+            anim = model.Animations as FinalBossEnemyAnimations;
         }
 
         public override void ExecuteState(Enemy model)
         {
-            var dist = Vector3.Distance(seekData[model].bossModel.transform.position, GameManager.Instance.PlayerInstance.transform.position);
-            SeekBehaviour(seekData[model].bossAI);
-            if (dist < seekData[model].bossModel.Stats.AttackRange)
+            Debug.Log("Final Boss FSM SEEK state EXECUTE");
+            ai.BossSeekSB.move = true;
+            anim.MovingAnimation(true);
+            var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
+            if (dist < model.Stats.AttackRange)
             {
-                CheckTransitionToAttackStateHandler(seekData[model].bossModel);
-                CheckTransitionToSummonAttackStateHandler(seekData[model].bossModel);
-                CheckTransitionToDesperateAttackStateHandler(seekData[model].bossModel);
+                stats.IsInAttackRange = true;
+                ai.BossSeekSB.move = false;
+                anim.MovingAnimation(false); 
+                if (model.EnemyHealthController.CurrentLife > combat.RegularAttackThreshold)
+                    stats.IsBelowAttackHealth = false;
+                else if (model.EnemyHealthController.CurrentLife <= combat.SummonAttackThreshold)
+                    stats.IsBelowSummonAttackHealth = true;
+                else if (model.EnemyHealthController.CurrentLife <= combat.RegularAttackThreshold && model.EnemyHealthController.CurrentLife > combat.SummonAttackThreshold)
+                    stats.IsBelowAttackHealth = true;
+
+                //HandleTransitionToDesperateAttackState(model);
+                //HandleTransitionToRegularAttackState(model);
+                //HandleTransitionToSummonAttackState(model);
             }
         }
 
         public override void ExitState(Enemy model)
         {
-            seekData.Remove(model);
+            Debug.Log("Final Boss FSM SEEK state EXIT");
         }
 
-        void SeekBehaviour(BossAI ai)
+        void HandleTransitionToRegularAttackState(Enemy model)
         {
-            ai.BossSeekSB.move = true;
+            if (model.EnemyHealthController.CurrentLife > combat.RegularAttackThreshold)
+                stats.IsBelowAttackHealth = false;
         }
 
-        void CheckTransitionToAttackStateHandler(Enemy model)
+        void HandleTransitionToSummonAttackState(Enemy model)
         {
-            if (model.EnemyHealthController.CurrentLife > seekData[model].combatHandler.RegularAttackThreshold)
-                seekData[model].fsmStats.IsBelowAttackHealth = false;
+            if (model.EnemyHealthController.CurrentLife <= combat.RegularAttackThreshold && model.EnemyHealthController.CurrentLife > combat.SummonAttackThreshold)
+                stats.IsBelowAttackHealth = true;
         }
-
-        void CheckTransitionToSummonAttackStateHandler(Enemy model)
+        void HandleTransitionToDesperateAttackState(Enemy model)
         {
-            if (model.EnemyHealthController.CurrentLife < seekData[model].combatHandler.RegularAttackThreshold)
-                seekData[model].fsmStats.IsBelowAttackHealth = true;
+            if (model.EnemyHealthController.CurrentLife < combat.SummonAttackThreshold)
+                stats.IsBelowAttackHealth = true;
         }
-
-        void CheckTransitionToDesperateAttackStateHandler(Enemy model)
-        {
-            if (model.EnemyHealthController.CurrentLife < seekData[model].combatHandler.SummonAttackThreshold)
-                seekData[model].fsmStats.IsBelowSummonAttackHealth = true;
-        }
-
     }
 }

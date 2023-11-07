@@ -22,8 +22,8 @@ public class Boss_UI_Trigger : MonoBehaviour
     void CheckForPlayer()
     {
         Collider[] playerDetectionArea = Physics.OverlapSphere(transform.position, 30, playerReference);
-        Debug.Log("PlayerDetectionArea" + playerDetectionArea.Length);
-        Debug.Log("Player ref layer name" + playerReference);
+        //Debug.Log("PlayerDetectionArea" + playerDetectionArea.Length);
+        //Debug.Log("Player ref layer name" + playerReference);
         if (playerDetectionArea.Length != 0)
         {
             Debug.Log("Player detected, enabling UI");

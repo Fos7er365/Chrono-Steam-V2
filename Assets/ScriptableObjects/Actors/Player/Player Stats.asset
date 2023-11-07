@@ -16,7 +16,7 @@ MonoBehaviour:
   _dashDistance: 5
   _dashDuration: 0.4
   _dashCoolDown: 0.3
-  _maxLife: 200
+  _maxLife: 10
   _abilitiStats: {fileID: 11400000, guid: a1729c6519cbd1646ab33816d940da3e, type: 2}
   _spawnPoint: {fileID: 0}
   _weapon: {fileID: 0}

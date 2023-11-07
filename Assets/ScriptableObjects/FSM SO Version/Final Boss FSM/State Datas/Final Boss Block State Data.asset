@@ -15,8 +15,8 @@ MonoBehaviour:
   state: {fileID: 11400000, guid: db4fcadc6ea11724c978c4e14c07adbb, type: 2}
   stateConditions:
   - {fileID: 11400000, guid: f7759daa1cce5f840a510eee691995d7, type: 2}
-  - {fileID: 11400000, guid: fb67914d591ab0349a0d8981d2361e37, type: 2}
-  - {fileID: 11400000, guid: 880ea440e026d594c90e2bf965d05af1, type: 2}
+  - {fileID: 11400000, guid: 13ef73b87b4e55f489d8848c0ab8baf1, type: 2}
+  - {fileID: 11400000, guid: a5c3eb3d971ebc746b9f49715e156b47, type: 2}
   exitStates:
   - {fileID: 11400000, guid: 56c748a6a2b3bea468fd15445bf21885, type: 2}
   - {fileID: 11400000, guid: 42a25d9803fa8a6429b3761ee6d88336, type: 2}

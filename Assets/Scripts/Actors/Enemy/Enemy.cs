@@ -20,6 +20,7 @@ public class Enemy : Actor, IEnemy
     List<GameObject> bodyParts = new List<GameObject>();
     [SerializeField] GameObject timeMachineGO;
     [SerializeField] GameObject machinePartSpawnPositionGO;
+    Rigidbody enemyRb;
 
     public bool IsDead { get => isDead; set => isDead = value; }
     public bool IsHurt { get => isHurt; set => isHurt = value; }
@@ -27,11 +28,14 @@ public class Enemy : Actor, IEnemy
     public HealthController EnemyHealthController => enemyHealthController;
     public EnemyAnimations Animations => animations;
 
+    public Rigidbody EnemyRb { get => enemyRb; set => enemyRb = value; }
+
     protected virtual void Awake()
     {
         //_life_Controller = new Life_Controller(Stats.MaxHealth);
         enemyHealthController = new HealthController(Stats.LifeRange[Random.Range(0, Stats.LifeRange.Count)]);
         animations = GetComponent<EnemyAnimations>();
+        enemyRb = GetComponent<Rigidbody>();
 
         roulette = new Roulette();
         _itemDropped = false;
@@ -107,23 +111,22 @@ public class Enemy : Actor, IEnemy
         if (!EnemyHealthController.isDead)
         {
             IsHurt = true;
-            if (gameObject.TryGetComponent<BossAI>(out var bossAI))
-            {
-                animations.DamagedAnimation();
-            }
-            else
-            {
-                animations.DamagedAnimation();
-            }
+            if (gameObject.TryGetComponent<BossAI>(out var bossAI)) animations.DamagedAnimation();
+            else animations.DamagedAnimation();
 
+        }
+
+    }
+    void HandlePartSystems()
+    {
+        if(particleSystems.Count > 0)
+        {
             for (int i = 0; i < particleSystems.Count; i++)
             {
                 particleSystems[i].Play();
             }
         }
-
     }
-
     public void PlayParticle(GameObject particle)
     {
         if (particle != null)
@@ -153,6 +156,8 @@ public class Enemy : Actor, IEnemy
     void Die()
     {
 
+        if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
+        if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
         //CheckMachinePartDrop();
         if (gameObject.TryGetComponent<BossAI>(out var bossAI))
         {
@@ -209,9 +214,9 @@ public class Enemy : Actor, IEnemy
         }
         //Debug.Log("Enemey died!");
         IsDead = true;
-        if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
-        if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
-        Destroy(gameObject, 15f);
+        //if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
+        //if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
+        Destroy(gameObject, 5f);
 
     }
     void ExecuteRoulette()
