@@ -20,6 +20,7 @@ public class Enemy : Actor, IEnemy
     List<GameObject> bodyParts = new List<GameObject>();
     [SerializeField] GameObject timeMachineGO;
     [SerializeField] GameObject machinePartSpawnPositionGO;
+    ObstacleAvoidance obsAvoidance;
     Rigidbody enemyRb;
 
     public bool IsDead { get => isDead; set => isDead = value; }
@@ -29,9 +30,11 @@ public class Enemy : Actor, IEnemy
     public EnemyAnimations Animations => animations;
 
     public Rigidbody EnemyRb { get => enemyRb; set => enemyRb = value; }
+    public ObstacleAvoidance ObsAvoidance { get => obsAvoidance; set => obsAvoidance = value; }
 
     protected virtual void Awake()
     {
+        obsAvoidance = GetComponent<ObstacleAvoidance>();
         //_life_Controller = new Life_Controller(Stats.MaxHealth);
         enemyHealthController = new HealthController(Stats.LifeRange[Random.Range(0, Stats.LifeRange.Count)]);
         animations = GetComponent<EnemyAnimations>();

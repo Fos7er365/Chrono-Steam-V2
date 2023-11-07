@@ -10,6 +10,8 @@ public class Loot_Manager : MonoBehaviour
 
     public Dictionary<GameObject, int> CurrentDrops => _currentDrops;
 
+    public Dictionary<GameObject, int> WeaponDrops => _weaponDrops;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +19,8 @@ public class Loot_Manager : MonoBehaviour
         {
             foreach (var r in rates)
             {
-                _weaponDrops.Add(d, r);
-                _currentDrops.Add(d, r);
+                if(!_weaponDrops.ContainsKey(d)) _weaponDrops.Add(d, r);
+                if (! _currentDrops.ContainsKey(d)) _currentDrops.Add(d, r);
             }
         }
         //for (int i = 0; i < drops.Count - 1; i++)

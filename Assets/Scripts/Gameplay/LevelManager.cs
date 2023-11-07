@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     private UnityEvent _bossDying;
     private Enemy _bossInstance;
     TreasureChestsSpawnHandler chestsSpawner;
+    Loot_Manager lootMgr;
 
     [SerializeField]
     private GameObject _elevatorDoor;
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour
         }
 
         chestsSpawner = GetComponent<TreasureChestsSpawnHandler>();
+        lootMgr = GetComponent<Loot_Manager>();
         instance = this;
     }
     private void Start()
@@ -49,8 +51,8 @@ public class LevelManager : MonoBehaviour
         _winRoom.AddListener(allRoomsClear);
         GameManager.Instance.LvlManager = this.gameObject;
         GameManager.Instance.LvlToCharge = NextLVL;
-        
-
+        lootMgr.WeaponDrops.Clear();
+        lootMgr.CurrentDrops.Clear();
     }
     private void Update()
     {
@@ -76,7 +78,7 @@ public class LevelManager : MonoBehaviour
     void HandleElevatorSpawn()
     {
         if (BossDead && _elevatorDoor != null) _elevatorDoor.SetActive(false);
-        //if (SceneManager.GetActiveScene().buildIndex == NextLVL) OnLevelWasLoaded(3);
+        //if (SceneManager.GetActiveScene().buildIndex == NextLVL) SceneManager..OnLevelWasLoaded(NextLVL);
         if (ElevatorDoor == null)
         {
             var elevators = GameObject.FindGameObjectsWithTag("ElevatorDoor");
@@ -102,7 +104,7 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.Instance.ClearRooms++;
             GameManager.Instance.LootManager.AddWeaponToLoot();
-            GameManager.Instance.reloadScene();
+            GameManager.Instance.ReloadScene();
         }
     }
     private void BossDie()

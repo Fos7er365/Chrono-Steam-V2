@@ -19,12 +19,13 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
             stats = ai.FsmConditionsStats as FinalBossFSMStats;
             combat = model.gameObject.GetComponent<FinalBossEnemyCombat>();
             anim = model.Animations as FinalBossEnemyAnimations;
-
+            combat.CanSummon = true;
             combat.SummonAttack();
             var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
             CheckTransitionToSeek(dist, model);
             HandleTransitionToDesperateAttackState(model);
-            stats.IsBlocking = true;
+            stats.IsBlocking = true; 
+            //combat.CanSummon =false;
         }
 
         public override void ExecuteState(Enemy model)

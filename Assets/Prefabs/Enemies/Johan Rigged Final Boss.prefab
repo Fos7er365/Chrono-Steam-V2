@@ -2242,7 +2242,7 @@ GameObject:
   - component: {fileID: 4303724139104386911}
   - component: {fileID: 6108059413903836729}
   - component: {fileID: 4109460899028903770}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Johan Rigged Final Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2408,7 +2408,7 @@ MonoBehaviour:
   myWaypoints: []
   layerObstacle:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 524288
   radius: 2
   move: 0
 --- !u!114 &7756476714267303487
@@ -2455,7 +2455,7 @@ MonoBehaviour:
   regularAttackCooldown: 0.75
   desperateAttackCooldown: 0.25
   blockAttacksCooldown: 0
-  regenerationAmount: 5
+  regenerationAmount: 0.5
   boidsSpawnPositions:
   - {fileID: 3468952184310325234}
   - {fileID: 6355119851341295520}
@@ -2467,6 +2467,10 @@ MonoBehaviour:
   - {fileID: 405126746377060661, guid: 64a885bfa3548114185feaca81ceb220, type: 3}
   - {fileID: 3085455923202097592, guid: 8d9301d3a735aed48b08c8b572790f4a, type: 3}
   - {fileID: 8086288843939779169, guid: 84ebb5bfd6e1d0c44969c96b3e894ff1, type: 3}
+  wpContainerLayer:
+    serializedVersion: 2
+    m_Bits: 262144
+  wpContainerSearchDist: 10
 --- !u!114 &6108059413903836729
 MonoBehaviour:
   m_ObjectHideFlags: 0

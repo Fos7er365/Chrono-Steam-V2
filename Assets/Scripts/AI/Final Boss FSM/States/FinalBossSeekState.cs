@@ -33,13 +33,13 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
             {
                 stats.IsInAttackRange = true;
                 ai.BossSeekSB.move = false;
-                anim.MovingAnimation(false); 
-                if (model.EnemyHealthController.CurrentLife > combat.RegularAttackThreshold)
-                    stats.IsBelowAttackHealth = false;
-                else if (model.EnemyHealthController.CurrentLife <= combat.SummonAttackThreshold)
+                anim.MovingAnimation(false);
+                if (model.EnemyHealthController.CurrentLife <= combat.SummonAttackThreshold)
                     stats.IsBelowSummonAttackHealth = true;
                 else if (model.EnemyHealthController.CurrentLife <= combat.RegularAttackThreshold && model.EnemyHealthController.CurrentLife > combat.SummonAttackThreshold)
                     stats.IsBelowAttackHealth = true;
+                else if(model.EnemyHealthController.CurrentLife > combat.RegularAttackThreshold)
+                    stats.IsBelowAttackHealth = false;
 
                 //HandleTransitionToDesperateAttackState(model);
                 //HandleTransitionToRegularAttackState(model);

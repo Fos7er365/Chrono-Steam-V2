@@ -53,7 +53,7 @@ public class BossAI : MonoBehaviour
 
     void Update()
     {
-        if (!enemyModel.IsDead)
+        if (!enemyModel.IsDead && GameObject.FindWithTag("Player")!= null)
         {
             bossFSM.UpdateState();
             currentAttackTime += 1 * Time.deltaTime;

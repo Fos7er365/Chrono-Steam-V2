@@ -352,7 +352,7 @@ public class Player_Controller : MonoBehaviour, ILive
     }
     private void OnDead()
     {
-
+        _life_Controller.isDead = true;
         _animations.DamagedAnimation();
         _animations.DeathAnimation();
         FindObjectOfType<AudioManager>().Play("PlayerDeath");

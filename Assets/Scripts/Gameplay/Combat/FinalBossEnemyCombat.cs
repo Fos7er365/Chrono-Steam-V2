@@ -10,8 +10,11 @@ public class FinalBossEnemyCombat : EnemyCombat
     [SerializeField] float regenerationAmount;
     [SerializeField] Transform[] boidsSpawnPositions;
     [SerializeField] GameObject[] boidsPrefabs;
+    [SerializeField]LayerMask wpContainerLayer;
+    [SerializeField] float wpContainerSearchDist;
     int boidsCount;
     bool canSummon;
+    GameObject wpContainerGO;
 
     float currentBlockTime = 0;
     FinalBossEnemyAnimations finalBossEnemyAnim;
@@ -27,6 +30,7 @@ public class FinalBossEnemyCombat : EnemyCombat
     public float RegularAttackTimer { get => regularAttackTimer; set => regularAttackTimer = value; }
     public float EnhancedAttackTimer { get => enhancedAttackTimer; set => enhancedAttackTimer = value; }
     public float BlockAttacksTimer { get => blockAttacksTimer; set => blockAttacksTimer = value; }
+    public bool CanSummon { get => canSummon; set => canSummon = value; }
 
     private void Start()
     {
@@ -50,20 +54,41 @@ public class FinalBossEnemyCombat : EnemyCombat
     public void SummonAttack()
     {
         enemyModel.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        finalBossEnemyAnim.SummonAttackAnimation();
-        foreach (var boid in boidsSpawnPositions)
+        CheckWPContainersNearEnemy();
+        //Collider[] coll = Physics.OverlapSphere(transform.position, wpContainerSearchDist, wpContainerLayer);
+        if (wpContainerGO != null && canSummon)
         {
-            if (boidsCount >= boidsSpawnPositions.Length - 1)
+            //wpContainerGO = coll[0].gameObject;
+            finalBossEnemyAnim.SummonAttackAnimation();
+            foreach (var boid in boidsSpawnPositions)
             {
-                Debug.Log("Enough boids spawned");
-                canSummon = false;
-                return;
+                if (boidsCount >= boidsSpawnPositions.Length - 1)
+                {
+                    Debug.Log("Enough boids spawned");
+                    canSummon = false;
+                    return;
+                }
+                Debug.Log("Boid instanced");
+                var boidGO = Instantiate(boidsPrefabs[Random.Range(0, boidsPrefabs.Length - 1)], boid.position, Quaternion.identity);
+                boidGO.gameObject.GetComponent<Enemy>().ObsAvoidance.waypointsContainer = wpContainerGO;
+                
+                boidsCount++;
             }
-            Debug.Log("Boid instanced");
-            Instantiate(boidsPrefabs[Random.Range(0, boidsPrefabs.Length - 1)], boid.position, Quaternion.identity);
-            boidsCount++;
         }
     }
+    void CheckWPContainersNearEnemy()
+    {
+        var go = GameObject.FindGameObjectsWithTag("WaipointContainer");
+        if(go.Length > 0)
+        {
+            foreach (var wp in go)
+            {
+                var dist = Vector3.Distance(transform.position, wp.transform.position);
+                if (dist < wpContainerSearchDist) wpContainerGO = wp.gameObject;
+            }
+        }
+    }
+
     public void DesperateAttack()
     {
         bossEnemyAIHandler.BossObstaclAavoidanceSB.move = false;
@@ -159,5 +184,8 @@ public class FinalBossEnemyCombat : EnemyCombat
         finalBossEnemyAnim.DesperateAttackAnimation3();
     }
     #endregion
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 10f);
+    }
 }

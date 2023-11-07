@@ -56,8 +56,8 @@ TagManager:
   - Minimap
   - VFX
   - Power_Up
-  - 
-  - 
+  - WaypointsContainer
+  - Obstacle
   - 
   - 
   - 

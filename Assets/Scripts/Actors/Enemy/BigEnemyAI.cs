@@ -24,29 +24,33 @@ public class BigEnemyAI : EnemyAI
         base.Awake();
     }
 
-    // Start is called before the first frame update
-    public void Start()
-    {
-        _currentChargeCD = chargeCooldown * 0.25f;
-    }
+    //// Start is called before the first frame update
+    //public void Start()
+    //{
+    //    _currentChargeCD = chargeCooldown * 0.25f;
+    //}
     // Update is called once per frame
     public override void Update()
     {
-        if (!enemy.IsDead)
+        if (!player.Life_Controller.isDead)
         {
-            initialNode.Execute();
-            playerDistance = Vector3.Distance(transform.position, enemy.Player.transform.position);
+            
+            if (!enemyModel.IsDead)
+            {
+                initialNode.Execute();
+                playerDistance = Vector3.Distance(transform.position, enemyModel.Player.transform.position);
 
-            ResetCollissionWithPlayer();
-            HandleEnemyStun();
-        }
-        else
-        {
-            _seek.move = false;
-            combat.IsAttacking = false;
-            obstacleavoidance.move = false;
-        }
+                ResetCollissionWithPlayer();
+                HandleEnemyStun();
+            }
+            else
+            {
+                _seek.move = false;
+                combat.IsAttacking = false;
+                obstacleavoidance.move = false;
+            }
 
+        }
     }
 
     void ResetCollissionWithPlayer()
@@ -60,9 +64,9 @@ public class BigEnemyAI : EnemyAI
         if (_currentStunDuration > 0)
         {
             _currentStunDuration -= Time.deltaTime;
-            enemy.Player.Stunned = true;
+            enemyModel.Player.Stunned = true;
         }
-        else enemy.Player.Stunned = false;
+        else enemyModel.Player.Stunned = false;
 
     }
 
@@ -75,22 +79,22 @@ public class BigEnemyAI : EnemyAI
         ActionNode Charge = new ActionNode(Charging);
         ActionNode Die = new ActionNode(base.Die);
 
-        QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < enemy.Stats.AttackRange), AttackPlayer, SeekPlayer);
+        QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < enemyModel.Stats.AttackRange), AttackPlayer, SeekPlayer);
         //QuestionNode isInSeekRange = new QuestionNode(() => (playerDistance < combat.SeekRange), isInAttackRange, SeekPlayer);
         QuestionNode isChargeInCooldown = new QuestionNode(() => (_currentChargeCD > 0) && !doingCharge, /*SeekPlayer*/SeekChargeCD, Charge);
         QuestionNode isTooCloseToCharge = new QuestionNode(() => (playerDistance > chargeRange) || (doingCharge), isChargeInCooldown, isInAttackRange);
         QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge/*isInSeekRange*/, Patrol);
-        QuestionNode isPlayerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
-        QuestionNode isAlive = new QuestionNode(() => !(enemy.EnemyHealthController.isDead), isPlayerAlive, Die);
+        QuestionNode isPlayerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
+        QuestionNode isAlive = new QuestionNode(() => !(enemyModel.EnemyHealthController.isDead), isPlayerAlive, Die);
 
         //QuestionNode inAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange) && !doingCharge, AttackPlayer, SeekPlayer);
 
 
         //QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge, Patrol);
 
-        //QuestionNode isPlayerAlive = new QuestionNode(() => !(enemy.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
+        //QuestionNode isPlayerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
 
-        //QuestionNode isAlive = new QuestionNode(() => !(enemy.Life_Controller.isDead), isPlayerAlive, Die);
+        //QuestionNode isAlive = new QuestionNode(() => !(enemyModel.Life_Controller.isDead), isPlayerAlive, Die);
 
         initialNode = isAlive;
     }
@@ -102,44 +106,50 @@ public class BigEnemyAI : EnemyAI
 
     protected override void Patrolling()
     {
-        doingCharge = false;
-        _seek.move = false;
-        combat.IsAttacking = false;
-        obstacleavoidance.move = true;
-        enemy.Animations.MovingAnimation(true);
+        Debug.Log("Enemy big patrol");
+        if(obstacleavoidance.waypointsContainer != null)
+        {
+            doingCharge = false;
+            _seek.move = false;
+            combat.IsAttacking = false;
+            obstacleavoidance.move = true;
+            enemyModel.Animations.MovingAnimation(true);
+        }
     }
     protected override void Seeking()
     {
+        Debug.Log("Enemy big seek");
         if (!combat.IsAttacking && !doingCharge)
         {
-            Debug.Log("BTree Seeking Player");
             doingCharge = false;
             _seek.move = true;
             combat.IsAttacking = false;
             obstacleavoidance.move = false;
-            enemy.Animations.MovingAnimation(true);
+            enemyModel.Animations.MovingAnimation(true);
             _currentChargeCD = chargeCooldown;
         }
     }
     protected virtual void SeekingyChargeCD()
     {
+        Debug.Log("Enemy big seek charge cd");
         if (!combat.IsAttacking && !doingCharge)
         {
             doingCharge = false;
             _seek.move = true;
             combat.IsAttacking = false;
             obstacleavoidance.move = false;
-            enemy.Animations.MovingAnimation(true);
+            enemyModel.Animations.MovingAnimation(true);
         }
         _currentChargeCD -= Time.deltaTime;
-        if (enemy.Player != null)
+        if (enemyModel.Player != null)
         {
-            previousPlayerPos = enemy.Player.transform.position;
+            previousPlayerPos = enemyModel.Player.transform.position;
         }
     }
 
     void Charging()
     {
+        Debug.Log("Enemy big charge");
         doingCharge = true;
         _seek.move = false;
         combat.IsAttacking = false;

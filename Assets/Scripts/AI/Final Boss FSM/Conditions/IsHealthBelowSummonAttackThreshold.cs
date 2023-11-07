@@ -11,7 +11,7 @@ namespace _Main.Scripts.FSM_SO_VERSION.Conditions.BossConditions
         {
             var conditions = model.gameObject.GetComponent<BossAI>().FsmConditionsStats as FinalBossFSMStats;
             var threshold = model.gameObject.GetComponent<FinalBossEnemyCombat>().SummonAttackThreshold;
-            return conditions.IsBelowSummonAttackHealth;
+            return conditions.IsBelowSummonAttackHealth = model.EnemyHealthController.CurrentLife < threshold;
         }
     }
 }

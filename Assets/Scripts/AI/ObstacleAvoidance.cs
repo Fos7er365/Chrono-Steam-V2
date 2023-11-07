@@ -26,21 +26,20 @@ public class ObstacleAvoidance : MonoBehaviour
     private void Start()
     {
         //waypointsContainer = GameObject.FindGameObjectWithTag("WaipointContainer");
-        fillWaypoints();
+        FillWaypoints();
     }
 
 
     private void Update()
     {
-        if (waypointsContainer != null)
-        {
+        if (waypointsContainer == null) return;
+            Debug.Log("Enemy waypoints container: " + waypointsContainer);
             CheckWaypoint();
             Avoidance();
             if (move)
             {
                 Movement();
             }
-        }
 
     }
     public void Movement()
@@ -114,7 +113,7 @@ public class ObstacleAvoidance : MonoBehaviour
         }
     }
 
-    void fillWaypoints()
+    void FillWaypoints()
     {
         if (waypointsContainer != null)
         {
@@ -132,7 +131,7 @@ public class ObstacleAvoidance : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 }

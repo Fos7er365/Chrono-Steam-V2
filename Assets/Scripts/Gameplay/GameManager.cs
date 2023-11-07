@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     int _clearRooms;
     [SerializeField] float respawnCD;
     [SerializeField] TextMeshProUGUI powerUpText, machinePartsText;
+    Player_Controller playerController;
     Transform playerSpawner;
     bool _gameOver;
     bool _win;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI PowerUpText { get => powerUpText; set => powerUpText = value; }
     public TextMeshProUGUI MachinePartsText { get => machinePartsText; set => machinePartsText = value; }
     public int MachinePartsPickedUp { get => machinePartsPickedUp; set => machinePartsPickedUp = value; }
+    public Player_Controller PlayerController { get => playerController; set => playerController = value; }
 
     private void Awake()
     {
@@ -50,18 +52,18 @@ public class GameManager : MonoBehaviour
             instance = this;
             eventQueue = new List<UnityEvent>();
         }
-
     }
 
     void Update()
     {
+        //Debug.Log("Player is dead? " + instance.PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead);
         if (powerUpText.text != "") StartCoroutine(WaitToDisableUI(2));
         machinePartsText.text = $"{machinePartsPickedUp}/2 machine parts collected";
         EventQueueHandler();
-        //if (_gameOver)
-        //{
+        if (_gameOver)
+        {
 
-        //}
+        }
     }
     void EventQueueHandler()
     {
@@ -90,12 +92,17 @@ public class GameManager : MonoBehaviour
 
     void OnLevelWasLoaded(int level)
     {
+        level = _lvlToCharge;
         if (playerSpawner == null)
         {
             playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
+            _camera.GetComponent<CameraFollow>().enabled = true;
+            _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
+            _playerInstance.transform.position = playerSpawner.position;
         }
-        if (_playerInstance != null)
+        else if (_playerInstance != null)
         {
+            //playerController = PlayerInstance.gameObject.GetComponent<Player_Controller>();
             _camera.GetComponent<CameraFollow>().enabled = true;
             _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
             _playerInstance.transform.position = playerSpawner.position;
@@ -109,29 +116,36 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("YOU DIE...");
         _gameOver = true;
-        if (SceneManager.GetActiveScene().name != "Tutorial LvL 1")
+        PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = true;
+        if(_playerInstance != null)
         {
-            Invoke("reloadScene", respawnCD);
-        }
-        else
-        {
-            if (playerSpawner == null)
-            {
-                playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
-            }
-            _camera.GetComponent<CameraFollow>().enabled = true;
-            _playerInstance.transform.position = playerSpawner.position;
-            PlayerInstance.GetComponent<Player_Controller>().Animations.Revive();
-            PlayerInstance.GetComponent<Player_Controller>().Life_Controller.GetHeal(float.MaxValue);
-            PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = false;
-            return;
+            Invoke("ReloadScene", respawnCD);
+            //if (SceneManager.GetActiveScene().name != "Tutorial LvL 1")
+            //{
+            //    Invoke("ReloadScene", respawnCD);
+            //}
+            //else
+            //{
+            //    PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = true;
+            //    if (playerSpawner == null)
+            //    {
+            //        playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
+            //    }
+            //    _camera.GetComponent<CameraFollow>().enabled = true;
+            //    _playerInstance.transform.position = playerSpawner.position;
+            //    PlayerInstance.GetComponent<Player_Controller>().Animations.Revive();
+            //    PlayerInstance.GetComponent<Player_Controller>().Life_Controller.GetHeal(float.MaxValue);
+            //    PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = false;
+            //    return;
+            //}
         }
     }
-    public void reloadScene()
+    public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PlayerInstance.GetComponent<Player_Controller>().Animations.Revive();
         PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = false;
+            PlayerInstance.GetComponent<Player_Controller>().Life_Controller.GetHeal(float.MaxValue);
         if (SceneManager.GetActiveScene().name == "Tutorial LvL 1")
             PlayerInstance.GetComponent<Player_Controller>().Life_Controller.GetHeal(float.MaxValue);
     }
