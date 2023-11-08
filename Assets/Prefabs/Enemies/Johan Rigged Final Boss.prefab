@@ -1515,6 +1515,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2744380695732893266}
+  - {fileID: 93486752441961153}
   m_Father: {fileID: 9034425462508409129}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1673,6 +1674,36 @@ Transform:
   m_Father: {fileID: 6692302094384871966}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2917456740686443963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1029524540354498626}
+  m_Layer: 9
+  m_Name: Particle System Right Hand Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1029524540354498626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2917456740686443963}
+  m_LocalRotation: {x: -0.50367147, y: -0.50534564, z: 0.4962655, w: 0.49463266}
+  m_LocalPosition: {x: -0.057474323, y: -0.055958875, z: -0.004878143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2754055350565428798}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2963641420767299247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,8 +1794,39 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8950676615225223434}
+  - {fileID: 1029524540354498626}
   m_Father: {fileID: 3391207688868604318}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3226978868757263072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6026962751474199046}
+  m_Layer: 9
+  m_Name: Particle System Damage Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6026962751474199046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3226978868757263072}
+  m_LocalRotation: {x: -0.0014843586, y: -4.361413e-11, z: 2.683181e-11, w: 0.9999989}
+  m_LocalPosition: {x: -0.00014665184, y: 0.052975312, z: -0.060201656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3724120403947390521}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3414588984667837497
 GameObject:
@@ -2233,6 +2295,7 @@ GameObject:
   - component: {fileID: 7290190333845701495}
   - component: {fileID: 600541446269906017}
   - component: {fileID: 2432318987645505268}
+  - component: {fileID: 379310670}
   - component: {fileID: 5528976123068992726}
   - component: {fileID: 5934490705231160070}
   - component: {fileID: 191036486516740912}
@@ -2258,7 +2321,7 @@ Transform:
   m_GameObject: {fileID: 4214023961630010119}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 5705738832752381961}
   - {fileID: 6293690852883654459}
@@ -2327,6 +2390,22 @@ CapsuleCollider:
   m_Height: 1.8332148
   m_Direction: 1
   m_Center: {x: 0, y: 0.86490154, z: 0.0019375086}
+--- !u!114 &379310670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4214023961630010119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e6f45091f37d340a9e721dff4ae4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandPartSystemGO: {fileID: 9156316470133275818}
+  rightHandPartSystemGO: {fileID: 2917456740686443963}
+  damagePartSystemGO: {fileID: 3226978868757263072}
+  bodyCenterPartSystemGO: {fileID: 6647318951058382023}
 --- !u!114 &5528976123068992726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,7 +2431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938659ffe56a2b740bfde9d8fc2d0f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewDistance: 10
+  viewDistance: 25
   viewCone: 360
   visionPoint: {fileID: 1946520160430744018}
   obstacleLayers:
@@ -3320,6 +3399,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHeadGO: {fileID: 1946520160430744017}
+--- !u!1 &6647318951058382023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 93486752441961153}
+  m_Layer: 9
+  m_Name: Particle System Body Center Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &93486752441961153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6647318951058382023}
+  m_LocalRotation: {x: -0.0014843586, y: -4.365575e-11, z: 2.7513993e-11, w: 0.9999989}
+  m_LocalPosition: {x: -0.00014665186, y: -0.006971441, z: 0.02171829}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8721295171976995514}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6724127246610797499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3917,6 +4026,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7703123140970408417}
+  - {fileID: 52163826710650440}
   m_Father: {fileID: 7819996562622202773}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4193,6 +4303,7 @@ Transform:
   - {fileID: 1669736986380097186}
   - {fileID: 7842495458062961220}
   - {fileID: 6090834239634206667}
+  - {fileID: 6026962751474199046}
   m_Father: {fileID: 2744380695732893266}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4379,6 +4490,36 @@ Transform:
   m_Children:
   - {fileID: 6927111661341994705}
   m_Father: {fileID: 8562181600433275689}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9156316470133275818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52163826710650440}
+  m_Layer: 9
+  m_Name: Particle System Left Hand Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52163826710650440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156316470133275818}
+  m_LocalRotation: {x: -0.50420946, y: 0.5031759, z: -0.4957711, w: 0.4967876}
+  m_LocalPosition: {x: 0.06309138, y: -0.017523374, z: -0.0034067205}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8600084780976002003}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5826838787073507536

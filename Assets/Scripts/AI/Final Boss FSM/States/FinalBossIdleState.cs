@@ -12,6 +12,7 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
         FinalBossFSMStats stats;
         FinalBossEnemyCombat combat;
         BossAI ai;
+        FinalBossEnemyAnimations anim;
 
         public override void EnterState(Enemy model)
         {
@@ -19,11 +20,13 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
             ai = model.gameObject.GetComponent<BossAI>();
             stats = ai.FsmConditionsStats as FinalBossFSMStats;
             combat = model.gameObject.GetComponent<FinalBossEnemyCombat>();
+            anim = model.gameObject.GetComponent<FinalBossEnemyAnimations>();
         }
 
         public override void ExecuteState(Enemy model)
         {
             Debug.Log("Final Boss FSM IDLE state EXECUTE");
+            anim.MovingAnimation(false);
             var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
             if(dist > model.Stats.AttackRange)
             {
