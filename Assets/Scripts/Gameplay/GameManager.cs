@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("YOU DIE...");
         _gameOver = true;
         PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead = true;
-        if(_playerInstance != null)
+         if(_playerInstance != null)
         {
             Invoke("ReloadScene", respawnCD);
             //if (SceneManager.GetActiveScene().name != "Tutorial LvL 1")

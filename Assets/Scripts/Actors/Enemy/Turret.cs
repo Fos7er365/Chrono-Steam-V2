@@ -15,9 +15,11 @@ public class Turret : MonoBehaviour
     [SerializeField] bool inSight;
     [SerializeField] ActorStats turretStats;
     [SerializeField] int damage;
-    [SerializeField] float distance;
+    [SerializeField] float distance; 
+    public float seekSpeed = 50f;
+    public float rotateAngle = 70f;
     Player_Controller _player;
-
+    Vector3 originalRotation;
     public ActorStats TurretStats { get => turretStats; set => turretStats = value; }
     public HealthController EnemyHealthController { get => enemyHealthController; set => enemyHealthController = value; }
 
@@ -27,6 +29,7 @@ public class Turret : MonoBehaviour
     }
     private void Start()
     {
+        originalRotation = transform.localRotation.eulerAngles;
         enemyHealthController = new HealthController(turretStats.MaxHealth);
         //animator = GetComponent<Animator>();
         enemyHealthController.isDead = false;
@@ -51,14 +54,15 @@ public class Turret : MonoBehaviour
 
     private void IdleMovement()
     {
-        transform.Rotate(0, 0, rotSpeed * -1);
-        rotTime += Time.deltaTime;
+        transform.localRotation = Quaternion.Euler(originalRotation.x, Mathf.PingPong(Time.time * seekSpeed, rotateAngle * 2) - rotateAngle, 1f);
+        //transform.Rotate(0, 0, rotSpeed * -1);
+        //rotTime += Time.deltaTime;
 
-        if (rotTime >= rotTimeMax)
-        {
-            rotSpeed *= -1;
-            rotTime = 0;
-        }
+        //if (rotTime >= rotTimeMax)
+        //{
+        //    rotSpeed *= -1;
+        //    rotTime = 0;
+        //}
     }
 
     void CheckForPlayer()

@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject _elevatorDoor;
     [SerializeField]
-    private bool BossDead;
+    private bool bossDead;
     [SerializeField]
     private int RoomsToClear;
     [SerializeField]
@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
 
     public GameObject ElevatorDoor { get => _elevatorDoor; set => _elevatorDoor = value; }
     public Enemy BossInstance { get => _bossInstance; set => _bossInstance = value; }
+    public bool BossDead { get => bossDead; set => bossDead = value; }
 
     private void Awake()
     {
@@ -77,7 +78,11 @@ public class LevelManager : MonoBehaviour
 
     void HandleElevatorSpawn()
     {
-        if (BossDead && _elevatorDoor != null) _elevatorDoor.SetActive(false);
+        if (bossDead && _elevatorDoor != null)
+        {
+           
+            _elevatorDoor.SetActive(false);
+        }
         //if (SceneManager.GetActiveScene().buildIndex == NextLVL) SceneManager..OnLevelWasLoaded(NextLVL);
         if (ElevatorDoor == null)
         {
@@ -109,6 +114,6 @@ public class LevelManager : MonoBehaviour
     }
     private void BossDie()
     {
-        BossDead = true;
+        bossDead = true;
     }
 }

@@ -37,6 +37,7 @@ TagManager:
   - Machine Part
   - Machine_Parts_UI
   - Ground
+  - Physical_Conversation_Trigger
   layers:
   - Default
   - TransparentFX
