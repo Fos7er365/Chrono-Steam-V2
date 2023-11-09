@@ -4812,6 +4812,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!64 &970080344
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348348492927361888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1527574985403078950
 GameObject:
   m_ObjectHideFlags: 0
@@ -29018,13 +29032,15 @@ MonoBehaviour:
   weaponMaterials: []
   drawGizmos: 0
   particleSystems:
-  - {fileID: 8389242319322931624}
+  - {fileID: 8323971486104859163, guid: d41be4260a7c99c4cbd919ed000242ac, type: 3}
   espParticleSystems:
   - {fileID: 1348348492945514126}
   _areaStats: {fileID: 11400000, guid: 4ea3bbec8a4dcb942bad849651e61324, type: 2}
   _espAreaStats: {fileID: 11400000, guid: 17c4c19292eaab543be79c60347e8cda, type: 2}
   _player: {fileID: 3313209286810138088, guid: 399749d56350f744488283c4a1a5dddc, type: 3}
-  specialAttackVFXGO: {fileID: 1348348492927361888}
+  specialAttackVFXGO: {fileID: 2546983486619114486, guid: d41be4260a7c99c4cbd919ed000242ac,
+    type: 3}
+  position: {fileID: 8985325325002070499}
 --- !u!1 &8985325325002070499
 GameObject:
   m_ObjectHideFlags: 0
@@ -29067,6 +29083,10 @@ PrefabInstance:
       value: Player Blade Weapon Ultimate Attack
       objectReference: {fileID: 0}
     - target: {fileID: 159794, guid: 8431f9be1737bf14a8592dd654a5fc86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 159794, guid: 8431f9be1737bf14a8592dd654a5fc86, type: 3}
       propertyPath: m_TagString
       value: Bullet
       objectReference: {fileID: 0}
@@ -29096,7 +29116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 412410, guid: 8431f9be1737bf14a8592dd654a5fc86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.077
+      value: 0.047
       objectReference: {fileID: 0}
     - target: {fileID: 412410, guid: 8431f9be1737bf14a8592dd654a5fc86, type: 3}
       propertyPath: m_LocalRotation.w

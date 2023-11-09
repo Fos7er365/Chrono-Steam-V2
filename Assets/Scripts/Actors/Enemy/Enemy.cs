@@ -98,7 +98,7 @@ public class Enemy : Actor, IEnemy
     {
         if(GameManager.Instance.MachinePartsPickedUp < 2)
         {
-            if (isMachinePartSpawn) return;
+            if (isMachinePartSpawn || gameObject.CompareTag("Final_Boss")) return;
             else
             {
                 Instantiate(timeMachineGO, machinePartSpawnPositionGO.transform.position, Quaternion.Euler(90, 0, 0));
@@ -191,23 +191,10 @@ public class Enemy : Actor, IEnemy
         else
         {
             animations.DeathAnimation();
-            //encada una de mis partes del cuerpo...
-            foreach (var itemA in bodyParts)
+            if(bodyParts.Count > 0)
             {
-                //Debug.Log("recorriendo parte del cuerpo");
-                //...Busco los materiales del skin mesh renderer
-                for (int i = 0; i < itemA.GetComponent<SkinnedMeshRenderer>().materials.Length; i++)
-                {
-                    //  Debug.Log("recorriendo materiales");
-                    var itemB = itemA.GetComponent<SkinnedMeshRenderer>().materials[i];
-                    // si el material es un enemy fresnel...
-                    if (itemB.name != "SkeletonOutlaw00")
-                    {
-                        //Debug.Log("material correcto");
-                        //...seteo fesnel scale para q ya no brille
-                        itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
-                    }
-                }
+                //TurnOffRegularEnemyFresnel();
+                //Destroy(gameObject);
             }
             if (!_itemDropped)
             {
@@ -222,6 +209,29 @@ public class Enemy : Actor, IEnemy
         Destroy(gameObject, 5f);
 
     }
+    void TurnOffRegularEnemyFresnel()
+    {
+
+        //encada una de mis partes del cuerpo...
+        foreach (var itemA in bodyParts)
+        {
+            //Debug.Log("recorriendo parte del cuerpo");
+            //...Busco los materiales del skin mesh renderer
+            for (int i = 0; i < itemA.GetComponent<SkinnedMeshRenderer>().materials.Length; i++)
+            {
+                //  Debug.Log("recorriendo materiales");
+                var itemB = itemA.GetComponent<SkinnedMeshRenderer>().materials[i];
+                // si el material es un enemy fresnel...
+                if (itemB.name != "SkeletonOutlaw00")
+                {
+                    //Debug.Log("material correcto");
+                    //...seteo fesnel scale para q ya no brille
+                    itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
+                }
+            }
+        }
+    }
+
     void ExecuteRoulette()
     {
         Debug.Log("CurrentDrops.count  " + GameManager.Instance.LootManager.CurrentDrops.Count);
@@ -237,18 +247,22 @@ public class Enemy : Actor, IEnemy
         Debug.Log("Collision? " + other);
         if (other.gameObject.CompareTag("Weapon") || other.gameObject.CompareTag("FloorWeapon"))
         {
-            if (gameObject.TryGetComponent<BossAI>(out var bossAI))
-            {
+            var wp = other.gameObject.GetComponent<Weapon>();
+            //if (gameObject.TryGetComponent<BossAI>(out var bossAI))
+            //{
                 //animations.DamagedAnimation();
-                EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
-                Debug.Log("Boss currentHealth" + enemyHealthController.CurrentLife);
-            }
-            else
-            {
-                //animations.DamagedAnimation();
-                EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
-                Debug.Log("Boss currentHealth" + enemyHealthController.CurrentLife);
-            }
+                if (wp != null)
+                {
+                    EnemyHealthController.GetDamage(wp.WeaponStats.AttDamage);
+                    Debug.Log("Boss currentHealth" + enemyHealthController.CurrentLife);
+                }
+            //}
+            //else
+            //{
+            //    //animations.DamagedAnimation();
+            //    EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
+            //    Debug.Log("Boss currentHealth" + enemyHealthController.CurrentLife);
+            //}
         }
     }
 }

@@ -47,8 +47,12 @@ public class BossAI : MonoBehaviour
     }
     void Start()
     {
-        GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossInstance = enemyModel;
+        GameManager.Instance.LvlManager.gameObject.GetComponent<LevelManager>().BossInstance = this.enemyModel;
         bossFSM = new FsmScript(enemyModel, fsmInitialState);
+        Debug.Log("Level mgr" + GameManager.Instance.LvlManager); 
+    }
+    private void OnLevelWasLoaded(int level)
+    {
     }
 
     void Update()

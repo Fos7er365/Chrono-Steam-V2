@@ -16,6 +16,7 @@ public class BladeWeapon : Weapon, IAreaAttack
 
     [SerializeField] protected GameObject _player;
     [SerializeField] protected GameObject specialAttackVFXGO;
+    [SerializeField] GameObject position;
     public AreaStats AreaStats { get => _areaStats; set => _areaStats = value; }
 
     public override void Start()
@@ -90,7 +91,9 @@ public class BladeWeapon : Weapon, IAreaAttack
             {
                 if (specialAttackVFXGO.CompareTag("Bullet"))
                 {
-                    specialAttackVFXGO.GetComponent<Bullet>().Create(_weaponStats.EspDamage, _espAreaStats.MaxDistance);
+                    var go =Instantiate(specialAttackVFXGO, position.transform.position, Quaternion.identity);
+                    go.GetComponent<ParticleSystem>().Play();
+                    //specialAttackVFXGO.GetComponent<Bullet>().Create(_weaponStats.EspDamage, _espAreaStats.MaxDistance);
                 }
                 else
                     Debug.Log("objVFX tag error");
@@ -127,10 +130,14 @@ public class BladeWeapon : Weapon, IAreaAttack
         {
             if (enemies[i].gameObject != null)
             {
-                if (enemies[i].gameObject.CompareTag("Enemy") || enemies[i].gameObject.CompareTag("Turret"))
-                {
+                var baseEnemyTag = enemies[i].gameObject.CompareTag("Enemy");
+                var turretEnemyTag = enemies[i].gameObject.CompareTag("Turret");
+                var finalBossEnemyTag = enemies[i].gameObject.CompareTag("Final_Boss");
+                //if ( baseEnemyTag || turretEnemyTag || finalBossEnemyTag)
+                //{
                     CheckHit("Enemy", enemies[i]);
                     CheckHit("Turret", enemies[i]);
+                    CheckHit("Final_Boss", enemies[i]);
                     //    if (hitCounter != null && !enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                     //    {
                     //        hitCounter.AddHitCounter();
@@ -141,7 +148,7 @@ public class BladeWeapon : Weapon, IAreaAttack
 
                     //    enemies[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.AttDamage);
 
-                }
+                //}
             
              
             }
@@ -154,22 +161,27 @@ public class BladeWeapon : Weapon, IAreaAttack
         if (enemyTypeTag == "Turret" && enemyColl.gameObject.TryGetComponent<Turret>(out Turret coll))
         {
             hpController = coll.EnemyHealthController;
+            hpController.GetDamage(_weaponStats.AttDamage);
+            FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
         }
         else if (enemyTypeTag == "Enemy" && enemyColl.gameObject.TryGetComponent<Enemy>(out Enemy turretColl))
         {
             hpController = turretColl.EnemyHealthController;
-        }
-
-        if (hitCounter != null && !hpController.isDead)
-        {
-            hitCounter.AddHitCounter();
+            hpController.GetDamage(_weaponStats.AttDamage);
             FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
         }
+        else if (enemyTypeTag == "Final_Boss" && enemyColl.gameObject.TryGetComponent<Enemy>(out Enemy finalBossColl))
+        {
+            hpController = finalBossColl.EnemyHealthController;
+            hpController.GetDamage(_weaponStats.AttDamage);
+            FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
+        }
+        //if (/*hitCounter != null &&*/ !hpController.isDead)
+        //{
+        //    //hitCounter.AddHitCounter();
+        //}
         else
             return;
-
-        hpController.GetDamage(_weaponStats.AttDamage);
-
     }
 
     private void OnDrawGizmos()

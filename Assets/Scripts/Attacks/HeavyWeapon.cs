@@ -97,4 +97,14 @@ After:
         }
 
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Final_Boss"))
+        {
+            collision.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(WeaponStats.AttDamage);
+        }
+    }
+
+
 }

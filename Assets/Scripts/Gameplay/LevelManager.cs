@@ -82,6 +82,8 @@ public class LevelManager : MonoBehaviour
         {
             //if (SceneManager.GetActiveScene().buildIndex == 4) HandleLevel3BossDialogueTrigger();
             _elevatorDoor.SetActive(false);
+            var go = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.Weapon;
+            if (go != null)Destroy(go.gameObject, 1f);
         }
         //if (SceneManager.GetActiveScene().buildIndex == NextLVL) SceneManager..OnLevelWasLoaded(NextLVL);
         if (ElevatorDoor == null)

@@ -29,8 +29,10 @@ namespace _Main.Scripts.FSM_SO_VERSION.States.BossStates
             ai.BossSeekSB.move = true;
             anim.MovingAnimation(true);
             var dist = Vector3.Distance(model.gameObject.transform.position, GameManager.Instance.PlayerInstance.transform.position);
+            Debug.Log("final boss fsm seek dist" + dist + " attrange " + model.Stats.AttackRange);
             if (dist < model.Stats.AttackRange)
             {
+                Debug.Log("Paso a attack");
                 stats.IsInAttackRange = true;
                 ai.BossSeekSB.move = false;
                 anim.MovingAnimation(false);

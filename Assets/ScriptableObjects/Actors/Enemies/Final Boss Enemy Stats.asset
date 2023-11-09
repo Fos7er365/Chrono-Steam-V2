@@ -16,7 +16,7 @@ MonoBehaviour:
   rotationSpeed: 10
   maxHealth: 250
   meleeDamage: 10
-  attackRange: 5
-  seekRange: 10
+  attackRange: 20
+  seekRange: 30
   lifeRange: fa000000fa000000
   enemyType: Boss

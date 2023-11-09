@@ -38,7 +38,10 @@ public class FinalBossEnemyCombat : EnemyCombat
         RegularAttacksRouletteWheelSetUp();
         DesperateAttacksRouletteWheelSetUp();
     }
-
+    private void Update()
+    {
+        Debug.Log("Final boss health is " + enemyModel.EnemyHealthController.CurrentLife);
+    }
     public override void Attack()
     {
         bossEnemyAIHandler.BossObstaclAavoidanceSB.move = false;
@@ -189,5 +192,14 @@ public class FinalBossEnemyCombat : EnemyCombat
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, 10f);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("FloorWeapon"))
+        {
+            var wpStats = collision.gameObject.GetComponent<Weapon>().WeaponStats;
+            enemyModel.EnemyHealthController.GetDamage(wpStats.AttDamage);
+        }
     }
 }

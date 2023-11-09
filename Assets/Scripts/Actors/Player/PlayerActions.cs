@@ -25,7 +25,7 @@ public class PlayerActions : MonoBehaviour, IComand
 
     public void WPSpecialAttackExecute()
     {
-        _playerController.PlayerStats.Weapon.GetComponent<Weapon>().WeaponSpecialAttack();
+        if(_playerController.PlayerStats.Weapon != null) _playerController.PlayerStats.Weapon.GetComponent<Weapon>().WeaponSpecialAttack();
     }
 
 
@@ -36,6 +36,7 @@ public class PlayerActions : MonoBehaviour, IComand
         #region normal click
         if (_playerController.Inputs.Action1())
         {
+            Debug.Log("Ataque normal");
             if (_playerController.PlayerStats.Weapon != null)
             {
                 _comboCounter += 1;

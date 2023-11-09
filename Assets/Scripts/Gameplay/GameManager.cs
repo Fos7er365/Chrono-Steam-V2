@@ -53,6 +53,10 @@ public class GameManager : MonoBehaviour
             eventQueue = new List<UnityEvent>();
         }
     }
+    private void Start()
+    {
+        LvlManager = GameObject.Find("LevelManager");
+    }
 
     void Update()
     {

@@ -32,14 +32,13 @@ public class ObstacleAvoidance : MonoBehaviour
 
     private void Update()
     {
-        if (waypointsContainer == null) return;
+        if (waypointsContainer != null)
+        {
             Debug.Log("Enemy waypoints container: " + waypointsContainer);
             CheckWaypoint();
             Avoidance();
-            if (move)
-            {
-                Movement();
-            }
+            if (move) Movement();
+        }
 
     }
     public void Movement()
