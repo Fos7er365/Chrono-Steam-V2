@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FistStats
   m_EditorClassIdentifier: 
   weaponName: Fist
-  attDamage: 8
+  attDamage: 15
   durability: 100
   durabilityDecrease: 5
   coolDown: 0.1

@@ -27,7 +27,7 @@ public class EnemyAI : MonoBehaviour
         _seek = gameObject.GetComponent<Seek>();
         obstacleavoidance = gameObject.GetComponent<ObstacleAvoidance>();
         combat = gameObject.GetComponent<EnemyCombat>();
-        if(enemyModel.Stats.EnemyType != "Boss") CreateDecisionTree();
+        if(enemyModel.Stats.EnemyType != "Boss" ) CreateDecisionTree();
     }
     private void Start()
     {
@@ -36,10 +36,9 @@ public class EnemyAI : MonoBehaviour
 
     public virtual void Update()
     {
-        Debug.Log("Player is dead? " + player.Life_Controller.CurrentLife);
-        if (!player.Life_Controller.isDead)
+        if (player != null)
         {
-            if (!enemyModel.IsDead)
+            if (!enemyModel.IsDead && !player.Life_Controller.isDead)
                 initialNode.Execute();
         }
     }
@@ -50,8 +49,8 @@ public class EnemyAI : MonoBehaviour
         ActionNode SeekPlayer = new ActionNode(Seeking);
         ActionNode Dead = new ActionNode(Die);
 
-        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, sight.Target.position)) < enemyModel.Stats.AttackRange, AttackPlayer, SeekPlayer);
-
+        QuestionNode inAttackRange = new QuestionNode(() => (Vector3.Distance(transform.position, GameManager.Instance.PlayerInstance.transform.position) < enemyModel.Stats.AttackRange), AttackPlayer, SeekPlayer);
+        Debug.Log("stats por que tira error aaa " + sight + "sight tgt " +sight.Target + "Att range" + enemyModel.Stats.AttackRange);
         QuestionNode doIHaveTarget = new QuestionNode(() => (sight.targetInSight) || (enemyModel.IsHurt), inAttackRange, Patrol);
 
         QuestionNode playerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead) && obstacleavoidance.waypointsContainer != null, doIHaveTarget, Patrol);

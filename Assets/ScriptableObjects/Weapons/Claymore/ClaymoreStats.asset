@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ClaymoreStats
   m_EditorClassIdentifier: 
   weaponName: Claymore
-  attDamage: 16
+  attDamage: 30
   durability: 100
   durabilityDecrease: 17
   coolDown: 1

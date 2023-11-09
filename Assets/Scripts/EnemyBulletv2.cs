@@ -34,7 +34,9 @@ public class EnemyBulletv2 : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Player_Controller>().Life_Controller.GetDamage(_damage);
+            Destroy(gameObject);
         }
-        if(!other.gameObject.CompareTag("Final_Boss")) Destroy(this.gameObject);
+        else if(other.gameObject.layer == 1 << LayerMask.NameToLayer("Wall")) Destroy(gameObject);
+        //else if(!other.gameObject.CompareTag("Final_Boss")) 
     }
 }

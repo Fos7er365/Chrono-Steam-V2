@@ -198,8 +198,12 @@ public class FinalBossEnemyCombat : EnemyCombat
     {
         if(collision.gameObject.CompareTag("FloorWeapon"))
         {
-            var wpStats = collision.gameObject.GetComponent<Weapon>().WeaponStats;
-            enemyModel.EnemyHealthController.GetDamage(wpStats.AttDamage);
+            var wp = collision.gameObject;
+            if (wp != null)
+            {
+                var wpStats = collision.gameObject.GetComponent<Weapon>().WeaponStats;
+                enemyModel.EnemyHealthController.GetDamage(wpStats.AttDamage);
+            }
         }
     }
 }
