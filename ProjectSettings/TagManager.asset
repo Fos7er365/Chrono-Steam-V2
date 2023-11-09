@@ -38,6 +38,7 @@ TagManager:
   - Machine_Parts_UI
   - Ground
   - Physical_Conversation_Trigger
+  - Final_Boss
   layers:
   - Default
   - TransparentFX
@@ -59,7 +60,7 @@ TagManager:
   - Power_Up
   - WaypointsContainer
   - Obstacle
-  - 
+  - Final Boss
   - 
   - 
   - 

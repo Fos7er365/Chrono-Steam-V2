@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 19820818}
   - component: {fileID: 19906454}
   m_Layer: 0
-  m_Name: Ingredient-CandleType-Energy
+  m_Name: Ingredient-CandleType-Energy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

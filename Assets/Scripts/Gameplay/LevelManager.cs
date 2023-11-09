@@ -80,7 +80,7 @@ public class LevelManager : MonoBehaviour
     {
         if (bossDead && _elevatorDoor != null)
         {
-           
+            //if (SceneManager.GetActiveScene().buildIndex == 4) HandleLevel3BossDialogueTrigger();
             _elevatorDoor.SetActive(false);
         }
         //if (SceneManager.GetActiveScene().buildIndex == NextLVL) SceneManager..OnLevelWasLoaded(NextLVL);
@@ -96,7 +96,15 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
-
+    void HandleLevel3BossDialogueTrigger()
+    {
+        var go = GameObject.Find("Level 2 boss dialogue trigger").gameObject.GetComponent<DialogueTrigger>();
+        if (go.IsAvailableToShowDialogue) return;
+        else
+        {
+            go.TriggerDialogue();
+        }
+    }
     private void allRoomsClear()
     {
         if (GameManager.Instance.ClearRooms >= RoomsToClear)

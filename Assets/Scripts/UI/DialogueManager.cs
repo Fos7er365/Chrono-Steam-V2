@@ -10,6 +10,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] Animator anim;
+    bool isDialogueOver = false;
+
+    public bool IsDialogueOver { get => isDialogueOver; set => isDialogueOver = value; }
+
     // Start is called before the first frame update
     void Awake()
     {

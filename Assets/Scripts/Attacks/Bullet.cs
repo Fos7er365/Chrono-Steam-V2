@@ -27,6 +27,7 @@ public class Bullet : MonoBehaviour
                                     .PlayerStats.Weapon.GetComponent<Weapon>().WeaponStats.EspDamage;
             other.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(weapondamage);
         }
-        Destroy(this.gameObject);
+        //if(!other.gameObject.CompareTag("Player") || !other.gameObject.CompareTag("FloorWeapon"))
+        //    Destroy(this.gameObject);
     }
 }

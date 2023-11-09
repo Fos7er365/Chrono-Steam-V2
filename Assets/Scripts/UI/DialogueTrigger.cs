@@ -11,11 +11,11 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Start()
     {
-        if(gameObject.tag == "Physical_Conversation_Trigger" && isAvailableToShowDialogue) TriggerDialogue();
+        if(gameObject.tag == "Physical_Conversation_Trigger") TriggerDialogue();
     }
     public void TriggerDialogue()
     {
-        Debug.Log("aaaaaaaaaaaaaaaa" + dialogue);
         FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        //IsAvailableToShowDialogue = false;
     }
 }

@@ -102,6 +102,17 @@ public class BladeWeapon : Weapon, IAreaAttack
         }
     }
 
+    //public void PlayFinalBossSummonAttackParticleSystem()
+    //{
+    //    if (summonAttackParticleSystem != null)
+    //    {
+    //        var go = Instantiate(summonAttackParticleSystem, summonAttackPartSystemGO.transform.position, Quaternion.identity);
+    //        FinalBossPlayAnidatedParticles(go);
+    //    }
+    //    else
+    //        Debug.Log("playParticles function particle not asigned");
+    //}
+
     public virtual void AreaAtack()
     {
         Collider[] enemies = Physics.OverlapCapsule(_player.transform.position, _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);

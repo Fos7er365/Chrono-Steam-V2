@@ -42,11 +42,13 @@ public class FinalBossEnemyCombat : EnemyCombat
     public override void Attack()
     {
         bossEnemyAIHandler.BossObstaclAavoidanceSB.move = false;
-        transform.LookAt(GameManager.Instance.PlayerInstance.transform.position);
+        var dir = GameManager.Instance.PlayerInstance.transform.position - transform.position;
+        transform.LookAt(dir);
         bossEnemyAIHandler.CurrentAttackTime += 1 * Time.deltaTime;
         if(bossEnemyAIHandler.CurrentAttackTime > regularAttackCooldown)
         {
-            RegularRouletteAction();
+
+            enemyAnim.AttackAnimation();
             bossEnemyAIHandler.CurrentAttackTime = 0;
         }
 

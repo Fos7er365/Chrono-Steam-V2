@@ -234,17 +234,20 @@ public class Enemy : Actor, IEnemy
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Weapon"))
+        Debug.Log("Collision? " + other);
+        if (other.gameObject.CompareTag("Weapon") || other.gameObject.CompareTag("FloorWeapon"))
         {
             if (gameObject.TryGetComponent<BossAI>(out var bossAI))
             {
-                animations.DamagedAnimation();
+                //animations.DamagedAnimation();
                 EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
+                Debug.Log("Boss currentHealth" + enemyHealthController.CurrentLife);
             }
             else
             {
-                animations.DamagedAnimation();
+                //animations.DamagedAnimation();
                 EnemyHealthController.GetDamage(other.gameObject.GetComponent<Weapon>().WeaponStats.AttDamage);
+                Debug.Log("Boss currentHealth" + enemyHealthController.CurrentLife);
             }
         }
     }
