@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(EnemyAnimations))]
 public class Enemy : Actor, IEnemy
@@ -185,6 +186,7 @@ public class Enemy : Actor, IEnemy
             animations.DeathAnimation();
             //busco el evento de BossDying
             var Event = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossDying;
+            if (SceneManager.GetActiveScene().buildIndex == 5) SceneManager.LoadScene(7); //Escena de win (Hecho rudimentariamente, hay que hacerlo mejor)
             //encolo el evento para su invoke
             GameManager.Instance.EventQueue.Add(Event);
         }
@@ -204,6 +206,8 @@ public class Enemy : Actor, IEnemy
         }
         //Debug.Log("Enemey died!");
         IsDead = true;
+
+        //if (gameObject.CompareTag("Final_Boss") && SceneManager.GetActiveScene().buildIndex == 6) SceneManager.LoadScene(7); //Escena de win (Hecho rudimentariamente, hay que hacerlo mejor)
         //if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
         //if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
         Destroy(gameObject, 5f);

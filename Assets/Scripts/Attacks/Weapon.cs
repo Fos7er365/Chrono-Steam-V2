@@ -93,7 +93,10 @@ public class Weapon : MonoBehaviour, IComand
                 _rb?.AddTorque(transform.right * 1000f);
 
                 transform.parent = null;
-                GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>().PlayerStats.Weapon = null;
+                var player = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>();
+                player.PlayerStats.Weapon = null;
+
+                player.EnableWeaponIcon(WeaponStats.WeaponName, false);
                 //GameObject weaponRef = GameManager.Instance.PlayerInstance.GetComponent<Player_Controler>().PlayerStats.Weapon;
                 isDrop = true;
                 Destroy(this.gameObject, 2f);

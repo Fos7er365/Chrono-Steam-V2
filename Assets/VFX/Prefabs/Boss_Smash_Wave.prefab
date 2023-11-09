@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3858577341216105292}
   - component: {fileID: 3858577341200901644}
   - component: {fileID: 3858577341200932780}
+  - component: {fileID: 916469768804849415}
+  - component: {fileID: 4599699568785406430}
   m_Layer: 0
   m_Name: Boss_Smash_Wave
   m_TagString: Untagged
@@ -4718,6 +4720,32 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!135 &916469768804849415
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858577341215752044}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10.665001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4599699568785406430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858577341215752044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6e400565bfa084dbc1dd48e0c0bf54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1001 &1822524017414395545
 PrefabInstance:
   m_ObjectHideFlags: 0

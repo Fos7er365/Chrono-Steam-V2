@@ -2553,7 +2553,7 @@ MonoBehaviour:
   regularAttackCooldown: 0.75
   desperateAttackCooldown: 0.25
   blockAttacksCooldown: 0
-  regenerationAmount: 0.5
+  regenerationAmount: 0.1
   boidsSpawnPositions:
   - {fileID: 3468952184310325234}
   - {fileID: 6355119851341295520}

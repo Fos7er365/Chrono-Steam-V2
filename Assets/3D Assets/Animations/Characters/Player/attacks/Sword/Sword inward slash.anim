@@ -63682,7 +63682,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.2
-    functionName: WPSpecialAttackExecute
+    functionName: WeaponSpecialExecute
     data: 
     objectReferenceParameter: {fileID: 146950971638706191, guid: db7dc06a7bf6841429a3216788467d02,
       type: 3}

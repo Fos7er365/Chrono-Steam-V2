@@ -50,8 +50,9 @@ public class FinalBossEnemyCombat : EnemyCombat
         bossEnemyAIHandler.CurrentAttackTime += 1 * Time.deltaTime;
         if(bossEnemyAIHandler.CurrentAttackTime > regularAttackCooldown)
         {
-
-            enemyAnim.AttackAnimation();
+            Debug.Log("ejecuto ruleta attack");
+            //enemyAnim.AttackAnimation();
+            RegularRouletteAction();
             bossEnemyAIHandler.CurrentAttackTime = 0;
         }
 
@@ -125,7 +126,7 @@ public class FinalBossEnemyCombat : EnemyCombat
         ActionNode attackAnim2 = new ActionNode(AttackAnimation2);
         ActionNode attackAnim3 = new ActionNode(AttackAnimation3);
 
-        _regularAttacksRouletteNodes.Add(attackAnim1, 35);
+        _regularAttacksRouletteNodes.Add(attackAnim1, 5);
         _regularAttacksRouletteNodes.Add(attackAnim2, 20);
         _regularAttacksRouletteNodes.Add(attackAnim3, 10);
 

@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("Player is dead? " + instance.PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead);
         if (powerUpText.text != "") StartCoroutine(WaitToDisableUI(2));
-        machinePartsText.text = $"{machinePartsPickedUp}/2 machine parts collected";
+        machinePartsText.text = $"{machinePartsPickedUp}/3 machine parts collected";
         EventQueueHandler();
         if (_gameOver)
         {

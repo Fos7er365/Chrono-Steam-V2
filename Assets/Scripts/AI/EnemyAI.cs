@@ -27,7 +27,8 @@ public class EnemyAI : MonoBehaviour
         _seek = gameObject.GetComponent<Seek>();
         obstacleavoidance = gameObject.GetComponent<ObstacleAvoidance>();
         combat = gameObject.GetComponent<EnemyCombat>();
-        if(enemyModel.Stats.EnemyType != "Boss" ) CreateDecisionTree();
+        //if(enemyModel.Stats.EnemyType != "Boss" )
+            CreateDecisionTree();
     }
     private void Start()
     {

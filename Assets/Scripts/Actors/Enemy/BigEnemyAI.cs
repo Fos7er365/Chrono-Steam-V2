@@ -70,34 +70,34 @@ public class BigEnemyAI : EnemyAI
 
     }
 
-    protected override void CreateDecisionTree()
-    {
-        ActionNode AttackPlayer = new ActionNode(AttackV2);
-        ActionNode Patrol = new ActionNode(Patrolling);
-        ActionNode SeekPlayer = new ActionNode(Seeking);
-        ActionNode SeekChargeCD = new ActionNode(SeekingyChargeCD);
-        ActionNode Charge = new ActionNode(Charging);
-        ActionNode Die = new ActionNode(base.Die);
+    //protected override void CreateDecisionTree()
+    //{
+    //    ActionNode AttackPlayer = new ActionNode(AttackV2);
+    //    ActionNode Patrol = new ActionNode(Patrolling);
+    //    ActionNode SeekPlayer = new ActionNode(Seeking);
+    //    ActionNode SeekChargeCD = new ActionNode(SeekingyChargeCD);
+    //    ActionNode Charge = new ActionNode(Charging);
+    //    ActionNode Die = new ActionNode(base.Die);
 
-        QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < enemyModel.Stats.AttackRange), AttackPlayer, SeekPlayer);
-        //QuestionNode isInSeekRange = new QuestionNode(() => (playerDistance < combat.SeekRange), isInAttackRange, SeekPlayer);
-        QuestionNode isChargeInCooldown = new QuestionNode(() => (_currentChargeCD > 0) && !doingCharge, /*SeekPlayer*/SeekChargeCD, Charge);
-        QuestionNode isTooCloseToCharge = new QuestionNode(() => (playerDistance > chargeRange) || (doingCharge), isChargeInCooldown, isInAttackRange);
-        QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge/*isInSeekRange*/, Patrol);
-        QuestionNode isPlayerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
-        QuestionNode isAlive = new QuestionNode(() => !(enemyModel.EnemyHealthController.isDead), isPlayerAlive, Die);
+    //    QuestionNode isInAttackRange = new QuestionNode(() => (playerDistance < enemyModel.Stats.AttackRange), AttackPlayer, SeekPlayer);
+    //    //QuestionNode isInSeekRange = new QuestionNode(() => (playerDistance < combat.SeekRange), isInAttackRange, SeekPlayer);
+    //    QuestionNode isChargeInCooldown = new QuestionNode(() => (_currentChargeCD > 0) && !doingCharge, /*SeekPlayer*/SeekChargeCD, Charge);
+    //    QuestionNode isTooCloseToCharge = new QuestionNode(() => (playerDistance > chargeRange) || (doingCharge), isChargeInCooldown, isInAttackRange);
+    //    QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge/*isInSeekRange*/, Patrol);
+    //    QuestionNode isPlayerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
+    //    QuestionNode isAlive = new QuestionNode(() => !(enemyModel.EnemyHealthController.isDead), isPlayerAlive, Die);
 
-        //QuestionNode inAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange) && !doingCharge, AttackPlayer, SeekPlayer);
+    //    //QuestionNode inAttackRange = new QuestionNode(() => (playerDistance < combat.AttackRange) && !doingCharge, AttackPlayer, SeekPlayer);
 
 
-        //QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge, Patrol);
+    //    //QuestionNode isPlayerInSight = new QuestionNode(() => (sight.targetInSight), isTooCloseToCharge, Patrol);
 
-        //QuestionNode isPlayerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
+    //    //QuestionNode isPlayerAlive = new QuestionNode(() => !(enemyModel.Player.Life_Controller.isDead), isPlayerInSight, Patrol);
 
-        //QuestionNode isAlive = new QuestionNode(() => !(enemyModel.Life_Controller.isDead), isPlayerAlive, Die);
+    //    //QuestionNode isAlive = new QuestionNode(() => !(enemyModel.Life_Controller.isDead), isPlayerAlive, Die);
 
-        initialNode = isAlive;
-    }
+    //    initialNode = isAlive;
+    //}
     protected override void Attack()
     {
         doingCharge = false;
