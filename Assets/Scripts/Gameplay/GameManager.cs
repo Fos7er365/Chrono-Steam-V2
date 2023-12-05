@@ -97,6 +97,14 @@ public class GameManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         level = _lvlToCharge;
+        if(level != 7)
+        {
+            SetUpCurrentScene();
+        }
+       
+    }
+    void SetUpCurrentScene()
+    {
         if (playerSpawner == null)
         {
             playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;

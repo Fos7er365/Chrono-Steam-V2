@@ -62,7 +62,7 @@ public class Player_Input : MonoBehaviour
     }
     public bool Action5()
     {
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             return true;
         }

@@ -181,11 +181,13 @@ MonoBehaviour:
     type: 3}
   rotSpeed: 2
   rotTimeMax: 5
-  shootCdMax: 0.015
+  shootCdMax: 0.75
   inSight: 0
   turretStats: {fileID: 11400000, guid: 35e386997ffb823489ee0d2eed1f8cc8, type: 2}
   damage: 10
   distance: 3
+  seekSpeed: 50
+  rotateAngle: 70
 --- !u!65 &796835808
 BoxCollider:
   m_ObjectHideFlags: 0

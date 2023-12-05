@@ -248,21 +248,23 @@ public class PlayerActions : MonoBehaviour, IComand
                 {
                     _playerController.IsWeaponSlotNull = true;
                     FindObjectOfType<AudioManager>().Play("BrokenWeapon");
-                    _playerController.PlayerStats.Weapon.GetComponent<Weapon>().TurnOffWeaponFresnel();
+                    var playerWeapon = _playerController.PlayerStats.Weapon.GetComponent<Weapon>();
+                    playerWeapon.TurnOffWeaponFresnel();
                     //Debug.Log("Se desprendió la weapon");
                     if (!_playerController.PlayerStats.Weapon.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
                     {
                         Rigidbody rb = _playerController.PlayerStats.Weapon.AddComponent<Rigidbody>();
                         _playerController.PlayerStats.Weapon.GetComponent<Weapon>().Rb = rb;
                     }
-                    GameObject WeaponRef = _playerController.PlayerStats.Weapon;
-                    _playerController.PlayerStats.Weapon.GetComponent<Weapon>().Rb?.AddExplosionForce(500f, transform.position, 10f);
-                    _playerController.PlayerStats.Weapon.GetComponent<Weapon>().Rb?.AddTorque(_playerController.PlayerStats.Weapon.transform.right * 1000f);
-                    _playerController.EnableWeaponIcon(_playerController.PlayerStats.Weapon.gameObject.GetComponent<Weapon>().WeaponStats.WeaponName, false);
-                    _playerController.PlayerStats.Weapon.transform.parent = null;
-                    _playerController.PlayerStats.Weapon = null;
+                    GameObject weaponRef = _playerController.PlayerStats.Weapon;
+                    playerWeapon.Rb?.AddExplosionForce(200f, transform.position, 10f);
+                    playerWeapon.Rb?.AddTorque(weaponRef.transform.right * 1000f);
+                    //playerWeapon.currentDurability = 0;
+                    _playerController.EnableWeaponIcon(playerWeapon.WeaponStats.WeaponName, false);
+                    weaponRef.transform.parent = null;
+                    weaponRef = null;
                     _currentReleaseTime = _releaseTime;
-                    Destroy(WeaponRef, 2f);
+                    Destroy(weaponRef.gameObject, 2f);
                 }
             }
             else
