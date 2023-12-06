@@ -52,7 +52,7 @@ public class PlayerActions : MonoBehaviour, IComand
                             {
 
                                 _playerController.Animations.AttackAnimation();
-                                _playerController.PlayerStats.Weapon.GetComponent<Weapon>().ParticleSystems[0].Play();
+                                //_playerController.PlayerStats.Weapon.GetComponent<Weapon>().ParticleSystems[0].Play();
                             }
                             if (_playerController.PlayerStats.Weapon.CompareTag("Claimore"))
                             {
@@ -261,10 +261,10 @@ public class PlayerActions : MonoBehaviour, IComand
                     playerWeapon.Rb?.AddTorque(weaponRef.transform.right * 1000f);
                     //playerWeapon.currentDurability = 0;
                     _playerController.EnableWeaponIcon(playerWeapon.WeaponStats.WeaponName, false);
+                    Destroy(weaponRef.gameObject, 2f);
                     weaponRef.transform.parent = null;
                     weaponRef = null;
                     _currentReleaseTime = _releaseTime;
-                    Destroy(weaponRef.gameObject, 2f);
                 }
             }
             else

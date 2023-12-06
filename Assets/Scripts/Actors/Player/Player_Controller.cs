@@ -99,7 +99,7 @@ public class Player_Controller : MonoBehaviour, ILive
         GameManager.Instance.PlayerInstance = this.gameObject;
         weaponsUIICons = GameObject.Find("Weapons_UI").gameObject.GetComponent<UIIconsManager>();
         // _playerStats.SpawnPoint = GameObject.FindGameObjectWithTag("PlayerSpawnpoint").transform;
-        hitCounter = GameObject.FindGameObjectWithTag("hitCounter").GetComponent<HitCounter>();
+        //hitCounter = GameObject.FindGameObjectWithTag("hitCounter").GetComponent<HitCounter>();
         _life_Controller.Dead.AddListener(GameManager.Instance.GameOver);
     }
 

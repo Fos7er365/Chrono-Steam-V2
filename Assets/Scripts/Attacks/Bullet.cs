@@ -12,12 +12,12 @@ public class Bullet : MonoBehaviour
         transform.Translate(0, 0, realSpeed);
         Destroy(gameObject, LifeTime);
     }
-    public void Create(int damage, float distance)
+    public void Create(Vector3 pos, int damage, float distance)
     {
         _damage = damage;
         _distance = distance;
         var _player = GameManager.Instance.PlayerInstance;
-        Instantiate(gameObject, _player.transform.position, _player.transform.rotation);
+        Instantiate(gameObject, pos, _player.gameObject.transform.rotation);
     }
     private void OnTriggerEnter(Collider other)
     {

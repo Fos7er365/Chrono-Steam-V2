@@ -79,6 +79,7 @@ public class Weapon : MonoBehaviour, IComand
     {
         if (currentDurability <= 0)
         {
+            currentDurability = 0;
             if (this.gameObject != null && !isDrop)
             {
                 FindObjectOfType<AudioManager>().Play("BrokenWeapon");
@@ -144,9 +145,5 @@ public class Weapon : MonoBehaviour, IComand
                 }
             }
         }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Debug.Log(collision.gameObject.name);
     }
 }

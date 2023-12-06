@@ -16,12 +16,12 @@ public class BladeWeapon : Weapon, IAreaAttack
 
     [SerializeField] protected GameObject _player;
     [SerializeField] protected GameObject specialAttackVFXGO;
-    [SerializeField] GameObject position;
+    [SerializeField] Transform vfxSpawnPosition;
     public AreaStats AreaStats { get => _areaStats; set => _areaStats = value; }
 
     public override void Start()
     {
-        hitCounter = GameObject.FindGameObjectWithTag("hitCounter").GetComponent<HitCounter>();
+        //hitCounter = GameObject.FindGameObjectWithTag("hitCounter").GetComponent<HitCounter>();
         _currentCD = 0;
         _currentEspExeCd = WeaponStats.EspExeCd;
         currentDurability = _weaponStats.Durability;
@@ -76,45 +76,18 @@ public class BladeWeapon : Weapon, IAreaAttack
         {
             var spVFXGOChilds = GetComponentsInChildren<ParticleSystem>();
             currentDurability -= WeaponStats.DurabilityDecrease;
-            for (int i = 0; i < espParticleSystems.Count; i++)
-            {
-                #region debugcomprobation
-                // Debug.Log("Entered in SPS for");
-
-                /*if (EspParticleSystems == null) Debug.Log("Special Particle System is null!");
-                else Debug.Log("Special Particle System not null");*/
-                #endregion
-                espParticleSystems[i].Play();
-            }
 
             if (specialAttackVFXGO != null)
             {
-                if (specialAttackVFXGO.CompareTag("Bullet"))
-                {
-                    var go =Instantiate(specialAttackVFXGO, position.transform.position, Quaternion.identity);
-                    go.GetComponent<ParticleSystem>().Play();
-                    //specialAttackVFXGO.GetComponent<Bullet>().Create(_weaponStats.EspDamage, _espAreaStats.MaxDistance);
-                }
-                else
-                    Debug.Log("objVFX tag error");
+                specialAttackVFXGO.GetComponent<Bullet>().Create(transform.position, _weaponStats.EspDamage, _espAreaStats.MaxDistance);
+                //var go = Instantiate(specialAttackVFXGO, transform.position, transform.rotation);
+                //go.GetComponent<ParticleSystem>().Play();
+                //go.GetComponent<Bullet>().Create(_weaponStats.EspDamage, _espAreaStats.MaxDistance);
             }
-
-            else
-                Debug.Log("objVFX = NULL");
+            else return;
             _currentEspExeCd = 0;
         }
     }
-
-    //public void PlayFinalBossSummonAttackParticleSystem()
-    //{
-    //    if (summonAttackParticleSystem != null)
-    //    {
-    //        var go = Instantiate(summonAttackParticleSystem, summonAttackPartSystemGO.transform.position, Quaternion.identity);
-    //        FinalBossPlayAnidatedParticles(go);
-    //    }
-    //    else
-    //        Debug.Log("playParticles function particle not asigned");
-    //}
 
     public virtual void AreaAtack()
     {

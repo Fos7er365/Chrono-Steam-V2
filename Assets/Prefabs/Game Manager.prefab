@@ -1283,6 +1283,7 @@ MonoBehaviour:
       limpiar su nombre..."
     - Me gusta el pan
     - Que calor amigo
+  isAvailableToShowDialogue: 0
 --- !u!1 &1274906793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4308,7 +4309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5347870734452144027
 RectTransform:
   m_ObjectHideFlags: 0
