@@ -16,17 +16,12 @@ public class Clap_controler : MonoBehaviour
         dir = GameManager.Instance.PlayerInstance.transform.position - transform.position;
         dir.y = 0;
     }
-    private void Update()
+
+    private void FixedUpdate()
     {
         rb.velocity = dir.normalized * speed * Time.deltaTime;
-        /* if (lifeTime <= 0)
-         {
-             Destroy();
-         }
-         else
-             lifeTime -= Time.deltaTime;*/
-
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))

@@ -18,17 +18,26 @@ public class DialogueManager : MonoBehaviour
     void Awake()
     {
         sentences = new Queue<string>();
+        //sentences.Clear();
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            DisplayNextSentence();
     }
 
     public void StartDialogue(Dialogue d)
     {
-        sentences.Clear();
+        
+
         anim.SetBool("isOpen", true);
         nameText.text = d.name;
 
         foreach (var s in d.sentences)
         {
             sentences.Enqueue(s);
+            Debug.Log("New line " + s);
         }
 
         DisplayNextSentence();
@@ -41,14 +50,17 @@ public class DialogueManager : MonoBehaviour
             EndDialogue();
             return;
         }
-
-        string s = sentences.Dequeue();
-        dialogueText.text = s;
-        Debug.Log(s);
+        else
+        {
+            string s = sentences.Dequeue();
+            dialogueText.text = s;
+            Debug.Log(s);
+        }
     }
 
     public void EndDialogue()
     {
         anim.SetBool("isOpen", false);
+        sentences.Clear();
     }
 }

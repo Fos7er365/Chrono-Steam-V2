@@ -8,8 +8,7 @@ public class TeslaBall : MonoBehaviour
     Player_Controller player;
     [SerializeField] ParticleSystem[] particles;
 
-    Vector3 playerPos;
-    Vector3 direction;
+    Vector3 playerPos, direction;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +17,7 @@ public class TeslaBall : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         PlayParticles();
@@ -28,7 +27,7 @@ public class TeslaBall : MonoBehaviour
         Vector3 deltaVector = (playerPos - transform.position).normalized;
         deltaVector.y = 0;
 
-        direction = deltaVector;
+        direction = (playerPos - transform.position).normalized;//deltaVector;
 
         transform.forward = Vector3.Lerp(transform.forward, direction, Time.deltaTime * rotSpeed);
 
@@ -37,13 +36,14 @@ public class TeslaBall : MonoBehaviour
         Destroy(gameObject, 10);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             player.Life_Controller.GetDamage(damage);
             Destroy(gameObject);
         }
+        else Destroy(gameObject);
     }
 
     void PlayParticles()

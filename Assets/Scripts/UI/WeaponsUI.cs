@@ -32,7 +32,7 @@ public class WeaponsUI : MonoBehaviour
 
     public void DisplayDurability(Image durabilityUI, float value, float maxValue)
     {
-        if (weaponDurability < 0f)
+        if (weaponDurability <= 0f)
             weaponDurability = 0f;
 
         durabilityUI.fillAmount = weaponDurability / weaponMaxDurability;

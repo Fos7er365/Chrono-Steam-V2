@@ -9283,7 +9283,7 @@ GameObject:
   - component: {fileID: 400004}
   - component: {fileID: -8135318416473109427}
   - component: {fileID: 4653821068698108377}
-  - component: {fileID: -2940997962052586322}
+  - component: {fileID: 7884949535087866858}
   m_Layer: 10
   m_Name: Ingenialvus Clap Attack
   m_TagString: Untagged
@@ -9336,11 +9336,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f39490ca8b5c44daddaf30c8316238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 30
   lifeTime: 1
   speed: 200
---- !u!64 &-2940997962052586322
-MeshCollider:
+--- !u!135 &7884949535087866858
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9349,10 +9349,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &100006
 GameObject:
   m_ObjectHideFlags: 0

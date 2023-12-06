@@ -13,9 +13,10 @@ public class DialogueTrigger : MonoBehaviour
     {
         if(gameObject.tag == "Physical_Conversation_Trigger") TriggerDialogue();
     }
+
     public void TriggerDialogue()
     {
-        if(isAvailableToShowDialogue)
+        if (isAvailableToShowDialogue)
             FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
         //IsAvailableToShowDialogue = false;
     }

@@ -11,10 +11,6 @@ public class InitialBossDialogueTrigger : MonoBehaviour
     {
         lvlMgr = FindObjectOfType<LevelManager>();
     }
-    private void Update()
-    {
-        Debug.Log("Boss dead? " + lvlMgr.BossDead);
-    }
 
     private void OnTriggerStay(Collider other)
     {
