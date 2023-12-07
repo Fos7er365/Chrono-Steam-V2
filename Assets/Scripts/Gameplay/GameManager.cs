@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI MachinePartsText { get => machinePartsText; set => machinePartsText = value; }
     public int MachinePartsPickedUp { get => machinePartsPickedUp; set => machinePartsPickedUp = value; }
     public Player_Controller PlayerController { get => playerController; set => playerController = value; }
+    Combat finalBoss;
 
     private void Awake()
     {
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
     {
         LvlManager = GameObject.Find("LevelManager");
         audioMgr = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        if (GameObject.FindWithTag("Final_Boss") != null)
+            finalBoss = GameObject.FindWithTag("Final_Boss").GetComponent<Combat>();
     }
 
     void Update()
@@ -67,25 +70,29 @@ public class GameManager : MonoBehaviour
             if (powerUpText.text != "") StartCoroutine(WaitToDisableUI(2));
             machinePartsText.text = $"{machinePartsPickedUp}/3 machine parts collected";
             EventQueueHandler();
-            CheckBackgroundMusicStop();
+            CheckBackgroundMusicStop(3);
+            CheckBackgroundMusicStop(4);
         }
         else
         {
-            if (lvlManager.GetComponent<LevelManager>().BossDead && SceneManager.GetActiveScene().buildIndex == 5) StartCoroutine(CheckGameWin());
-            CheckGameEndMusicStop();
+            //if (finalBoss.EnemyModel.EnemyHealthController.CurrentLife <= 0)
+            //{
+            //    StartCoroutine(CheckGameWin());
+            //    CheckGameEndMusicStop();
+            //}
         }
     }
     void CheckGameEndMusicStop()
     {
-        if (lvlManager.GetComponent<LevelManager>().BossDead && audioMgr.GetAudio("Final_Boss_Fight_Background_Music").Source.isPlaying)
+        if (finalBoss.EnemyModel.EnemyHealthController.CurrentLife <= 0 && audioMgr.GetAudio("Final_Boss_Fight_Background_Music").Source.isPlaying)
         {
             audioMgr.Stop("Final_Boss_Fight_Background_Music");
         }
     }
 
-    void CheckBackgroundMusicStop()
+    void CheckBackgroundMusicStop(int buildIndex)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
+        if (SceneManager.GetActiveScene().buildIndex == buildIndex) 
         {
             if(lvlManager.GetComponent<LevelManager>().BossDead && audioMgr.GetAudio("Sewer_Background_Music").Source.isPlaying)
             {
@@ -130,7 +137,7 @@ public class GameManager : MonoBehaviour
     {
         level = _lvlToCharge;
 
-        if (SceneManager.GetActiveScene().buildIndex != 7)
+        if (SceneManager.GetActiveScene().buildIndex < 7)
         {
             SetUpCurrentScene();
         }

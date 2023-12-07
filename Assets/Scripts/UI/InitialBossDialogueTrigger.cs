@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class InitialBossDialogueTrigger : MonoBehaviour
 {
+    [SerializeField] int buildIndex;
     LevelManager lvlMgr;
 
     private void Start()
@@ -14,7 +15,7 @@ public class InitialBossDialogueTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 5 && lvlMgr.BossDead)
+        if (SceneManager.GetActiveScene().buildIndex == buildIndex && lvlMgr.BossDead)
             CheckEnabling(other);
     }
 

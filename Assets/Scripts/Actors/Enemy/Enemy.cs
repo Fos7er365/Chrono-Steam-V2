@@ -97,7 +97,7 @@ public class Enemy : Actor, IEnemy
 
     void DropMachinePart()
     {
-        if(GameManager.Instance.MachinePartsPickedUp < 2)
+        if(GameManager.Instance.MachinePartsPickedUp < 3)
         {
             if (isMachinePartSpawn || gameObject.CompareTag("Final_Boss")) return;
             else

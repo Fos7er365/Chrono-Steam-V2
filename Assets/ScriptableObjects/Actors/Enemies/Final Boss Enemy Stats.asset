@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   rotationSpeed: 10
-  maxHealth: 250
+  maxHealth: 450
   meleeDamage: 10
   attackRange: 20
   seekRange: 30
-  lifeRange: fa000000fa000000
+  lifeRange: c2010000c2010000
   enemyType: Boss

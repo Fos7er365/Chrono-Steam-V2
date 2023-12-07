@@ -16,6 +16,8 @@ public class Combat : MonoBehaviour, IEnemyAtack
     Roulette _regularAttacksRouletteWheel;
     Dictionary<ActionNode, int> _regularAttacksRouletteWheelNodes = new Dictionary<ActionNode, int>();
 
+    public Enemy EnemyModel { get => enemyModel; set => enemyModel = value; }
+
     private void Awake()
     {
         enemyModel = GetComponent<Enemy>();
