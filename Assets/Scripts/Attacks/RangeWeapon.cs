@@ -13,6 +13,7 @@ public class RangeWeapon : Weapon
     public RangeWeaponStats RangeStats { get => _rangeStats; }
     public GameObject BulletSpawner { get => _bulletSpawner; }
     public AreaStats AreaStats { get => _areaStats; }
+    AudioManager audioMgr;
 
     //public Transform NapalmSpawn { get => _napalmSpawn;}
 
@@ -22,6 +23,7 @@ public class RangeWeapon : Weapon
         bullets = _rangeStats.maxBullets;
         _currentReloadTime = _rangeStats.reloadTime;
         _player = GameObject.FindGameObjectWithTag("Player");
+        audioMgr = FindObjectOfType<AudioManager>();
     }
     public override void Execute()
     {
@@ -32,22 +34,23 @@ public class RangeWeapon : Weapon
             foreach (var item in ParticleSystems)
             {
                 item.Play();
+
             }
             //Instantiate(_rangeStats.bulletPrefab, BulletSpawner.transform.position, BulletSpawner.transform.rotation);
-            Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);
-            for (int i = Enemys.Length - 1; i >= 0; i--)
+            Collider[] enemiesColl = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward * _areaStats.MaxDistance, _areaStats.MaxAmplitude);
+            for (int i = enemiesColl.Length - 1; i >= 0; i--)
             {
-                if (Enemys[i].gameObject != null)
+                if (enemiesColl[i].gameObject != null)
                 {
-                    if (Enemys[i].gameObject.CompareTag("Enemy"))
+                    if (enemiesColl[i].gameObject.CompareTag("Enemy") || enemiesColl[i].gameObject.CompareTag("Final_Boss"))
                     {
-                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
+                        if (/*hitCounter != null &&*/ !enemiesColl[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                         {
-                            hitCounter.AddHitCounter();
+                            //hitCounter.AddHitCounter();
                             FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
                         }
 
-                        Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
+                        enemiesColl[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
 
                     }
                 }
@@ -79,7 +82,9 @@ public class RangeWeapon : Weapon
 
             for (int i = 0; i < espParticleSystems.Count; i++)
             {
+
                 espParticleSystems[i].Play();
+                if (!audioMgr.GetAudio("Gun_Weapon_Ultimate_B").Source.isPlaying) audioMgr.Play("Gun_Weapon_Ultimate_B");
             }
 
             nRange.GetComponent<SphereDamageArea>().Create(WeaponStats.EspDamage, _player.GetComponent<PlayerActions>().GunUIarea.transform.position);
@@ -95,9 +100,12 @@ public class RangeWeapon : Weapon
         base.Update();
         if (bullets <= 0 || _currentReloadTime > 0)
         {
+            //FindObjectOfType<AudioManager>().Stop("Gun_Weapon_Ultimate_B");
             // Debug.Log("Recargando");
             _currentReloadTime -= Time.deltaTime;
             bullets = _rangeStats.maxBullets;
+
+            if (audioMgr.GetAudio("Gun_Weapon_Ultimate_B").Source.isPlaying) audioMgr.Stop("Gun_Weapon_Ultimate_B");
         }
     }
     private void OnDrawGizmos()

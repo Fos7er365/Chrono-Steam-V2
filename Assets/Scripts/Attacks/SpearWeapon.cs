@@ -30,20 +30,20 @@ public class SpearWeapon : BladeWeapon
                 espParticleSystems[i].Play();
             }
 
-            Collider[] Enemys = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward * _espAreaStats.MaxDistance, _espAreaStats.MaxAmplitude);
-            for (int i = Enemys.Length - 1; i >= 0; i--)
+            Collider[] enemiesColl = Physics.OverlapCapsule(_player.transform.position, _player.transform.position + _player.transform.forward * _espAreaStats.MaxDistance, _espAreaStats.MaxAmplitude);
+            for (int i = enemiesColl.Length - 1; i >= 0; i--)
             {
-                if (Enemys[i].gameObject != null)
+                if (enemiesColl[i].gameObject != null)
                 {
-                    if (Enemys[i].gameObject.CompareTag("Enemy"))
+                    if (enemiesColl[i].gameObject.CompareTag("Enemy") || enemiesColl[i].gameObject.CompareTag("Final_Boss"))
                     {
-                        if (hitCounter != null && !Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
+                        if (hitCounter != null && !enemiesColl[i].gameObject.GetComponent<Enemy>().EnemyHealthController.isDead)
                         {
                             hitCounter.AddHitCounter();
                             FindObjectOfType<AudioManager>().Play("PlayerSwordHit");
                         }
 
-                        Enemys[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
+                        enemiesColl[i].gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(_weaponStats.EspDamage);
 
                     }
                 }

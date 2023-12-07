@@ -2546,7 +2546,7 @@ MonoBehaviour:
     m_Bits: 256
   bossEnemyAIHandler: {fileID: 6108059413903836729}
   regularAttackThreshold: 150
-  summonAttackThreshold: 70
+  summonAttackThreshold: 100
   regularAttackTimer: 1
   enhancedAttackTimer: 10
   blockAttacksTimer: 3

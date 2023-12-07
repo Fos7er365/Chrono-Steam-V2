@@ -111075,23 +111075,16 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.4
-    functionName: PlaySound
-    data: Claymore_Weapon_Ultimate_B
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.4333333
-    functionName: PlaySound
-    data: Claymore_Weapon_Ultimate_A
+  - time: 1.6333333
+    functionName: WeaponSpecialExecute
+    data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.6333333
-    functionName: WeaponSpecialExecute
-    data: 
+    functionName: PlaySound
+    data: Claymore Ultimate Attack
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

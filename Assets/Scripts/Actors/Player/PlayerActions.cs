@@ -12,6 +12,7 @@ public class PlayerActions : MonoBehaviour, IComand
     [SerializeField] private Image _gunUIarea; // la imagen q voy a mover
     [SerializeField] private Image _gunUIdistance;// la imagen q marca la distancia
     [SerializeField] private Transform _canvasCenter;
+    [SerializeField] AudioManager audioMgr;
 
     public Image GunUIarea { get => _gunUIarea; }
 
@@ -215,27 +216,14 @@ public class PlayerActions : MonoBehaviour, IComand
                     if (_playerController.PlayerStats.Weapon.CompareTag("Fist"))
                     {
                         _playerController.Animations.SpecialFistAttackAnimation();
-                        FindObjectOfType<AudioManager>().Play("Gun_Weapon_Ultimate_A");
-                        FindObjectOfType<AudioManager>().Play("Gun_Weapon_Ultimate_B");
                     }
                     if (_playerController.PlayerStats.Weapon.CompareTag("Spear"))
                     {
                         _playerController.Animations.SpecialSpearAttackAnimation();
                     }
 
-                    /* Unmerged change from project 'Assembly-CSharp.Player'
-                    Before:
-                                    }
-
-                                    // _player.WeaponSpecialExecute();
-                    After:
-                                    }
-
-                                    // _player.WeaponSpecialExecute();
-                    */
                 }
 
-                // _player.WeaponSpecialExecute();
             }
         }
         #endregion

@@ -39692,7 +39692,7 @@ AnimationClip:
     messageOptions: 0
   - time: 0.56666666
     functionName: PlaySound
-    data: Fist_Weapon_D
+    data: Blade_Weapon_Basic
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

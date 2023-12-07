@@ -51947,7 +51947,7 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: PlaySound
-    data: FistWeapon_Basic_B
+    data: Blade_Weapon_Basic
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -51961,14 +51961,14 @@ AnimationClip:
     messageOptions: 0
   - time: 0.3
     functionName: PlaySound
-    data: Fist_Weapon_Basic_C
+    data: Blade_Weapon_Basic
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.56666666
     functionName: PlaySound
-    data: Fist_Weapon_Basic_C
+    data: Blade_Weapon_Basic
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
@@ -51989,14 +51989,14 @@ AnimationClip:
     messageOptions: 0
   - time: 0.7
     functionName: PlaySound
-    data: Fist_Weapon_Basic_C
+    data: Blade_Weapon_Basic
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.8333333
     functionName: PlaySound
-    data: Player_Weapon_Basic_C
+    data: Blade_Weapon_Basic
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0

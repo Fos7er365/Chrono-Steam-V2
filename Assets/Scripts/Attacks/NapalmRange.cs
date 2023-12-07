@@ -35,6 +35,9 @@ public class NapalmRange : MonoBehaviour
             {
                 if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
                     enemy.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(damage);
+                else if(enemy != null && enemy.gameObject.CompareTag("Final_Boss"))
+                    enemy.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(damage);
+
             }
         }
         else damageActualCd += Time.deltaTime;
@@ -47,7 +50,6 @@ public class NapalmRange : MonoBehaviour
 
     public void Create(int damage, float distance)
     {
-        //Debug.Log("NapalmInstantie");
         this.damage = damage;
         this.distance = distance;
         var _player = GameManager.Instance.PlayerInstance;

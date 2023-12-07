@@ -113,7 +113,7 @@ public class FinalBossEnemyCombat : EnemyCombat
         finalBossEnemyAnim.BlockAttacksAnimation(true);
         var currHealth = enemyModel.EnemyHealthController.CurrentLife;
         currHealth += regenerationAmount;
-        if (currHealth >= currHealth * .6f)
+        if (currHealth > currHealth - (currHealth * .6f))
             currHealth = enemyModel.Stats.MaxHealth * .6f;
         Debug.Log("curr health: " + currHealth);
     }

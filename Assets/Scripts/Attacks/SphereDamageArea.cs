@@ -27,13 +27,14 @@ public class SphereDamageArea : MonoBehaviour
     {
         animActualCd += Time.deltaTime;
         Destroy(gameObject, duration);
-
         if (damageActualCd >= damageCd)
         {
-            Collider[] enemis = Area();
-            foreach (var enemy in enemis)
+            Collider[] enemiesColl = Area();
+            foreach (var enemy in enemiesColl)
             {
                 if (enemy != null && enemy.gameObject.CompareTag("Enemy"))
+                    enemy.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(damage);
+                else if (enemy != null && enemy.gameObject.CompareTag("Final_Boss"))
                     enemy.gameObject.GetComponent<Enemy>().EnemyHealthController.GetDamage(damage);
                 damageActualCd = 0;
             }
@@ -52,7 +53,6 @@ public class SphereDamageArea : MonoBehaviour
     }
     public virtual void Create(int damage, Vector3 position)
     {
-        //Debug.Log("NapalmInstantie");
         this.damage = damage;
         var _player = GameManager.Instance.PlayerInstance;
         Instantiate(gameObject, position, Quaternion.identity);

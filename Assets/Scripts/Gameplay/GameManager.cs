@@ -72,6 +72,14 @@ public class GameManager : MonoBehaviour
         else
         {
             if (lvlManager.GetComponent<LevelManager>().BossDead && SceneManager.GetActiveScene().buildIndex == 5) StartCoroutine(CheckGameWin());
+            CheckGameEndMusicStop();
+        }
+    }
+    void CheckGameEndMusicStop()
+    {
+        if (lvlManager.GetComponent<LevelManager>().BossDead && audioMgr.GetAudio("Final_Boss_Fight_Background_Music").Source.isPlaying)
+        {
+            audioMgr.Stop("Final_Boss_Fight_Background_Music");
         }
     }
 

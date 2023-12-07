@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Final_Boss"))
         {
             float weapondamage = GameManager.Instance.PlayerInstance.GetComponent<Player_Controller>()
                                     .PlayerStats.Weapon.GetComponent<Weapon>().WeaponStats.EspDamage;
