@@ -111,10 +111,11 @@ public class FinalBossEnemyCombat : EnemyCombat
     {
         currentBlockTime += Time.deltaTime;
         finalBossEnemyAnim.BlockAttacksAnimation(true);
-        enemyModel.EnemyHealthController.CurrentLife += regenerationAmount;
-        if (enemyModel.EnemyHealthController.CurrentLife >= enemyModel.Stats.MaxHealth)
-            enemyModel.EnemyHealthController.CurrentLife = enemyModel.Stats.MaxHealth * .6f;
-        Debug.Log("curr health: " + enemyModel.EnemyHealthController.CurrentLife);
+        var currHealth = enemyModel.EnemyHealthController.CurrentLife;
+        currHealth += regenerationAmount;
+        if (currHealth >= currHealth * .6f)
+            currHealth = enemyModel.Stats.MaxHealth * .6f;
+        Debug.Log("curr health: " + currHealth);
     }
 
     #region Regular Attack Roulette Wheel
@@ -199,10 +200,10 @@ public class FinalBossEnemyCombat : EnemyCombat
     {
         if(collision.gameObject.CompareTag("FloorWeapon"))
         {
-            var wp = collision.gameObject;
+            var wp = collision.gameObject.GetComponent<Weapon>();
             if (wp != null)
             {
-                var wpStats = collision.gameObject.GetComponent<Weapon>().WeaponStats;
+                var wpStats = wp.WeaponStats;
                 enemyModel.EnemyHealthController.GetDamage(wpStats.AttDamage);
             }
         }

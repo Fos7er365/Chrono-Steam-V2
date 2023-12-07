@@ -57,10 +57,11 @@ public class LevelManager : MonoBehaviour
     }
     private void Update()
     {
-        HandleChestsSpawn();
-        HandleElevatorSpawn();
-        
-       
+        if(!GameManager.Instance.Win)
+        {
+            HandleChestsSpawn();
+            HandleElevatorSpawn();
+        }
     }
     void HandleChestsSpawn()
     {

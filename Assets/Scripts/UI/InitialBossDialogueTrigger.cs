@@ -14,7 +14,7 @@ public class InitialBossDialogueTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 2 && lvlMgr.BossDead)
+        if (SceneManager.GetActiveScene().buildIndex == 5 && lvlMgr.BossDead)
             CheckEnabling(other);
     }
 

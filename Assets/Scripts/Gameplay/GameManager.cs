@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float respawnCD;
     [SerializeField] TextMeshProUGUI powerUpText, machinePartsText;
     Player_Controller playerController;
+    AudioManager audioMgr;
     Transform playerSpawner;
     bool _gameOver;
     bool _win;
@@ -56,19 +57,42 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         LvlManager = GameObject.Find("LevelManager");
+        audioMgr = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     void Update()
     {
-        //Debug.Log("Player is dead? " + instance.PlayerInstance.GetComponent<Player_Controller>().Life_Controller.isDead);
-        if (powerUpText.text != "") StartCoroutine(WaitToDisableUI(2));
-        machinePartsText.text = $"{machinePartsPickedUp}/3 machine parts collected";
-        EventQueueHandler();
-        if (_gameOver)
+        if (!_win)
         {
-
+            if (powerUpText.text != "") StartCoroutine(WaitToDisableUI(2));
+            machinePartsText.text = $"{machinePartsPickedUp}/3 machine parts collected";
+            EventQueueHandler();
+            CheckBackgroundMusicStop();
+        }
+        else
+        {
+            if (lvlManager.GetComponent<LevelManager>().BossDead && SceneManager.GetActiveScene().buildIndex == 5) StartCoroutine(CheckGameWin());
         }
     }
+
+    void CheckBackgroundMusicStop()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            if(lvlManager.GetComponent<LevelManager>().BossDead && audioMgr.GetAudio("Sewer_Background_Music").Source.isPlaying)
+            {
+                audioMgr.Stop("Sewer_Background_Music");
+                audioMgr.Stop("Environment_Background_Music");
+            }
+        }
+    }
+
+    IEnumerator CheckGameWin()
+    {
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene("Win Screen");
+    }
+
     void EventQueueHandler()
     {
         if (eventQueue.Count > 0)
@@ -97,20 +121,23 @@ public class GameManager : MonoBehaviour
     void OnLevelWasLoaded(int level)
     {
         level = _lvlToCharge;
-        if(level != 7)
+
+        if (SceneManager.GetActiveScene().buildIndex != 7)
         {
             SetUpCurrentScene();
         }
-       
     }
     void SetUpCurrentScene()
     {
         if (playerSpawner == null)
         {
-            playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
-            _camera.GetComponent<CameraFollow>().enabled = true;
-            _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
-            _playerInstance.transform.position = playerSpawner.position;
+            if (_camera != null)
+            {
+                playerSpawner = GameObject.FindGameObjectWithTag("PlayerSpawner").transform;
+                _camera.GetComponent<CameraFollow>().enabled = true;
+                _playerInstance.GetComponent<Player_Controller>().Isleaving = false;
+                _playerInstance.transform.position = playerSpawner.position;
+            }
         }
         else if (_playerInstance != null)
         {

@@ -159,59 +159,76 @@ public class Enemy : Actor, IEnemy
 
     void Die()
     {
-
-        if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
-        if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
-        //CheckMachinePartDrop();
-        if (gameObject.TryGetComponent<BossAI>(out var bossAI))
+        if(gameObject.tag == "Final_Boss")
         {
-            foreach (var itemA in bodyParts)
-            {
-                //Debug.Log("recorriendo parte del cuerpo");
-                //...Busco los materiales del skin mesh renderer
-                for (int i = 0; i < itemA.GetComponent<SkinnedMeshRenderer>()?.materials.Length; i++)
-                {
-                    //  Debug.Log("recorriendo materiales");
-                    var itemB = itemA.GetComponent<SkinnedMeshRenderer>().materials[i];
-                    // si el material es un enemy fresnel...
-                    if (itemB.name != "Monster")
-                    {
-                        //Debug.Log("material correcto");
-                        //...seteo fesnel scale para q ya no brille
-                        itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
-                        itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelSize", 0); 
-                    }
-                }
-            }
+            //animations.
             animations.DeathAnimation();
             //busco el evento de BossDying
             var Event = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossDying;
-            if (SceneManager.GetActiveScene().buildIndex == 5) SceneManager.LoadScene(7); //Escena de win (Hecho rudimentariamente, hay que hacerlo mejor)
-            //encolo el evento para su invoke
+            //if (SceneManager.GetActiveScene().buildIndex == 5) SceneManager.LoadScene(7); 
             GameManager.Instance.EventQueue.Add(Event);
+            IsDead = true;
+            var go = GameObject.Find("Final Level Dialogue Post Boss Fight");
+            go.GetComponent<DialogueTrigger>().IsAvailableToShowDialogue = true;
+            GameManager.Instance.Win = true;
+            Destroy(gameObject, 5f);
+
         }
         else
         {
-            animations.DeathAnimation();
-            if(bodyParts.Count > 0)
+            if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
+            if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
+            //CheckMachinePartDrop();
+            if (gameObject.TryGetComponent<BossAI>(out var bossAI))
             {
-                //TurnOffRegularEnemyFresnel();
-                //Destroy(gameObject);
+                foreach (var itemA in bodyParts)
+                {
+                    //Debug.Log("recorriendo parte del cuerpo");
+                    //...Busco los materiales del skin mesh renderer
+                    for (int i = 0; i < itemA.GetComponent<SkinnedMeshRenderer>()?.materials.Length; i++)
+                    {
+                        //  Debug.Log("recorriendo materiales");
+                        var itemB = itemA.GetComponent<SkinnedMeshRenderer>().materials[i];
+                        // si el material es un enemy fresnel...
+                        if (itemB.name != "Monster")
+                        {
+                            //Debug.Log("material correcto");
+                            //...seteo fesnel scale para q ya no brille
+                            itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelScale", 0);
+                            itemA.GetComponent<SkinnedMeshRenderer>().materials[i].SetFloat("_FresnelSize", 0);
+                        }
+                    }
+                }
+                animations.DeathAnimation();
+                //busco el evento de BossDying
+                var Event = GameManager.Instance.LvlManager.GetComponent<LevelManager>().BossDying;
+                if (SceneManager.GetActiveScene().buildIndex == 5) SceneManager.LoadScene(7); //Escena de win (Hecho rudimentariamente, hay que hacerlo mejor)
+                                                                                              //encolo el evento para su invoke
+                GameManager.Instance.EventQueue.Add(Event);
             }
-            if (!_itemDropped)
+            else
             {
-                ExecuteRoulette();
-                _itemDropped = true;
+                animations.DeathAnimation();
+                if (bodyParts.Count > 0)
+                {
+                    //TurnOffRegularEnemyFresnel();
+                    //Destroy(gameObject);
+                }
+                if (!_itemDropped)
+                {
+                    ExecuteRoulette();
+                    _itemDropped = true;
+                }
             }
+            //Debug.Log("Enemey died!");
+            IsDead = true;
+
+            //if (gameObject.CompareTag("Final_Boss") && SceneManager.GetActiveScene().buildIndex == 6) SceneManager.LoadScene(7); //Escena de win (Hecho rudimentariamente, hay que hacerlo mejor)
+            //if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
+            //if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
+            Destroy(gameObject, 1f);
+
         }
-        //Debug.Log("Enemey died!");
-        IsDead = true;
-
-        //if (gameObject.CompareTag("Final_Boss") && SceneManager.GetActiveScene().buildIndex == 6) SceneManager.LoadScene(7); //Escena de win (Hecho rudimentariamente, hay que hacerlo mejor)
-        //if (TryGetComponent<Rigidbody>(out Rigidbody rb)) rb.useGravity = false;
-        //if (TryGetComponent<BoxCollider>(out BoxCollider coll)) coll.isTrigger = true;
-        Destroy(gameObject, 5f);
-
     }
     void TurnOffRegularEnemyFresnel()
     {
